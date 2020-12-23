@@ -6,7 +6,7 @@
   "license": "0BSD",
   "scripts": {
     "build": "gatsby build",
-    "develop": "gatsby develop",
+    "develop": "gatsby develop -H 0.0.0.0",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
@@ -14,9 +14,17 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "dependencies": {
+    "bootstrap": "^5.0.0-beta1",
+    "cities.json": "^1.1.5",
     "gatsby": "^2.26.1",
+    "gatsby-plugin-react-helmet": "^3.7.0",
+    "gatsby-plugin-sass": "^2.8.0",
     "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "react-bootstrap-typeahead": "^5.1.4",
+    "react-dom": "^16.12.0",
+    "react-geosuggest": "^2.14.0",
+    "react-helmet": "^6.1.0",
+    "sass": "^1.30.0"
   },
   "devDependencies": {
     "prettier": "2.1.2"
