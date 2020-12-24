@@ -1,9 +1,12 @@
 import React, { useState } from "react"
 
-// import Search from "../components/search"
+import SEO from "../components/seo"
+import Search from "../components/googleSearch"
 // import Search from "../components/typeaheadSearch"
-import Search from "../components/simpleSearch"
+// import Search from "../components/simpleSearch"
 import Weather from "../components/weather"
+
+import Fade from "react-reveal/Fade"
 
 export default function Home() {
   const [searchData, setSearchData] = useState({})
@@ -36,22 +39,37 @@ export default function Home() {
   }
 
   return (
-    <div className="container bg-info mt-5 rounded" style={{ height: "80vh" }}>
-      <div className="row">
-        <div className="col-8 mx-auto my-3 border-bottom">
-          <h1 className="text-center">Current Weather</h1>
+    <>
+      <SEO title="Weather App" description="The ultimate weather app!" />
+      <div className="container">
+        <div className="row mt-5">
+          <div className="col-11 mx-auto my-3">
+            <Fade delay={300} duration={2000}>
+              <h1 className="text-center text-white">Current Weather</h1>
+            </Fade>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-11 col-md-5 mx-auto mt-3 mb-5">
+            <Fade delay={600} duration={2000}>
+              <Search onSuggestSelect={onSuggestSelect} />
+            </Fade>
+          </div>
+        </div>
+
+        <div className="row">
+          <div className="col-11 mx-auto">
+            {searchComplete && (
+              <Weather
+                searchData={searchData}
+                method={method}
+              />
+            )}
+          </div>
         </div>
       </div>
-      <div className="row d-flex justify-content-center">
-        <div className="col-4 border-end">
-          <Search onSuggestSelect={onSuggestSelect} />
-        </div>
-        <div className="col-4">
-          {searchComplete && (
-            <Weather searchData={searchData} method={method} />
-          )}
-        </div>
-      </div>
-    </div>
+      <div></div>
+    </>
   )
 }

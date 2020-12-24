@@ -1,18 +1,15 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useRef } from "react"
 import { Typeahead, Highlighter } from "react-bootstrap-typeahead"
 
 import cities from "../content/world-cities.json"
 
 const TypeaheadSearch = props => {
-  const [singleSelections, setSingleSelections] = useState([])
+  // const [searchText, setSearchText] = useState([])
   const ref = useRef()
-
-  useEffect(() => {
-    ref.current.focus()
-  }, [])
 
   const handleOnSubmit = city => {
     if (typeof city !== "undefined" && city.length > 0) {
+      ref.current.blur()
       props.onSuggestSelect({ geoNameId: city[0].geonameid })
     }
   }
@@ -26,17 +23,20 @@ const TypeaheadSearch = props => {
       <div>
         <form onSubmit={handleOnSubmit}>
           <Typeahead
-            id="typeahead"
-            labelKey={item => `${item.name}, ${item.subcountry}, ${item.country}`}
+            id="searchbox"
+            placeholder="Search for a city..."
+            // labelKey={item => `${item.name}, ${item.subcountry}, ${item.country}`}
+            labelKey="name"
             options={cities}
-            // onChange={setSingleSelections}
+            // onChange={(selected) => setSearchText({selected})}
             onChange={handleOnSubmit}
-            selected={singleSelections}
+            // selected={searchText}
             minLength={3}
             highlightOnlyResult={false}
-            // maxResults={3}
+            maxResults={4}
             renderMenuItemChildren={renderMenuItemChildren}
             ref={ref}
+            // positionFixed={true}
           />
         </form>
       </div>

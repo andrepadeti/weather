@@ -20,29 +20,21 @@ body {
 }
 
 .input {
-  width: 100%;
-  border: none;
-  border-bottom: 2px solid bootstrap.$primary;
-  background-color: bootstrap.$info;
-}
-
-.input:focus {
-  border: none;
-  border-bottom: 2px solid bootstrap.$primary;
-  background-color: bootstrap.$info;
+  @extend .form-control
 }
 
 .suggests {
   border: 1px solid black;
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 2px;
   background-color: whitesmoke;
 }
 
 .suggests-hidden {
-  border: none;
+  display: none;
 }
+
 .blur {
   backdrop-filter: blur(5px);
 }
@@ -54,4 +46,10 @@ body {
 .description {
   @extend .text-uppercase; // namespace prefixes are not necessary on @extends
   font-size: 0.5rem;
+}
+
+.weather {
+  position: static;
+  float: none;
+  // z-index: 9999999;
 }
