@@ -1,11 +1,15 @@
-@use "../../node_modules/bootstrap/scss/bootstrap.scss" as bootstrap;
+@use "bootstrap/scss/bootstrap.scss" as bootstrap;
 @use './owfont-regular';
 @use 'react-bootstrap-typeahead/css/Typeahead';
+@use './weather-icons.min';
+@use './weather-icons-wind.min';
+// @use 'react-geosuggest/module/geosuggest';
 
 body {
   background: radial-gradient(circle at bottom, navy 0, black 100%);
-  height: 100vh;
-  overflow: hidden;
+  // height: 100vh;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .geosuggest__suggests--hidden {

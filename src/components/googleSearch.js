@@ -2,7 +2,7 @@ import React, { useRef } from "react"
 import Geosuggest from "react-geosuggest"
 
 const Search = props => {
-  console.log(props)
+  // console.log(props)
   const geosuggestEl = useRef(null)
 
   return (

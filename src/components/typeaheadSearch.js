@@ -36,6 +36,7 @@ const TypeaheadSearch = props => {
             maxResults={4}
             renderMenuItemChildren={renderMenuItemChildren}
             ref={ref}
+            // style={{position: 'absolute', overflowY: 'auto'}}
             // positionFixed={true}
           />
         </form>
