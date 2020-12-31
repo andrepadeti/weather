@@ -1,7 +1,7 @@
 import React from 'react'
 import {
-  AreaChart,
-  Area,
+  BarChart,
+  Bar,
   ResponsiveContainer,
   YAxis,
   Tooltip,
@@ -12,14 +12,14 @@ import {
 
 const Ticks = props => {
   // console.log("props")
-  // console.log(props)
-  const { x, y, stroke, payload, index, visibleTicksCount } = props
+  console.log(props)
+  const { x, y, stroke, fill, payload, index, visibleTicksCount } = props
   return (
     <>
       {/* show first and last ticks only: */}
       {(index === 0 || index === visibleTicksCount - 1) && (
         <g transform={`translate(${x},${y})`}>
-          <Text x={0} y={0} dy={16} textAnchor='end' fill='#666'>
+          <Text x={0} y={0} dy={16} textAnchor='end' fill={fill}>
             {payload.value}
           </Text>
         </g>
@@ -51,14 +51,14 @@ const Precipitation = ({ data, timezone }) => {
       </div>
       <div style={{ height: '20vh' }}>
         <ResponsiveContainer>
-          <AreaChart
+          <BarChart
             data={formattedData}
             stackOffset='silhouette'
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
           >
             <YAxis allowDecimals={false} domain={['auto', 'auto']}>
               <Label
-                stroke='white'
+                fill='white'
                 angle='-90'
                 dx={-10}
               >
@@ -68,8 +68,8 @@ const Precipitation = ({ data, timezone }) => {
             <XAxis dataKey='name' tick={<Ticks />} />
             <Tooltip />
             {/* <CartesianGrid /> */}
-            <Area type='monotone' dataKey='mm' stroke='#8884d8' />
-          </AreaChart>
+            <Bar type='monotone' dataKey='mm' stroke='#8884d8' />
+          </BarChart>
         </ResponsiveContainer>
       </div>
       <div></div>

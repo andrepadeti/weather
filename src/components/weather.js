@@ -3,7 +3,8 @@ import getWeather from '../utils/api'
 
 import CurrentWeather from './currentWeather'
 import Precipitation from './precipitation'
-import Hourly from './hourly'
+import Hourly from './hourlyChart'
+// import Hourly from './hourlyCard'
 
 import Fade from 'react-reveal/Fade'
 
