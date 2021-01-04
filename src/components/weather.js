@@ -33,7 +33,7 @@ const Weather = ({ searchData, method }) => {
           <Fade spy={searchData} left appear>
             <h3 className='text-center text-white fw-bold'>
               {`${searchData.description.cityName} `}
-              <span className='badge bg-primary text-white px-2'>
+              <span className='badge bg-primary px-2'>
                 {`${searchData.description.country}`}
               </span>
             </h3>

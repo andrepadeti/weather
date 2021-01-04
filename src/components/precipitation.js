@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   BarChart,
   Bar,
@@ -12,7 +12,7 @@ import {
 
 const Ticks = props => {
   // console.log("props")
-  console.log(props)
+  // console.log(props)
   const { x, y, stroke, fill, payload, index, visibleTicksCount } = props
   return (
     <>
@@ -29,51 +29,61 @@ const Ticks = props => {
 }
 
 const Precipitation = ({ data, timezone }) => {
-  const timeZone = timezone
-  const formattedData = data.map(item => {
-    const epoch = item.dt * 1000
-    const options = {
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone,
-      hour12: false,
-    }
-    const date = new Date(epoch)
-    const time = date.toLocaleTimeString([], options)
-    return { name: time, mm: item.precipitation }
-  })
+  // TODO: show precipitation only if numbers are relevant
+  // const [show, setShow] = useState(false)
+  // const formattedDataRef = useRef(0)
+  let accumulatedPrecipitation = 0
+  
+
+  // useEffect(() => {
+    const formattedData = data.map(item => {
+      const epoch = item.dt * 1000
+      const options = {
+        hour: '2-digit',
+        minute: '2-digit',
+        timeZone: timezone,
+        hour12: false,
+      }
+      accumulatedPrecipitation += item.precipitation
+      const date = new Date(epoch)
+      const time = date.toLocaleTimeString([], options)
+      return { name: time, mm: item.precipitation }
+    })
+    // if (accumulatedPrecipitation > 0) setShow(true)
+    // formattedDataRef.current = formattedData
+  // }, [])
 
   return (
-    <div className='my-5'>
-      <div className='text-center text-white'>
-        <h3>Precipitation</h3>
-        <p>Expected precipitation for the next hour</p>
-      </div>
-      <div style={{ height: '20vh' }}>
-        <ResponsiveContainer>
-          <BarChart
-            data={formattedData}
-            stackOffset='silhouette'
-            margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-          >
-            <YAxis allowDecimals={false} domain={['auto', 'auto']}>
-              <Label
-                fill='white'
-                angle='-90'
-                dx={-10}
+    <>
+      {(accumulatedPrecipitation > 0) && (
+        <div className='my-5'>
+          <div className='text-center text-white'>
+            <h3>Precipitation</h3>
+            <p>{`Expected precipitation for the next hour: ${accumulatedPrecipitation.toFixed()} mm`}</p>
+          </div>
+          <div style={{ height: '20vh' }}>
+            <ResponsiveContainer>
+              <BarChart
+                data={formattedData}
+                stackOffset='silhouette'
+                margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
               >
-                mm
-              </Label>
-            </YAxis>
-            <XAxis dataKey='name' tick={<Ticks />} />
-            <Tooltip />
-            {/* <CartesianGrid /> */}
-            <Bar type='monotone' dataKey='mm' stroke='#8884d8' />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      <div></div>
-    </div>
+                <YAxis allowDecimals={false} domain={['auto', 'auto']}>
+                  <Label fill='white' angle={-90} dx={-10}>
+                    mm
+                  </Label>
+                </YAxis>
+                <XAxis dataKey='name' tick={<Ticks />} />
+                <Tooltip />
+                {/* <CartesianGrid /> */}
+                <Bar type='monotone' dataKey='mm' stroke='#8884d8' />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div></div>
+        </div>
+      )}
+    </>
   )
 }
 

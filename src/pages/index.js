@@ -43,11 +43,11 @@ export default function Home() {
         const lat = suggest.location.lat
         const lng = suggest.location.lng
         const description = getDescription(suggest)
-        if (searchData.lat !== lat) {
+        // if (searchData.lat !== lat) {
           setSearchData({ lat, lng, description })
           // console.log(searchData)
           setMethod('geographic coordinates')
-        } else console.log('avoiding unecessary fetch')
+        // } else console.log('avoiding unecessary fetch')
       } else if ('geoNameId' in suggest) {
         if (searchData.geoNameId !== suggest.geoNameId) {
           setSearchData({ geoNameId: suggest.geoNameId })
@@ -58,10 +58,10 @@ export default function Home() {
     }
   }
 
-  useEffect(() => {
-    /* eslint-disable */
-    onSuggestSelect({ test: true })
-  }, [])
+  // useEffect(() => {
+  //   /* eslint-disable */
+  //   onSuggestSelect({ test: true })
+  // }, [])
 
   return (
     <>

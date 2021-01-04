@@ -10,6 +10,8 @@ import {
   Label,
 } from 'recharts'
 
+import Shake from 'react-reveal/Shake'
+
 // icons to be used in the legend
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -111,7 +113,7 @@ const Hourly = ({ data, timezone }) => {
     <div className='my-5'>
       <div className='text-center text-white'>
         <h3>Hourly Forecast</h3>
-        <p>
+        <div>
           for the next 48 hours
           <br />
           <FontAwesomeIcon icon={faChartLine} className='me-1' />
@@ -119,10 +121,16 @@ const Hourly = ({ data, timezone }) => {
           <FontAwesomeIcon icon={faChartBar} className='ms-3 me-1' />
           Precipitation in mm
           <br />
-          <FontAwesomeIcon icon={faAngleDoubleLeft} className='me-1' />
-          Scroll
-          <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-1' />
-        </p>
+          <div className='d-flex justify-content-center'>
+            <Shake spy={data} appear delay={3000} duration={3000}>
+              <FontAwesomeIcon icon={faAngleDoubleLeft} className='me-3' />
+            </Shake>
+            Swipe
+            <Shake spy={data} appear delay={3000} duration={3000}>
+              <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
+            </Shake>
+          </div>
+        </div>
       </div>
       <div
         style={{
