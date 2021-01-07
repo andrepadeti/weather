@@ -24,6 +24,7 @@ import {
 const Ticks = props => {
   // console.log("props")
   // console.log(props)
+  // eslint-disable-next-line
   const { x, y, stroke, payload, index, visibleTicksCount } = props
   return (
     <>
@@ -109,6 +110,11 @@ const Hourly = ({ data, timezone }) => {
     return { name: time, temp: item.temp, rain }
   })
 
+  // eslint-disable-next-line
+  const handleScroll = e => {
+    console.log(e.target.scrollRight)
+  }
+
   return (
     <div className='my-5'>
       <div className='text-center text-white'>
@@ -139,6 +145,7 @@ const Hourly = ({ data, timezone }) => {
           overflowY: 'hidden',
           whiteSpace: 'nowrap',
         }}
+        // onScroll={handleScroll}
       >
         <ResponsiveContainer height='100%' width='300%'>
           <ComposedChart

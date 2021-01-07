@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import SEO from '../components/seo'
-import Search from "../components/googleSearch"
+import Search from '../components/googleSearch'
 // import Search from "../components/typeaheadSearch"
 // import Search from '../components/simpleSearch'
 import Weather from '../components/weather'
@@ -38,30 +38,27 @@ export default function Home() {
         if (searchData.cityName !== suggest.cityName) {
           setSearchData({ cityName: suggest.cityName })
           setMethod('city name')
-        } else console.log('avoiding unecessary fetch')
+        } else console.log('avoiding unnecessary fetch')
       } else if ('location' in suggest) {
         const lat = suggest.location.lat
         const lng = suggest.location.lng
         const description = getDescription(suggest)
-        // if (searchData.lat !== lat) {
-          setSearchData({ lat, lng, description })
-          // console.log(searchData)
-          setMethod('geographic coordinates')
-        // } else console.log('avoiding unecessary fetch')
+        setSearchData({ lat, lng, description })
+        setMethod('geographic coordinates')
       } else if ('geoNameId' in suggest) {
         if (searchData.geoNameId !== suggest.geoNameId) {
           setSearchData({ geoNameId: suggest.geoNameId })
           setMethod('geoNameId')
-        } else console.log('avoiding unecessary fetch')
+        } else console.log('avoiding unnecessary fetch')
       }
       setSearchComplete(true)
     }
   }
 
-  // useEffect(() => {
-  //   /* eslint-disable */
-  //   onSuggestSelect({ test: true })
-  // }, [])
+  useEffect(() => {
+    /* eslint-disable */
+    onSuggestSelect({ test: true })
+  }, [])
 
   return (
     <>

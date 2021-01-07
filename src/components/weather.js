@@ -4,7 +4,7 @@ import getWeather from '../utils/api'
 import CurrentWeather from './currentWeather'
 import Precipitation from './precipitation'
 import Hourly from './hourlyChart'
-// import Hourly from './hourlyCard'
+import Daily from './daily'
 
 import Fade from 'react-reveal/Fade'
 
@@ -41,6 +41,7 @@ const Weather = ({ searchData, method }) => {
           <CurrentWeather data={weather.current} timezone={weather.timezone} />
           <Precipitation data={weather.minutely} timezone={weather.timezone} />
           <Hourly data={weather.hourly} timezone={weather.timezone}/>
+          <Daily data={weather.daily} timezone={weather.timezone}/>
         </>
       )}
     </>

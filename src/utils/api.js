@@ -12,7 +12,11 @@ const getWeather = async (searchData, method, units = 'metric') => {
     const weatherAppLat = sessionStorage.getItem('weatherAppLat')
     const weatherAppLng = sessionStorage.getItem('weatherAppLng')
 
-    if (weatherAppLat == searchData.lat && weatherAppLng == searchData.lng) {
+    if (
+      weatherAppLat === searchData.lat.toString() &&
+      weatherAppLng === searchData.lng.toString()
+    ) {
+      console.log('repeated')
       repeatedFetch = true
     } else {
       sessionStorage.setItem('weatherAppLat', searchData.lat)
@@ -27,7 +31,7 @@ const getWeather = async (searchData, method, units = 'metric') => {
 
   if (repeatedFetch) {
     const weatherAppData = sessionStorage.getItem('weatherAppData')
-    console.log('avoiding unecessary fetch')
+    console.log('avoiding unnecessary fetch')
     return { error: false, jsonData: JSON.parse(weatherAppData) }
   }
 
