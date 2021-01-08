@@ -1,12 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Shake from 'react-reveal/Shake'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faAngleDoubleLeft,
-  faAngleDoubleRight,
-} from '@fortawesome/free-solid-svg-icons'
+import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 
 const Icon = ({ data }) => {
   return (
@@ -37,7 +34,7 @@ const Humidity = ({ data }) => {
   return (
     <div>
       <i className='wi wi-raindrop me-2' />
-      {data}%
+      {Math.round(data)}%
     </div>
   )
 }
@@ -45,7 +42,7 @@ const Humidity = ({ data }) => {
 const Pressure = ({ data }) => {
   return (
     <div>
-      <i className='wi wi-barometer me-2' />${data} hPa
+      <i className='wi wi-barometer me-2' />${Math.round(data)} hPa
     </div>
   )
 }
@@ -54,7 +51,7 @@ const Wind = ({ data }) => {
   return (
     <div>
       <i className='wi wi-strong-wind me-2' />
-      {data.wind_speed} km/h
+      {Math.round(data.wind_speed)} km/h
       <i className={`wi wi-wind towards-${data.wind_deg % 360}-deg ms-1`} />
     </div>
   )
@@ -64,7 +61,7 @@ const Cloudiness = ({ data }) => {
   return (
     <div>
       <i className='wi wi-cloud me-2' />
-      {data}%
+      {Math.round(data)}%
     </div>
   )
 }
@@ -75,7 +72,10 @@ const Rain = ({ data }) => {
       {data.pop && (
         <div>
           <i className='wi wi-raindrops me-2' />
-          {`${data.pop * 100}% ${data.rain}mm`}
+          <span>
+            ${data.pop * 100}% {Math.round(data.rain)}
+            <small>mm</small>
+          </span>
         </div>
       )}
     </>
@@ -83,20 +83,43 @@ const Rain = ({ data }) => {
 }
 
 const UVI = ({ data }) => {
+  data = Math.round(data)
+  let category
+  if (data <= 2) {
+    category = 'Low'
+  } else if (data >= 3 && data <= 5) {
+    category = 'Moderate'
+  } else if (data >= 6 && data <= 7) {
+    category = 'High'
+  } else if (data >= 8 && data <= 10) {
+    category = 'Very High'
+  } else if (data >= 11) {
+    category = 'Extreme'
+  }
+
   return (
     <div>
       <i className='wi wi-day-sunny me-2' />
-      {data} UVI
+      {`UV ${data}, ${category}`}
     </div>
   )
 }
 
 const Daily = ({ data, timezone }) => {
+  const [teachScrolling, setTeachScrolling] = useState(true)
   const getWeekDay = epoch => {
     const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     epoch *= 1000
     const date = new Date(epoch)
     return weekday[date.getDay()]
+  }
+
+  let firstScroll = true
+  const handleScroll = e => {
+    if (firstScroll) {
+      setTeachScrolling(false)
+      firstScroll = false
+    }
   }
 
   return (
@@ -106,26 +129,18 @@ const Daily = ({ data, timezone }) => {
         <div>
           for the next 7 days
           <br />
-          <div className='d-flex justify-content-center'>
-            <Shake spy={data} appear delay={3000} duration={1500}>
-              <FontAwesomeIcon icon={faAngleDoubleLeft} className='me-3' />
-            </Shake>
-            Swipe
-            <Shake spy={data} appear delay={3000} duration={1500}>
-              <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
-            </Shake>
-          </div>
         </div>
       </div>
 
       <div
-        className='mt-3'
+        className='mt-3 mb-2 hide-scrollbar'
         style={{
           // height: '20vh',
           overflowX: 'scroll',
           overflowY: 'hidden',
           whiteSpace: 'nowrap',
         }}
+        onScroll={e => handleScroll(e)}
       >
         {data.map((day, index) => {
           return (
@@ -152,6 +167,19 @@ const Daily = ({ data, timezone }) => {
             </div>
           )
         })}
+      </div>
+
+      <div style={{ height: '1rem' }}>
+        <div
+          className={`d-flex justify-content-end text-white ${
+            !teachScrolling && 'd-none'
+          }`}
+        >
+          Swipe
+          <Shake spy={data} appear delay={3000} duration={2000}>
+            <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
+          </Shake>
+        </div>
       </div>
     </div>
   )

@@ -12,6 +12,15 @@ body {
   overflow-x: hidden;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
 .geosuggest__suggests--hidden {
   max-height: 0;
   overflow: hidden;
@@ -24,7 +33,7 @@ body {
 }
 
 .input {
-  @extend .form-control
+  @extend .form-control;
 }
 
 .suggests {

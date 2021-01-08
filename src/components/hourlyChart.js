@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   ComposedChart,
   Line,
@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChartLine,
   faChartBar,
-  faAngleDoubleLeft,
   faAngleDoubleRight,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -95,6 +94,8 @@ const BarLabel = props => {
 }
 
 const Hourly = ({ data, timezone }) => {
+  const [teachScrolling, setTeachScrolling] = useState(true)
+
   const timeZone = timezone
   const formattedData = data.map(item => {
     const epoch = item.dt * 1000
@@ -110,9 +111,12 @@ const Hourly = ({ data, timezone }) => {
     return { name: time, temp: item.temp, rain }
   })
 
-  // eslint-disable-next-line
+  let firstScroll = true
   const handleScroll = e => {
-    console.log(e.target.scrollRight)
+    if (firstScroll) {
+      setTeachScrolling(false)
+      firstScroll = false
+    }
   }
 
   return (
@@ -127,25 +131,18 @@ const Hourly = ({ data, timezone }) => {
           <FontAwesomeIcon icon={faChartBar} className='ms-3 me-1' />
           Precipitation in mm
           <br />
-          <div className='d-flex justify-content-center'>
-            <Shake spy={data} appear delay={3000} duration={3000}>
-              <FontAwesomeIcon icon={faAngleDoubleLeft} className='me-3' />
-            </Shake>
-            Swipe
-            <Shake spy={data} appear delay={3000} duration={3000}>
-              <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
-            </Shake>
-          </div>
         </div>
       </div>
+
       <div
+        className='hide-scrollbar'
         style={{
           height: '20vh',
           overflowX: 'scroll',
           overflowY: 'hidden',
           whiteSpace: 'nowrap',
         }}
-        // onScroll={handleScroll}
+        onScroll={e => handleScroll(e)}
       >
         <ResponsiveContainer height='100%' width='300%'>
           <ComposedChart
@@ -196,6 +193,20 @@ const Hourly = ({ data, timezone }) => {
           </ComposedChart>
         </ResponsiveContainer>
       </div>
+
+      <div style={{ height: '1rem' }}>
+        <div
+          className={`d-flex justify-content-end text-white ${
+            !teachScrolling && 'd-none'
+          }`}
+        >
+          Swipe
+          <Shake spy={data} appear delay={3000} duration={2000}>
+            <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
+          </Shake>
+        </div>
+      </div>
+
     </div>
   )
 }

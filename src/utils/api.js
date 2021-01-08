@@ -9,18 +9,22 @@ const getWeather = async (searchData, method, units = 'metric') => {
   let url
   if (method === 'geographic coordinates') {
     // check whether this is the same fetch as before
-    const weatherAppLat = sessionStorage.getItem('weatherAppLat')
-    const weatherAppLng = sessionStorage.getItem('weatherAppLng')
+    const weatherAppLat = JSON.parse(sessionStorage.getItem('weatherAppLat'))
+    const weatherAppLng = JSON.parse(sessionStorage.getItem('weatherAppLng'))
+    const weatherAppLastFetch = JSON.parse(
+      sessionStorage.getItem('weatherAppLastFetch')
+    )
 
     if (
-      weatherAppLat === searchData.lat.toString() &&
-      weatherAppLng === searchData.lng.toString()
+      weatherAppLat === searchData.lat &&
+      weatherAppLng === searchData.lng &&
+      Date.now() - weatherAppLastFetch < 300000 // = 5 minutes in epoch
     ) {
-      console.log('repeated')
       repeatedFetch = true
     } else {
-      sessionStorage.setItem('weatherAppLat', searchData.lat)
-      sessionStorage.setItem('weatherAppLng', searchData.lng)
+      sessionStorage.setItem('weatherAppLat', JSON.stringify(searchData.lat))
+      sessionStorage.setItem('weatherAppLng', JSON.stringify(searchData.lng))
+      sessionStorage.setItem('weatherAppLastFetch', JSON.stringify(Date.now()))
     }
     url = `https://api.openweathermap.org/data/2.5/onecall?lat=${searchData.lat}&lon=${searchData.lng}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
   }

@@ -59,8 +59,6 @@ const Precipitation = ({ data, timezone }) => {
           </div>
 
           <div
-          role='button'
-          tabIndex={0}
             className='text-white'
             onClick={() => setShowDetails(!showDetails)}
             onKeyPress={e =>
@@ -78,10 +76,7 @@ const Precipitation = ({ data, timezone }) => {
             ) : (
               <span>
                 Show details
-                <FontAwesomeIcon
-                  icon={faSortDown}
-                  className='ms-2'
-                />
+                <FontAwesomeIcon icon={faSortDown} className='ms-2' />
               </span>
             )}
           </div>
