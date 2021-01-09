@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 
-import Shake from 'react-reveal/Shake'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+import SwipeMessage from './swipe-message'
 
 const Icon = ({ data }) => {
   return (
@@ -107,6 +104,8 @@ const UVI = ({ data }) => {
 
 const Daily = ({ data, timezone }) => {
   const [teachScrolling, setTeachScrolling] = useState(true)
+  const [scrollPosition, setScrollPosition] = useState('start')
+
   const getWeekDay = epoch => {
     const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     epoch *= 1000
@@ -114,12 +113,17 @@ const Daily = ({ data, timezone }) => {
     return weekday[date.getDay()]
   }
 
-  let firstScroll = true
   const handleScroll = e => {
-    if (firstScroll) {
-      setTeachScrolling(false)
-      firstScroll = false
-    }
+    const threshold = 15 // number of pixels to consider the start and end of scrolling
+
+    if (e.target.scrollLeft < threshold) {
+      setScrollPosition('start')
+    } else if (
+      e.target.scrollWidth - e.target.scrollLeft <=
+      e.target.clientWidth + threshold
+    ) {
+      setScrollPosition('end')
+    } else setScrollPosition('middle')
   }
 
   return (
@@ -169,18 +173,7 @@ const Daily = ({ data, timezone }) => {
         })}
       </div>
 
-      <div style={{ height: '1rem' }}>
-        <div
-          className={`d-flex justify-content-end text-white ${
-            !teachScrolling && 'd-none'
-          }`}
-        >
-          Swipe
-          <Shake spy={data} appear delay={3000} duration={2000}>
-            <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
-          </Shake>
-        </div>
-      </div>
+      <SwipeMessage scrollPosition={scrollPosition} />
     </div>
   )
 }

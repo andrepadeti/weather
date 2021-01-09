@@ -10,7 +10,8 @@ import {
   Label,
 } from 'recharts'
 
-import Shake from 'react-reveal/Shake'
+import SwipeMessage from './swipe-message'
+
 
 // icons to be used in the legend
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -18,6 +19,7 @@ import {
   faChartLine,
   faChartBar,
   faAngleDoubleRight,
+  faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 const Ticks = props => {
@@ -48,7 +50,7 @@ const LineLabel = props => {
   const valueToShow = Math.round(value)
 
   // if last shown temperature hasn't changed, don't show the same number again
-  if (lastTemperature === 'undefined') lastTemperature = valueToShow - 1
+  if (lastTemperature === 'undefined') lastTemperature = valueToShow - 1 // initialise variable if undefined
   showTemperature = lastTemperature !== valueToShow
   lastTemperature = valueToShow
 
@@ -70,18 +72,24 @@ const LineLabel = props => {
   )
 }
 
+let lastPrecipitation, showPrecipitation
 const BarLabel = props => {
   const { x, y, stroke, value } = props
   const valueToShow = Math.round(value)
 
+  // if last shown precipitation hasn't changed, don't show the same number again
+  if (lastPrecipitation === 'undefined') lastPrecipitation = valueToShow - 1 // initialise variable if undefined
+  showPrecipitation = lastPrecipitation !== valueToShow
+  lastPrecipitation = valueToShow
+
   return (
     <>
-      {valueToShow !== 0 && (
+      {showPrecipitation && valueToShow !== 0 && (
         <text
           x={x}
           y={y}
           dy={-5}
-          dx={8}
+          dx={10}
           fill={stroke}
           fontSize={10}
           textAnchor='middle'
@@ -94,7 +102,7 @@ const BarLabel = props => {
 }
 
 const Hourly = ({ data, timezone }) => {
-  const [teachScrolling, setTeachScrolling] = useState(true)
+  const [scrollPosition, setScrollPosition] = useState('start')
 
   const timeZone = timezone
   const formattedData = data.map(item => {
@@ -111,12 +119,17 @@ const Hourly = ({ data, timezone }) => {
     return { name: time, temp: item.temp, rain }
   })
 
-  let firstScroll = true
   const handleScroll = e => {
-    if (firstScroll) {
-      setTeachScrolling(false)
-      firstScroll = false
-    }
+    const threshold = 15 // number of pixels to consider the start and end of scrolling
+
+    if (e.target.scrollLeft < threshold) {
+      setScrollPosition('start')
+    } else if (
+      e.target.scrollWidth - e.target.scrollLeft <=
+      e.target.clientWidth + threshold
+    ) {
+      setScrollPosition('end')
+    } else setScrollPosition('middle')
   }
 
   return (
@@ -194,19 +207,7 @@ const Hourly = ({ data, timezone }) => {
         </ResponsiveContainer>
       </div>
 
-      <div style={{ height: '1rem' }}>
-        <div
-          className={`d-flex justify-content-end text-white ${
-            !teachScrolling && 'd-none'
-          }`}
-        >
-          Swipe
-          <Shake spy={data} appear delay={3000} duration={2000}>
-            <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
-          </Shake>
-        </div>
-      </div>
-
+      <SwipeMessage scrollPosition={scrollPosition} />
     </div>
   )
 }

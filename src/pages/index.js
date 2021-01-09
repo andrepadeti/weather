@@ -55,10 +55,10 @@ export default function Home() {
     }
   }
 
-  // useEffect(() => {
-  //   /* eslint-disable */
-  //   onSuggestSelect({ test: true })
-  // }, [])
+  useEffect(() => {
+    /* eslint-disable */
+    onSuggestSelect({ test: true })
+  }, [])
 
   return (
     <>
