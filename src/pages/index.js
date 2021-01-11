@@ -5,6 +5,7 @@ import Search from '../components/googleSearch'
 // import Search from "../components/typeaheadSearch"
 // import Search from '../components/simpleSearch'
 import Weather from '../components/weather'
+import Favourites from '../components/favourites'
 
 import Fade from 'react-reveal/Fade'
 
@@ -14,20 +15,22 @@ export default function Home() {
   const [method, setMethod] = useState()
   const [favourite, setFavourite] = useState() // for the current city on display
   const [favouritesList, setFavouritesList] = useState(
-    JSON.parse(localStorage.getItem('weatherAppFavouritesList'))
+    typeof window !== 'undefined'
+      ? JSON.parse(localStorage.getItem('weatherAppFavouritesList'))
+      : null
   )
 
   const isFavourite = ({ lat, lng, description }) => {
     if (!favouritesList) return false
-    return favouritesList.some(item => {
-      // console.log('item.description.cityName: ', item.description.cityName, 'searchData.description.cityName: ', description.cityName)
-      return (
+    return favouritesList.some(
+      item =>
+        // return (
         item.lat === lat &&
         item.lng === lng &&
         item.description.cityName === description.cityName &&
         item.description.country === description.country
-      )
-    })
+      // )
+    )
   }
 
   const getDescription = suggest => {
@@ -108,6 +111,14 @@ export default function Home() {
     setFavourite(!favourite)
   }
 
+  const handleClickFavourite = ({ lat, lng, description }) => {
+    console.log({ lat, lng, description })
+    setFavourite(true)
+    setSearchData({ lat, lng, description })
+    setMethod('geographic coordinates')
+    setSearchComplete(true)
+  }
+
   useEffect(() => {
     /* eslint-disable */
     // localStorage.setItem('weatherAppFavouritesList', null)
@@ -118,6 +129,15 @@ export default function Home() {
     <>
       <SEO title='Weather App' description='The ultimate weather app!' />
       <div className='container'>
+        <div className='row mt-1'>
+          <div className='col-11 mx-auto my-3'>
+            <Favourites
+              favouritesList={favouritesList}
+              handleClickFavourite={handleClickFavourite}
+            />
+          </div>
+        </div>
+
         <div className='row mt-5'>
           <div className='col-11 mx-auto my-3'>
             <Fade delay={300} duration={2000}>
@@ -141,7 +161,6 @@ export default function Home() {
                 searchData={searchData}
                 method={method}
                 handleMarkFavourite={handleMarkFavourite}
-                favouritesList={favouritesList}
                 favourite={favourite}
               />
             )}

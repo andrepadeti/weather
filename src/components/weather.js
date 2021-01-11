@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import getWeather from '../utils/api'
 
-import Favourites from './favourites'
 import City from './city'
 import CurrentWeather from './currentWeather'
 import Precipitation from './precipitation'
 import Hourly from './hourlyChart'
 import Daily from './daily'
 
-const Weather = ({ searchData, method, handleMarkFavourite, favourite, favouritesList }) => {
+const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
   const [weather, setWeather] = useState()
   const [loaded, setLoaded] = useState(false)
 
@@ -30,7 +29,6 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite, favourite
     <>
       {loaded && (
         <>
-          <Favourites favouritesList={favouritesList} /> 
           <City
             cityName={searchData.description.cityName}
             country={searchData.description.country}
