@@ -1,5 +1,5 @@
 import React from 'react'
-import Shake from 'react-reveal/Shake'
+import HeadShake from 'react-reveal/HeadShake'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faAngleDoubleRight,
@@ -15,11 +15,11 @@ const SwipeMessage = ({scrollPosition}) => {
         )}
         Swipe
         <div style={{ width: '1rem' }}>
-          <Shake delay={2000} duration={2000}>
+          <HeadShake delay={500} duration={2000}>
             {scrollPosition !== 'end' && (
               <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
             )}
-          </Shake>
+          </HeadShake>
         </div>
       </div>
     </div>

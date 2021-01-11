@@ -103,7 +103,6 @@ const UVI = ({ data }) => {
 }
 
 const Daily = ({ data, timezone }) => {
-  const [teachScrolling, setTeachScrolling] = useState(true)
   const [scrollPosition, setScrollPosition] = useState('start')
 
   const getWeekDay = epoch => {

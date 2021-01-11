@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import getWeather from '../utils/api'
 
+import Favourites from './favourites'
+import City from './city'
 import CurrentWeather from './currentWeather'
 import Precipitation from './precipitation'
 import Hourly from './hourlyChart'
 import Daily from './daily'
 
-import Fade from 'react-reveal/Fade'
-
-const Weather = ({ searchData, method }) => {
+const Weather = ({ searchData, method, handleMarkFavourite, favourite, favouritesList }) => {
   const [weather, setWeather] = useState()
   const [loaded, setLoaded] = useState(false)
 
@@ -30,18 +30,17 @@ const Weather = ({ searchData, method }) => {
     <>
       {loaded && (
         <>
-          <Fade spy={searchData} left appear>
-            <h3 className='text-center text-white fw-bold'>
-              {`${searchData.description.cityName} `}
-              <span className='badge bg-primary px-2'>
-                {`${searchData.description.country}`}
-              </span>
-            </h3>
-          </Fade>
+          <Favourites favouritesList={favouritesList} /> 
+          <City
+            cityName={searchData.description.cityName}
+            country={searchData.description.country}
+            handleMarkFavourite={handleMarkFavourite}
+            favourite={favourite}
+          />
           <CurrentWeather data={weather.current} timezone={weather.timezone} />
           <Precipitation data={weather.minutely} timezone={weather.timezone} />
-          <Hourly data={weather.hourly} timezone={weather.timezone}/>
-          <Daily data={weather.daily} timezone={weather.timezone}/>
+          <Hourly data={weather.hourly} timezone={weather.timezone} />
+          <Daily data={weather.daily} timezone={weather.timezone} />
         </>
       )}
     </>

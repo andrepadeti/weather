@@ -10,9 +10,6 @@ import {
   Label,
 } from 'recharts'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons'
-
 const Ticks = props => {
   // eslint-disable-next-line
   const { x, y, stroke, fill, payload, index, visibleTicksCount } = props
@@ -53,32 +50,23 @@ const Precipitation = ({ data, timezone }) => {
     <>
       {accumulatedPrecipitation > 0 && (
         <div className='my-5'>
-          <div className='text-center text-white'>
+          <div className='d-flex flex-column align-items-center text-white'>
             <h3>Precipitation</h3>
-            <p>{`Expected precipitation for the next hour: ${accumulatedPrecipitation.toFixed()} mm`}</p>
-          </div>
+            <div>{`within the next hour: ${accumulatedPrecipitation.toFixed()} mm`}</div>
 
-          <div
-            className='text-white'
-            onClick={() => setShowDetails(!showDetails)}
-            onKeyPress={e =>
-              e.value === 'Enter' && setShowDetails(!showDetails)
-            }
-          >
-            {showDetails ? (
-              <span>
-                Hide details
-                <FontAwesomeIcon
-                  icon={faSortUp}
-                  className='align-bottom ms-2'
+            <div className='form-check'>
+              <input
+                className='form-check-input'
+                type='checkbox'
+                checked={showDetails}
+                onChange={() => setShowDetails(!showDetails)}
+                value=''
+                id='showDetails'
                 />
-              </span>
-            ) : (
-              <span>
+              <label className='form-check-label' htmlFor='showDetails'>
                 Show details
-                <FontAwesomeIcon icon={faSortDown} className='ms-2' />
-              </span>
-            )}
+              </label>
+            </div>
           </div>
 
           {showDetails && (

@@ -12,6 +12,23 @@ export default function Home() {
   const [searchData, setSearchData] = useState({})
   const [searchComplete, setSearchComplete] = useState(false)
   const [method, setMethod] = useState()
+  const [favourite, setFavourite] = useState() // for the current city on display
+  const [favouritesList, setFavouritesList] = useState(
+    JSON.parse(localStorage.getItem('weatherAppFavouritesList'))
+  )
+
+  const isFavourite = ({ lat, lng, description }) => {
+    if (!favouritesList) return false
+    return favouritesList.some(item => {
+      // console.log('item.description.cityName: ', item.description.cityName, 'searchData.description.cityName: ', description.cityName)
+      return (
+        item.lat === lat &&
+        item.lng === lng &&
+        item.description.cityName === description.cityName &&
+        item.description.country === description.country
+      )
+    })
+  }
 
   const getDescription = suggest => {
     const fullDescription = suggest.gmaps.address_components
@@ -43,6 +60,7 @@ export default function Home() {
         const lat = suggest.location.lat
         const lng = suggest.location.lng
         const description = getDescription(suggest)
+        setFavourite(isFavourite({ lat, lng, description }))
         setSearchData({ lat, lng, description })
         setMethod('geographic coordinates')
       } else if ('geoNameId' in suggest) {
@@ -55,9 +73,45 @@ export default function Home() {
     }
   }
 
+  const handleMarkFavourite = () => {
+    let auxFavouritesList
+    if (favourite) {
+      // pull item from favourites list
+      auxFavouritesList = JSON.parse(
+        localStorage.getItem('weatherAppFavouritesList')
+      )
+      auxFavouritesList = auxFavouritesList.filter(
+        item => !(item.lat === searchData.lat && item.lng === searchData.lng)
+      )
+    } else {
+      if (favouritesList) {
+        // push item to favourites list
+        auxFavouritesList = JSON.parse(
+          localStorage.getItem('weatherAppFavouritesList')
+        )
+        auxFavouritesList.push(searchData)
+      } else {
+        // push item to empty favourites list
+        console.log('searchData: ', searchData)
+        auxFavouritesList = []
+        auxFavouritesList.push(searchData)
+      }
+    }
+    localStorage.setItem(
+      'weatherAppFavouritesList',
+      JSON.stringify(auxFavouritesList)
+    )
+    setFavouritesList(
+      JSON.parse(localStorage.getItem('weatherAppFavouritesList'))
+    )
+
+    setFavourite(!favourite)
+  }
+
   useEffect(() => {
     /* eslint-disable */
-    onSuggestSelect({ test: true })
+    // localStorage.setItem('weatherAppFavouritesList', null)
+    // onSuggestSelect({ test: true })
   }, [])
 
   return (
@@ -83,7 +137,13 @@ export default function Home() {
         <div className='row'>
           <div className='col-11 mx-auto'>
             {searchComplete && (
-              <Weather searchData={searchData} method={method} />
+              <Weather
+                searchData={searchData}
+                method={method}
+                handleMarkFavourite={handleMarkFavourite}
+                favouritesList={favouritesList}
+                favourite={favourite}
+              />
             )}
           </div>
         </div>

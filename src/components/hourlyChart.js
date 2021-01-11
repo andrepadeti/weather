@@ -18,8 +18,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChartLine,
   faChartBar,
-  faAngleDoubleRight,
-  faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 const Ticks = props => {
