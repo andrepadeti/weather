@@ -2,37 +2,32 @@ import React from 'react'
 
 const Favourites = ({ favouritesList, handleClickFavourite }) => {
   return (
-    <div className='dropdown'>
-      <button
-        className='btn btn-primary dropdown-toggle'
-        type='button'
-        id='dropdownFavourites'
-        data-bs-toggle='dropdown'
-        aria-expanded='false'
-      >
-        Favourites
-      </button>
-      <ul
-        className='dropdown-menu'
-        aria-labelledby='dropdownFavourites'
-        style={{ margin: 0 }}
-      >
-        {favouritesList ? (
-          favouritesList.map((favourite, index) => (
-            <li
-              key={index}
-              className='dropdown-item'
-              onClick={() => handleClickFavourite(favourite)}
-            >
+    <div
+      className='mt-3 mb-2 hide-scrollbar'
+      style={{
+        // height: '20vh',
+        overflowX: 'scroll',
+        overflowY: 'hidden',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      {favouritesList ? (
+        favouritesList.map((favourite, index) => (
+          <div
+            key={index}
+            className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded'
+            onClick={() => handleClickFavourite(favourite)}
+          >
+            <div className='card-body'>
               {`${favourite.description.cityName}, ${favourite.description.country}`}
-            </li>
-          ))
-        ) : (
-          <li className='dropdown-item'>Empty</li>
-        )}
-        {/* {favouritesList ? <li>yes</li> : <li>nope</li>}  */}
-
-      </ul>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded'>
+          <div className='card-body'>Empty</div>
+        </div>
+      )}
     </div>
   )
 }

@@ -120,6 +120,14 @@ export default function Home() {
   }
 
   useEffect(() => {
+    // if (typeof window !== 'undefined') {
+    //   if ('geolocation' in navigator) {
+    //     navigator.geolocation.getCurrentPosition((position) => {
+    //       console.log('Latitude is :', position.coords.latitude)
+    //       console.log('Longitude is :', position.coords.longitude) 
+    //     }, ()=> alert('allow geolocation'))
+    //   }
+    // }
     /* eslint-disable */
     // localStorage.setItem('weatherAppFavouritesList', null)
     // onSuggestSelect({ test: true })

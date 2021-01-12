@@ -145,31 +145,30 @@ const Daily = ({ data, timezone }) => {
         }}
         onScroll={e => handleScroll(e)}
       >
-        {data.map((day, index) => {
-          return (
-            <div
-              key={index}
-              className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded'
-            >
-              <div className='card-header'>
-                <h5 className='card-title'>{getWeekDay(day.dt)}</h5>
-              </div>
-              <div className='card-body'>
-                <Icon data={day.weather[0].id} />
-                <MaxTemperature data={day.temp.max} />
-                <MinTemperature data={day.temp.min} />
-                <Humidity data={day.humidity} />
-                <Pressure data={day.pressure} />
-                <Wind
-                  data={{ wind_speed: day.wind_speed, wind_deg: day.wind_deg }}
-                />
-                <Cloudiness data={day.clouds} />
-                <Rain data={{ pop: day.pop, rain: day.rain }} />
-                <UVI data={day.uvi} />
-              </div>
+        {data.map((day, index) => (
+          <div
+            key={index}
+            className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded'
+            style={{width:'30px'}}
+          >
+            <div className='card-header'>
+              <h5 className='card-title'>{getWeekDay(day.dt)}</h5>
             </div>
-          )
-        })}
+            <div className='card-body'>
+              <Icon data={day.weather[0].id} />
+              <MaxTemperature data={day.temp.max} />
+              <MinTemperature data={day.temp.min} />
+              <Humidity data={day.humidity} />
+              <Pressure data={day.pressure} />
+              <Wind
+                data={{ wind_speed: day.wind_speed, wind_deg: day.wind_deg }}
+              />
+              <Cloudiness data={day.clouds} />
+              <Rain data={{ pop: day.pop, rain: day.rain }} />
+              <UVI data={day.uvi} />
+            </div>
+          </div>
+        ))}
       </div>
 
       <SwipeMessage scrollPosition={scrollPosition} />
