@@ -50,8 +50,8 @@ const Precipitation = ({ data, timezone }) => {
     <>
       {accumulatedPrecipitation > 0 && (
         <div className='my-5'>
-          <div className='d-flex flex-column align-items-center text-white'>
-            <h3>Precipitation</h3>
+          <div className='d-flex flex-column align-items-center text-white fw-light'>
+            <h3 className='fw-light'>Precipitation</h3>
             <div>{`within the next hour: ${accumulatedPrecipitation.toFixed()} mm`}</div>
 
             <div className='form-check'>
@@ -62,7 +62,7 @@ const Precipitation = ({ data, timezone }) => {
                 onChange={() => setShowDetails(!showDetails)}
                 value=''
                 id='showDetails'
-                />
+              />
               <label className='form-check-label' htmlFor='showDetails'>
                 Show details
               </label>

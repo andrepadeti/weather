@@ -3,6 +3,13 @@ import React from 'react'
 import Bounce from 'react-reveal/Bounce'
 import Fade from 'react-reveal/Fade'
 
+import { UVI } from './itemsWeather'
+import { Humidity } from './itemsWeather'
+import { Pressure } from './itemsWeather'
+import { Wind } from './itemsWeather'
+import { CurrentTemperature } from './itemsWeather'
+import { Daytime } from './itemsWeather'
+
 const CurrentWeather = ({ data, timezone }) => {
   // increase delay time each time we call this function
   // so that we create a cascade effect
@@ -46,47 +53,45 @@ const CurrentWeather = ({ data, timezone }) => {
           </Bounce>
         </div>
 
-        <div className='text-center text-white py-2 fs-2 '>
-          <Fade spy={data} left appear delay={cascadeDelayTime()}>
-            <div>
-              <i className='wi wi-thermometer' />
-              {` ${data.temp}°C`}
-            </div>
+        <div className='text-center text-white py-2 fs-2 fw-light '>
+          {/* <Fade spy={data}  appear delay={cascadeDelayTime()}>
+            <CurrentTemperature data={data.temp} />
           </Fade>
-          {data.uvi > 0 && (
-            <Fade spy={data} left appear delay={cascadeDelayTime()}>
-              <div>
-                <i className='wi wi-day-sunny' />
-                {` ${data.uvi} UVI`}
-              </div>
-            </Fade>
-          )}
-          <Fade spy={data} left appear delay={cascadeDelayTime()}>
-            <div>
-              <i className='wi wi-raindrop' />
-              {` ${data.humidity}%`}
-            </div>
+
+          <Fade spy={data}  appear delay={cascadeDelayTime()}>
+            <Humidity data={data.humidity} />
           </Fade>
-          <Fade spy={data} left appear delay={cascadeDelayTime()}>
-            <div>
-              <i className='wi wi-barometer' />
-              {` ${data.pressure} hPa`}
-            </div>
+          <Fade spy={data}  appear delay={cascadeDelayTime()}>
+            <Pressure data={data.pressure} />
           </Fade>
-          <Fade spy={data} left appear delay={cascadeDelayTime()}>
-            <div>
-              <i className='wi wi-strong-wind' />
-              {` ${data.wind_speed} km/h  `}
-              <i className={`wi wi-wind towards-${data.wind_deg % 360}-deg`} />
-            </div>
+          <Fade spy={data}  appear delay={cascadeDelayTime()}>
+            <Wind
+              data={{ wind_speed: data.wind_speed, wind_deg: data.wind_deg }}
+            />
           </Fade>
-          <Fade spy={data} left appear delay={cascadeDelayTime()}>
-            <div>
-              <i className='wi wi-sunrise' />
-              {` ${getFormattedTime(data.sunrise)} - `}
-              {`${getFormattedTime(data.sunset)} `}
-              <i className='wi wi-sunset' />
-            </div>
+          <Fade spy={data}  appear delay={cascadeDelayTime()}>
+            <UVI data={data.uvi} />
+          </Fade>
+          <Fade spy={data}  appear delay={cascadeDelayTime()}>
+            <Daytime
+              sunrise={data.sunrise}
+              sunset={data.sunset}
+              timezone={timezone}
+            />
+          </Fade> */}
+          <Fade spy={data}  cascade duration={4000}>
+            <CurrentTemperature data={data.temp} />
+            <Humidity data={data.humidity} />
+            <Pressure data={data.pressure} />
+            <Wind
+              data={{ wind_speed: data.wind_speed, wind_deg: data.wind_deg }}
+            />
+            <UVI data={data.uvi} />
+            <Daytime
+              sunrise={data.sunrise}
+              sunset={data.sunset}
+              timezone={timezone}
+            />
           </Fade>
         </div>
       </div>

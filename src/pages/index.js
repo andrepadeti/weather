@@ -16,8 +16,8 @@ export default function Home() {
   const [favourite, setFavourite] = useState() // for the current city on display
   const [favouritesList, setFavouritesList] = useState(
     typeof window !== 'undefined'
-      ? JSON.parse(localStorage.getItem('weatherAppFavouritesList'))
-      : null
+      ? JSON.parse(localStorage.getItem('weatherAppFavouritesList')) || [] // if null, set to empty array
+      : []
   )
 
   const isFavourite = ({ lat, lng, description }) => {
@@ -87,18 +87,12 @@ export default function Home() {
         item => !(item.lat === searchData.lat && item.lng === searchData.lng)
       )
     } else {
-      if (favouritesList) {
-        // push item to favourites list
-        auxFavouritesList = JSON.parse(
-          localStorage.getItem('weatherAppFavouritesList')
-        )
-        auxFavouritesList.push(searchData)
-      } else {
-        // push item to empty favourites list
-        console.log('searchData: ', searchData)
-        auxFavouritesList = []
-        auxFavouritesList.push(searchData)
-      }
+      // push item to favourites list
+      auxFavouritesList = JSON.parse(
+        localStorage.getItem('weatherAppFavouritesList')
+      )
+      if (auxFavouritesList === null) auxFavouritesList = [] // in case localstorage hasn't been created yet
+      auxFavouritesList.push(searchData)
     }
     localStorage.setItem(
       'weatherAppFavouritesList',
@@ -124,12 +118,12 @@ export default function Home() {
     //   if ('geolocation' in navigator) {
     //     navigator.geolocation.getCurrentPosition((position) => {
     //       console.log('Latitude is :', position.coords.latitude)
-    //       console.log('Longitude is :', position.coords.longitude) 
+    //       console.log('Longitude is :', position.coords.longitude)
     //     }, ()=> alert('allow geolocation'))
     //   }
     // }
     /* eslint-disable */
-    // localStorage.setItem('weatherAppFavouritesList', null)
+    localStorage.setItem('weatherAppFavouritesList', null)
     // onSuggestSelect({ test: true })
   }, [])
 
@@ -149,7 +143,7 @@ export default function Home() {
         <div className='row mt-5'>
           <div className='col-11 mx-auto my-3'>
             <Fade delay={300} duration={2000}>
-              <h1 className='text-center text-white'>Weather Forecast</h1>
+              <h1 className='text-center text-white display-5'>Weather Forecast</h1>
             </Fade>
           </div>
         </div>

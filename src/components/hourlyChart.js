@@ -12,13 +12,9 @@ import {
 
 import SwipeMessage from './swipe-message'
 
-
 // icons to be used in the legend
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faChartLine,
-  faChartBar,
-} from '@fortawesome/free-solid-svg-icons'
+import { faChartLine, faChartBar } from '@fortawesome/free-solid-svg-icons'
 
 const Ticks = props => {
   // console.log("props")
@@ -132,8 +128,8 @@ const Hourly = ({ data, timezone }) => {
 
   return (
     <div className='my-5'>
-      <div className='text-center text-white'>
-        <h3>Hourly Forecast</h3>
+      <div className='text-center text-white fw-light'>
+        <h3 className='fw-light'>Hourly Forecast</h3>
         <div>
           for the next 48 hours
           <br />
