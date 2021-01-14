@@ -16,11 +16,9 @@ const City = ({ cityName, country, handleMarkFavourite, favourite }) => {
           <FontAwesomeIcon
             icon={favourite ? faStarSolid : faStarRegular}
             className='ms-3'
-            onClick={handleMarkFavourite}
+            onClick={() => handleMarkFavourite(cityName, country)}
           />
         </h3>
-        {/* <div className=''> */}
-        {/* </div> */}
       </div>
     </Fade>
   )

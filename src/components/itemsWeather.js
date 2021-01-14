@@ -47,7 +47,7 @@ export const Humidity = ({ data }) => {
 export const Pressure = ({ data }) => {
   return (
     <div>
-      <i className='wi wi-barometer me-2' />${Math.round(data)} hPa
+      <i className='wi wi-barometer me-2' />{Math.round(data)} hPa
     </div>
   )
 }
@@ -78,7 +78,7 @@ export const Rain = ({ data }) => {
         <div>
           <i className='wi wi-raindrops me-2' />
           <span>
-            ${data.pop * 100}% {Math.round(data.rain)}
+            {data.pop * 100}% {Math.round(data.rain)}
             <small>mm</small>
           </span>
         </div>

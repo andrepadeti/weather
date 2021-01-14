@@ -1,5 +1,5 @@
-import React, { useRef } from "react"
-import Geosuggest from "react-geosuggest"
+import React, { useRef } from 'react'
+import Geosuggest from 'react-geosuggest'
 
 const Search = props => {
   // console.log(props)
@@ -9,13 +9,13 @@ const Search = props => {
     <div>
       <Geosuggest
         ref={geosuggestEl}
-        types={["(cities)"]}
-        placeDetailField={["formatted_address"]}
+        types={['(cities)']}
+        placeDetailField={['formatted_address']}
         onSuggestSelect={props.onSuggestSelect}
         autoActivateFirstSuggest={true}
-        inputClassName="input"
-        suggestsClassName="suggests"
-        suggestsHiddenClassName="suggests-hidden"
+        inputClassName='input'
+        suggestsClassName='suggests'
+        suggestsHiddenClassName='suggests-hidden'
       />
     </div>
   )

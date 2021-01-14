@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 
 import SwipeMessage from './swipe-message'
 
-const Favourites = ({ favouritesList, handleClickFavourite }) => {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+
+const Favourites = ({ favouritesList, handleClickFavourite, handleDeleteFavourites }) => {
   const [scrollPosition, setScrollPosition] = useState('start')
 
   const handleScroll = e => {
@@ -20,14 +23,20 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
 
   return (
     <div>
-      <div className='text-center text-white fw-light'>
+      <div className='d-flex justify-content-center align-items-center text-white'>
         <h3 className='fw-light'>Favourites</h3>
+        <FontAwesomeIcon
+          icon={faTrashAlt}
+          className='ms-3'
+          size='lg'
+          onClick={handleDeleteFavourites}
+        />
       </div>
 
       {favouritesList.length > 0 ? (
         <>
           <div
-            className='mt-3 mb-2 hide-scrollbar'
+            className='mt-3 mb-2 hide-scrollbar text-center'
             style={{
               // height: '20vh',
               overflowX: 'scroll',
@@ -39,12 +48,12 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
             {favouritesList.map((favourite, index) => (
               <div
                 key={index}
-                className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded text-truncate'
+                className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded'
                 style={{ width: '10rem' }}
                 onClick={() => handleClickFavourite(favourite)}
               >
-                <div className='card-body'>
-                  <p className='fw-light mb-0'>
+                <div className='card-body '>
+                  <p className='fw-light mb-0 text-truncate'>
                     {favourite.description.cityName}
                     <br />
                     <span className='badge'>
@@ -56,11 +65,15 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
             ))}
           </div>
           {/* // TODO: don't show swipe message if not enough cards to swipe */}
-          <SwipeMessage scrollPosition={scrollPosition} />
+          {favouritesList.length > 2 ? (
+            <SwipeMessage scrollPosition={scrollPosition} />
+          ) : (
+            <div style={{ width: '1rem' }} />
+          )}
         </>
       ) : (
         <div className='text-white text-center fw-light'>
-          <p>Tap the star next to the city name to add</p>
+          <p>You don't have any favourites yet</p>
         </div>
       )}
     </div>

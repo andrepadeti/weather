@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import getWeather from '../utils/api'
+import { getWeather } from '../utils/api'
 
 import City from './city'
 import CurrentWeather from './currentWeather'

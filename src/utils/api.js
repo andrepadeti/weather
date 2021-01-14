@@ -1,6 +1,6 @@
 import forecast from '../content/forecast.json'
 
-const getWeather = async (searchData, method, units = 'metric') => {
+export const getWeather = async (searchData, method, units = 'metric') => {
   let repeatedFetch = false
   if (method === 'test') {
     return { error: false, jsonData: forecast }
@@ -50,4 +50,30 @@ const getWeather = async (searchData, method, units = 'metric') => {
   }
 }
 
-export default getWeather
+export const getCityFromGeolocation = async (lat, lng) => {
+  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&result_type=locality&key=${process.env.GATSBY_GOOGLE_MAPS_KEY}`
+
+  const getCityNameAndCountry = jsonData => {
+    const data = jsonData.results[0].address_components
+    let cityName, country
+
+    data.forEach(component => {
+      if (component.types.some(type => type === 'country'))
+        country = component.short_name
+      if (component.types.some(type => type === 'locality'))
+        cityName = component.short_name
+    })
+
+    return { cityName, country }
+  }
+
+  try {
+    const response = await fetch(url)
+    if (!response.ok) return { error: true }
+    const jsonData = await response.json()
+    const { cityName, country } = getCityNameAndCountry(jsonData)
+    return { error: false, description: { cityName, country } }
+  } catch (error) {
+    return { error: true }
+  }
+}
