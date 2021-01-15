@@ -121,8 +121,15 @@ export default function Home() {
   }
 
   useEffect(() => {
+    console.log('start')
     if (typeof window !== 'undefined') {
       if ('geolocation' in navigator) {
+        const options = {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0,
+        }
+         
         navigator.geolocation.getCurrentPosition(
           async position => {
             const lat = position.coords.latitude
@@ -139,11 +146,15 @@ export default function Home() {
               setSearchComplete(true)
             }
           },
-          () => alert('Please, allow location access so that next time I can show the weather forecast for your current location.')
+          () =>
+            alert(
+              'Please, allow location access so that next time I can show the weather forecast for your current location.'
+            ),
+          options
         )
       }
     }
-
+    console.log('end')
     // localStorage.setItem('weatherAppFavouritesList', null)
   }, [])
 
