@@ -5,7 +5,11 @@ import SwipeMessage from './swipe-message'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-const Favourites = ({ favouritesList, handleClickFavourite, handleDeleteFavourites }) => {
+const Favourites = ({
+  favouritesList,
+  handleClickFavourite,
+  handleDeleteFavourites,
+}) => {
   const [scrollPosition, setScrollPosition] = useState('start')
 
   const handleScroll = e => {
@@ -23,14 +27,16 @@ const Favourites = ({ favouritesList, handleClickFavourite, handleDeleteFavourit
 
   return (
     <div>
-      <div className='d-flex justify-content-center align-items-center text-white'>
+      <div className='d-flex justify-content-center text-white'>
         <h3 className='fw-light'>Favourites</h3>
-        <FontAwesomeIcon
-          icon={faTrashAlt}
-          className='ms-3'
-          size='lg'
-          onClick={handleDeleteFavourites}
-        />
+        <div>
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            className='ms-3'
+            size='lg'
+            onClick={handleDeleteFavourites}
+          />
+        </div>
       </div>
 
       {favouritesList.length > 0 ? (
@@ -48,7 +54,7 @@ const Favourites = ({ favouritesList, handleClickFavourite, handleDeleteFavourit
             {favouritesList.map((favourite, index) => (
               <div
                 key={index}
-                className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded'
+                className='card d-inline-block me-1 text-white opaque bg-gradient text-center rounded'
                 style={{ width: '10rem' }}
                 onClick={() => handleClickFavourite(favourite)}
               >

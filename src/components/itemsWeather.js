@@ -26,11 +26,12 @@ export const MinTemperature = ({ data }) => {
   )
 }
 
-export const CurrentTemperature = ({ data }) => {
+export const CurrentTemperature = ({ data, current }) => {
   return (
-    <div>
-      <i className='wi wi-thermometer' />
-      {` ${Math.round(data)}°C`}
+    <div className='d-flex'>
+      {/* <i className='wi wi-thermometer' /> */}
+      <div style={{ fontSize: '5rem' }}>{Math.round(data)}</div>
+      <div className='align-self-center'>°C</div>
     </div>
   )
 }
@@ -47,7 +48,8 @@ export const Humidity = ({ data }) => {
 export const Pressure = ({ data }) => {
   return (
     <div>
-      <i className='wi wi-barometer me-2' />{Math.round(data)} hPa
+      <i className='wi wi-barometer me-2' />
+      {Math.round(data)} hPa
     </div>
   )
 }

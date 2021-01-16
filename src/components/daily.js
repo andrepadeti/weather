@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+import { isToday, isTomorrow } from 'date-fns'
+
 import SwipeMessage from './swipe-message'
 
 import { Icon } from './itemsWeather'
@@ -19,7 +21,11 @@ const Daily = ({ data, timezone }) => {
     const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     epoch *= 1000
     const date = new Date(epoch)
-    return weekday[date.getDay()]
+    if (isToday(date)) {
+      return 'Today'
+    } else if (isTomorrow(date)) {
+      return 'Tomorrow'
+    } else return weekday[date.getDay()]
   }
 
   const handleScroll = e => {
@@ -58,7 +64,7 @@ const Daily = ({ data, timezone }) => {
         {data.map((day, index) => (
           <div
             key={index}
-            className='card d-inline-block me-1 text-white bg-gradient bg-dark text-center rounded'
+            className='card d-inline-block me-1 text-white bg-gradient opaque text-center rounded'
             style={{ width: '11rem' }}
           >
             <div className='card-header'>

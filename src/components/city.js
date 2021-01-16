@@ -12,7 +12,7 @@ const City = ({ cityName, country, handleMarkFavourite, favourite }) => {
       <div className='d-flex justify-content-center align-items-start'>
         <h3 className='text-center text-white fw-light'>
           {`${cityName} `}
-          <span className='badge bg-primary px-2'>{`${country}`}</span>
+          <span className='badge bg-dark px-2'>{`${country}`}</span>
           <FontAwesomeIcon
             icon={favourite ? faStarSolid : faStarRegular}
             className='ms-3'

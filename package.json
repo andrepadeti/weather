@@ -20,6 +20,7 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "bootstrap": "^5.0.0-beta1",
     "cities.json": "^1.1.5",
+    "date-fns": "^2.16.1",
     "gatsby": "^2.26.1",
     "gatsby-plugin-manifest": "^2.9.1",
     "gatsby-plugin-offline": "^3.7.1",

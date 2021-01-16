@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
+import Fade from 'react-reveal/Fade'
 import {
-  BarChart,
-  Bar,
+  AreaChart,
+  Area,
   ResponsiveContainer,
   YAxis,
-  Tooltip,
   XAxis,
   Text,
   Label,
@@ -40,7 +40,7 @@ const Precipitation = ({ data, timezone }) => {
       timeZone: timezone,
       hour12: false,
     }
-    accumulatedPrecipitation += item.precipitation
+    accumulatedPrecipitation += item.precipitation / 60
     const date = new Date(epoch)
     const time = date.toLocaleTimeString([], options)
     return { name: time, mm: item.precipitation }
@@ -69,27 +69,38 @@ const Precipitation = ({ data, timezone }) => {
             </div>
           </div>
 
-          {showDetails && (
+          <Fade left when={showDetails} collapse>
             <div className='mt-3' style={{ height: '20vh' }}>
               <ResponsiveContainer>
-                <BarChart
+                <AreaChart
                   data={formattedData}
                   stackOffset='silhouette'
                   margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
                 >
-                  <YAxis allowDecimals={false} domain={['auto', 'auto']}>
+                  <defs>
+                    <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
+                      <stop offset='5%' stopColor='#8884d8' stopOpacity={0.8} />
+                      <stop offset='95%' stopColor='#8884d8' stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <YAxis allowDecimals={false} domain={[0, 'auto']}>
                     <Label fill='white' angle={-90} dx={-10}>
                       mm
                     </Label>
                   </YAxis>
                   <XAxis dataKey='name' tick={<Ticks />} />
-                  <Tooltip />
-                  {/* <CartesianGrid /> */}
-                  <Bar type='monotone' dataKey='mm' stroke='#8884d8' />
-                </BarChart>
+                  <Area
+                    type='monotone'
+                    dataKey='mm'
+                    stroke='#8884d8'
+                    dot={false}
+                    fillOpacity={1}
+                    fill='url(#colorUv)'
+                  />
+                </AreaChart>
               </ResponsiveContainer>
             </div>
-          )}
+          </Fade>
         </div>
       )}
     </>
