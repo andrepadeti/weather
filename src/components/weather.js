@@ -6,6 +6,7 @@ import CurrentWeather from './currentWeather'
 import Precipitation from './precipitation'
 import Hourly from './hourlyChart'
 import Daily from './daily'
+import Radar from './radar'
 
 const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
   const [weather, setWeather] = useState()
@@ -39,6 +40,7 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
           <Precipitation data={weather.minutely} timezone={weather.timezone} />
           <Hourly data={weather.hourly} timezone={weather.timezone} />
           <Daily data={weather.daily} timezone={weather.timezone} />
+          <Radar lat={searchData.lat} lng={searchData.lng} />
         </>
       )}
     </>

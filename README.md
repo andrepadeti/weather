@@ -1,14 +1,18 @@
 # Weather App
 
-This is my take on the weather app. It makes use of the openweathermap.org api
-I'm using Gatsby 
+This is my take on the weather app. I'm building it on Gatsby.  
 
-I built three searchbox components:
+## Searchbox
+
+I built three searchbox components:  
 - `simpleSearch.js` tries to implement autocomplete from a json file. It's too slow!
 - `typeaheadSearch.js` does it a little better for some obscure reason (I `npm install`ed it from the web)
-- `search.js` uses google places api. It works wonders!
+- `search.js` uses google places api. It works wonders! I'm using this one.
 
----
+## Weather Information  
 
-There's a lot yet to be done if you're reading this from the future!
-(Dec/2020)
+Weather information comes from the [Open Weather Map](https://openweathermap.org/)
+
+## Rain map
+
+I'm using the rain map from [RainViewer](https://www.rainviewer.com/)  

@@ -75,17 +75,18 @@ export const Cloudiness = ({ data }) => {
 
 export const Rain = ({ data }) => {
   return (
-    <>
-      {data.pop && (
-        <div>
+    <div>
+      {data.pop > 0 ? (
+        <>
           <i className='wi wi-raindrops me-2' />
           <span>
-            {data.pop * 100}% {Math.round(data.rain)}
-            <small>mm</small>
+            {data.pop * 100}% {data.rain && `${Math.round(data.rain)}mm`}
           </span>
-        </div>
+        </>
+      ) : (
+        <>-</>
       )}
-    </>
+    </div>
   )
 }
 

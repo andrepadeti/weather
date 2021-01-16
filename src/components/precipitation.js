@@ -52,7 +52,11 @@ const Precipitation = ({ data, timezone }) => {
         <div className='my-5'>
           <div className='d-flex flex-column align-items-center text-white fw-light'>
             <h3 className='fw-light'>Precipitation</h3>
-            <div>{`within the next hour: ${accumulatedPrecipitation.toFixed()} mm`}</div>
+            <div>{`within the next hour: ${
+              accumulatedPrecipitation > 1
+                ? accumulatedPrecipitation.toFixed()
+                : '<1'
+            } mm`}</div>
 
             <div className='form-check'>
               <input
