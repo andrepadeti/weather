@@ -38,9 +38,9 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
           />
           <CurrentWeather data={weather.current} timezone={weather.timezone} />
           <Precipitation data={weather.minutely} timezone={weather.timezone} />
+          <Radar lat={searchData.lat} lng={searchData.lng} />
           <Hourly data={weather.hourly} timezone={weather.timezone} />
           <Daily data={weather.daily} timezone={weather.timezone} />
-          <Radar lat={searchData.lat} lng={searchData.lng} />
         </>
       )}
     </>

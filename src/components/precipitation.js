@@ -28,7 +28,7 @@ const Ticks = props => {
 }
 
 const Precipitation = ({ data, timezone }) => {
-  const [showDetails, setShowDetails] = useState(false)
+  const [showPrecipitationDetails, setShowPrecipitationDetails] = useState(false)
 
   let accumulatedPrecipitation = 0
 
@@ -62,18 +62,18 @@ const Precipitation = ({ data, timezone }) => {
               <input
                 className='form-check-input'
                 type='checkbox'
-                checked={showDetails}
-                onChange={() => setShowDetails(!showDetails)}
+                checked={showPrecipitationDetails}
+                onChange={() => setShowPrecipitationDetails(!showPrecipitationDetails)}
                 value=''
-                id='showDetails'
+                id='showPrecipitationDetails'
               />
-              <label className='form-check-label' htmlFor='showDetails'>
+              <label className='form-check-label' htmlFor='showPrecipitationDetails'>
                 Show details
               </label>
             </div>
           </div>
 
-          <Fade left when={showDetails} collapse>
+          <Fade left when={showPrecipitationDetails} collapse>
             <div className='mt-3' style={{ height: '20vh' }}>
               <ResponsiveContainer>
                 <AreaChart
