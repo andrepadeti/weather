@@ -28,15 +28,15 @@ const Favourites = ({
   return (
     <div>
       <div className='d-flex justify-content-center text-white'>
-        <h3 className='fw-light'>Favourites</h3>
-        <div>
+        <h3 className='fw-light'>
+          Favourites
           <FontAwesomeIcon
             icon={faTrashAlt}
             className='ms-3'
-            size='lg'
+            size='xs'
             onClick={handleDeleteFavourites}
           />
-        </div>
+        </h3>
       </div>
 
       {favouritesList.length > 0 ? (

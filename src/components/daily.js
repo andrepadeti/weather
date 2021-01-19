@@ -42,14 +42,11 @@ const Daily = ({ data, timezone }) => {
   }
 
   return (
-    <div className='my-5'>
-      <div className='text-center text-white fw-light'>
-        <h3 className='fw-light'>Daily Forecast</h3>
-        <div>
-          for the next 7 days
-          <br />
-        </div>
-      </div>
+    <article className='my-5'>
+      <header>
+        <h3>Daily Forecast</h3>
+        <div>for the next 7 days</div>
+      </header>
 
       <div
         className='mt-3 mb-2 hide-scrollbar'
@@ -65,7 +62,7 @@ const Daily = ({ data, timezone }) => {
           <div
             key={index}
             className='card d-inline-block me-1 text-white bg-gradient opaque text-center rounded'
-            style={{ width: '11rem' }}
+            style={{ width: '10rem' }}
           >
             <div className='card-header'>
               <h5 className='card-title'>{getWeekDay(day.dt)}</h5>
@@ -88,7 +85,7 @@ const Daily = ({ data, timezone }) => {
       </div>
 
       <SwipeMessage scrollPosition={scrollPosition} />
-    </div>
+    </article>
   )
 }
 

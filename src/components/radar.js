@@ -6,9 +6,9 @@ const Radar = ({ lat, lng }) => {
 
   return (
     <>
-      <div className='my-5'>
-        <div className='d-flex flex-column align-items-center text-white fw-light mb-3'>
-          <h3 className='fw-light'>Radar</h3>
+      <article className='my-5'>
+        <header className='mb-3'>
+          <h3>Radar</h3>
           <div className='form-check'>
             <input
               className='form-check-input'
@@ -22,10 +22,11 @@ const Radar = ({ lat, lng }) => {
               Show rain map
             </label>
           </div>
-        </div>
+        </header>
 
         <Fade left when={showRadarDetails} collapse>
           <iframe
+            title='Radar rain map'
             src={`https://www.rainviewer.com/map.html?loc=${lat},${lng},8&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&rmt=3&c=1&o=83&lm=0&th=1&sm=1&sn=1`}
             width='100%'
             frameBorder='0'
@@ -33,7 +34,7 @@ const Radar = ({ lat, lng }) => {
             allowFullScreen
           ></iframe>
         </Fade>
-      </div>
+      </article>
     </>
   )
 }

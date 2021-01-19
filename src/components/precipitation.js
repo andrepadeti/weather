@@ -28,7 +28,9 @@ const Ticks = props => {
 }
 
 const Precipitation = ({ data, timezone }) => {
-  const [showPrecipitationDetails, setShowPrecipitationDetails] = useState(false)
+  const [showPrecipitationDetails, setShowPrecipitationDetails] = useState(
+    false
+  )
 
   let accumulatedPrecipitation = 0
 
@@ -49,29 +51,36 @@ const Precipitation = ({ data, timezone }) => {
   return (
     <>
       {accumulatedPrecipitation > 0 && (
-        <div className='my-5'>
-          <div className='d-flex flex-column align-items-center text-white fw-light'>
-            <h3 className='fw-light'>Precipitation</h3>
-            <div>{`within the next hour: ${
-              accumulatedPrecipitation > 1
-                ? accumulatedPrecipitation.toFixed()
-                : '<1'
-            } mm`}</div>
+        <article className='my-5'>
+          <header>
+            <h3>Precipitation</h3>
+            <div>
+              {`within the next hour: ${
+                accumulatedPrecipitation > 1
+                  ? accumulatedPrecipitation.toFixed()
+                  : '< 1'
+              } mm`}
+            </div>
 
             <div className='form-check'>
               <input
                 className='form-check-input'
                 type='checkbox'
                 checked={showPrecipitationDetails}
-                onChange={() => setShowPrecipitationDetails(!showPrecipitationDetails)}
+                onChange={() =>
+                  setShowPrecipitationDetails(!showPrecipitationDetails)
+                }
                 value=''
                 id='showPrecipitationDetails'
               />
-              <label className='form-check-label' htmlFor='showPrecipitationDetails'>
+              <label
+                className='form-check-label'
+                htmlFor='showPrecipitationDetails'
+              >
                 Show details
               </label>
             </div>
-          </div>
+          </header>
 
           <Fade left when={showPrecipitationDetails} collapse>
             <div className='mt-3' style={{ height: '20vh' }}>
@@ -105,7 +114,7 @@ const Precipitation = ({ data, timezone }) => {
               </ResponsiveContainer>
             </div>
           </Fade>
-        </div>
+        </article>
       )}
     </>
   )

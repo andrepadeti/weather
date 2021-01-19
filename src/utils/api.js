@@ -42,6 +42,7 @@ export const getWeather = async (searchData, method, units = 'metric') => {
   try {
     const response = await fetch(url)
     if (!response.ok) return { error: true }
+    console.log('fetched forecast')
     const jsonData = await response.json()
     localStorage.setItem('weatherAppData', JSON.stringify(jsonData))
     return { error: false, jsonData }
@@ -70,6 +71,7 @@ export const getCityFromGeolocation = async (lat, lng) => {
   try {
     const response = await fetch(url)
     if (!response.ok) return { error: true }
+    console.log('fetched geolocation')
     const jsonData = await response.json()
     const { cityName, country } = getCityNameAndCountry(jsonData)
     return { error: false, description: { cityName, country } }

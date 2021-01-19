@@ -1,12 +1,29 @@
-@use "bootstrap/scss/bootstrap.scss" as bootstrap;
 @use './owfont-regular';
 @use 'react-bootstrap-typeahead/css/Typeahead';
 @use './weather-icons.min';
 @use './weather-icons-wind.min';
 // @use 'react-geosuggest/module/geosuggest';
 
+// $enable-responsive-font-sizes: true;
+// @use "bootstrap/scss/bootstrap.scss" as bootstrap;
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size,
+  7: 0.8rem
+);
+
+@import 'bootstrap/scss/bootstrap.scss';
+
 body {
   background: radial-gradient(circle at bottom, navy 0, black 100%);
+  color: #fff;
   // height: 100vh;
   min-height: 100vh;
   overflow-x: hidden;
@@ -61,8 +78,21 @@ body {
   font-size: 0.5rem;
 }
 
-.weather {
-  position: static;
-  float: none;
-  // z-index: 9999999;
+// .weather {
+//   position: static;
+//   float: none;
+//   // z-index: 9999999;
+// }
+
+header {
+  @extend .d-flex;
+  @extend .flex-column;
+  @extend .align-items-center;
+  @extend .text-white; 
+  @extend .fw-light;
+  @extend .fs-7;
+
+  h3 {
+    @extend .fw-light;
+  }
 }

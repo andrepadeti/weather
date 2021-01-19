@@ -127,19 +127,18 @@ const Hourly = ({ data, timezone }) => {
   }
 
   return (
-    <div className='my-5'>
-      <div className='text-center text-white fw-light'>
-        <h3 className='fw-light'>Hourly Forecast</h3>
+    <article className='my-5'>
+      <header>
+        <h3>Hourly Forecast</h3>
+        <div>for the next 48 hours</div>
         <div>
-          for the next 48 hours
-          <br />
           <FontAwesomeIcon icon={faChartLine} className='me-1' />
           Temperature in &#8451;
           <FontAwesomeIcon icon={faChartBar} className='ms-3 me-1' />
           Precipitation in mm
           <br />
         </div>
-      </div>
+      </header>
 
       <div
         className='hide-scrollbar'
@@ -177,6 +176,7 @@ const Hourly = ({ data, timezone }) => {
               orientation='right'
               allowDecimals={false}
               hide={true}
+              domain={[0, dataMax => Math.floor(dataMax * 2)]}
             />
             <XAxis dataKey='name' tick={<Ticks />} />
             {/* <Tooltip /> */}
@@ -202,7 +202,7 @@ const Hourly = ({ data, timezone }) => {
       </div>
 
       <SwipeMessage scrollPosition={scrollPosition} />
-    </div>
+    </article>
   )
 }
 

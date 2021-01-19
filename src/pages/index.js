@@ -121,7 +121,6 @@ export default function Home() {
   }
 
   useEffect(() => {
-    console.log('start')
     if (typeof window !== 'undefined') {
       if ('geolocation' in navigator) {
         const options = {
@@ -129,7 +128,7 @@ export default function Home() {
           timeout: 5000,
           maximumAge: 0,
         }
-         
+
         navigator.geolocation.getCurrentPosition(
           async position => {
             const lat = position.coords.latitude
@@ -154,8 +153,8 @@ export default function Home() {
         )
       }
     }
-    console.log('end')
-    // localStorage.setItem('weatherAppFavouritesList', null)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -175,7 +174,7 @@ export default function Home() {
         <div className='row mt-5'>
           <div className='col-11 mx-auto my-3'>
             <Fade delay={300} duration={2000}>
-              <h1 className='text-center text-white display-5'>
+              <h1 className='text-center display-5'>
                 Weather Forecast
               </h1>
             </Fade>
@@ -192,13 +191,15 @@ export default function Home() {
 
         <div className='row'>
           <div className='col-11 mx-auto'>
-            {searchComplete && (
+            {searchComplete ? (
               <Weather
                 searchData={searchData}
                 method={method}
                 handleMarkFavourite={handleMarkFavourite}
                 favourite={favourite}
               />
+            ) : (
+              <div>Loading...</div>
             )}
           </div>
         </div>
