@@ -15,7 +15,7 @@ const CurrentWeather = ({ data, timezone }) => {
     <>
       <article className='d-flex flex-column flex-md-row justify-content-md-evenly'>
         <Pulse spy={data} appear>
-          <div className='d-flex justify-content-evenly align-items-center mt-5 mb-3 flex-fill'>
+          <div className='d-flex justify-content-evenly align-items-center mb-3 flex-fill'>
             {data.weather.map((weather, index) => (
               <div
                 key={index}

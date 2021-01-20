@@ -30,14 +30,14 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
 
   return (
     <>
+      <City
+        cityName={searchData.description.cityName}
+        country={searchData.description.country}
+        handleMarkFavourite={handleMarkFavourite}
+        favourite={favourite}
+      />
       {loaded && weather.timezone ? (
         <>
-          <City
-            cityName={searchData.description.cityName}
-            country={searchData.description.country}
-            handleMarkFavourite={handleMarkFavourite}
-            favourite={favourite}
-          />
           {weather.current && (
             <CurrentWeather
               data={weather.current}
@@ -59,7 +59,7 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
           )}
         </>
       ) : (
-        <Loading message='Fetching weather data...' />
+        <Loading message='Fetching weather data...' className='mt-5' />
       )}
     </>
   )

@@ -9,7 +9,7 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 const City = ({ cityName, country, handleMarkFavourite, favourite }) => {
   return (
     <Fade spy={cityName} left appear>
-      <div className='d-flex justify-content-center align-items-start'>
+      <div className='d-flex justify-content-center align-items-start mb-5'>
         <h3 className='text-center fw-light'>
           {`${cityName} `}
           <span className='badge opaque px-2'>{`${country}`}</span>

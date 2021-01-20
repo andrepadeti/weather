@@ -6,6 +6,7 @@ import SEO from '../components/seo'
 import Search from '../components/googleSearch'
 // import Search from "../components/typeaheadSearch"
 // import Search from '../components/simpleSearch'
+import Modal from '../components/modal'
 import Weather from '../components/weather'
 import Favourites from '../components/favourites'
 import Loading from '../components/loading'
@@ -15,6 +16,9 @@ import Fade from 'react-reveal/Fade'
 export default function Home() {
   const [searchData, setSearchData] = useState({})
   const [searchComplete, setSearchComplete] = useState(false)
+  const [searchGeolocationComplete, setSearchGeolocationComplete] = useState(
+    false
+  )
   const [method, setMethod] = useState()
   const [favourite, setFavourite] = useState() // for the start icon for the current city on display
   const [favouritesList, setFavouritesList] = useState(
@@ -143,6 +147,7 @@ export default function Home() {
               )
               setSearchData({ lat, lng, description: response.description })
               setMethod('geographic coordinates')
+              setSearchGeolocationComplete(true)
               setSearchComplete(true)
             }
           },
@@ -161,13 +166,13 @@ export default function Home() {
   return (
     <>
       <SEO title='Weather App' description='The ultimate weather app!' />
+      <Modal handleDeleteFavourites={handleDeleteFavourites} />
       <div className='container'>
         <div className='row mt-1'>
           <div className='col-11 mx-auto my-3'>
             <Favourites
               favouritesList={favouritesList}
               handleClickFavourite={handleClickFavourite}
-              handleDeleteFavourites={handleDeleteFavourites}
             />
           </div>
         </div>
@@ -190,7 +195,7 @@ export default function Home() {
 
         <div className='row'>
           <div className='col-11 mx-auto'>
-            {searchComplete ? (
+            {searchGeolocationComplete ? (
               <Weather
                 searchData={searchData}
                 method={method}
@@ -198,7 +203,7 @@ export default function Home() {
                 favourite={favourite}
               />
             ) : (
-              <Loading message='Fetching geolocation...' />
+              <Loading message='Fetching geolocation...' className='mb-5' />
             )}
           </div>
         </div>

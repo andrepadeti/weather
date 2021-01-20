@@ -5,11 +5,7 @@ import SwipeMessage from './swipe-message'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-const Favourites = ({
-  favouritesList,
-  handleClickFavourite,
-  handleDeleteFavourites,
-}) => {
+const Favourites = ({ favouritesList, handleClickFavourite }) => {
   const [scrollPosition, setScrollPosition] = useState('start')
 
   const handleScroll = e => {
@@ -30,12 +26,16 @@ const Favourites = ({
       <div className='d-flex justify-content-center'>
         <h3 className='fw-light'>
           Favourites
-          <FontAwesomeIcon
-            icon={faTrashAlt}
-            className='ms-3'
-            size='xs'
-            onClick={handleDeleteFavourites}
-          />
+          {favouritesList.length > 0 && (
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              className='ms-3'
+              size='xs'
+              // onClick={handleDeleteFavourites}
+              data-bs-toggle='modal'
+              data-bs-target='#modalDeleteFavourites'
+            />
+          )}
         </h3>
       </div>
 
