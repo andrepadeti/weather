@@ -28,6 +28,7 @@ const Ticks = props => {
 }
 
 const Precipitation = ({ data, timezone }) => {
+  const colour = 'white' 
   const [showPrecipitationDetails, setShowPrecipitationDetails] = useState(
     false
   )
@@ -92,20 +93,20 @@ const Precipitation = ({ data, timezone }) => {
                 >
                   <defs>
                     <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
-                      <stop offset='5%' stopColor='#8884d8' stopOpacity={0.8} />
-                      <stop offset='95%' stopColor='#8884d8' stopOpacity={0} />
+                      <stop offset='5%' stopColor={colour} stopOpacity={0.8} />
+                      <stop offset='95%' stopColor={colour} stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <YAxis allowDecimals={false} domain={[0, 'auto']}>
-                    <Label fill='white' angle={-90} dx={-10}>
+                  <YAxis allowDecimals={false} domain={[0, 'auto']} stroke={colour}>
+                    <Label fill={colour} angle={-90} dx={-10}>
                       mm
                     </Label>
                   </YAxis>
-                  <XAxis dataKey='name' tick={<Ticks />} />
+                  <XAxis dataKey='name' tick={<Ticks />} stroke={colour} />
                   <Area
                     type='monotone'
                     dataKey='mm'
-                    stroke='#8884d8'
+                    stroke={colour}
                     dot={false}
                     fillOpacity={1}
                     fill='url(#colorUv)'

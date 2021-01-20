@@ -4,8 +4,8 @@
 @use './weather-icons-wind.min';
 // @use 'react-geosuggest/module/geosuggest';
 
-// $enable-responsive-font-sizes: true;
-// @use "bootstrap/scss/bootstrap.scss" as bootstrap;
+// bootstrap customization
+$enable-responsive-font-sizes: true;
 @import 'node_modules/bootstrap/scss/functions';
 @import 'node_modules/bootstrap/scss/variables';
 
@@ -21,9 +21,13 @@ $font-sizes: (
 
 @import 'bootstrap/scss/bootstrap.scss';
 
+$background: rgb(0, 92, 92);
+
 body {
-  background: radial-gradient(circle at bottom, navy 0, black 100%);
-  color: #fff;
+  @extend .fw-light;
+  // background: radial-gradient(circle at bottom, navy 0, black 100%);
+  background: $background;
+  color: white;
   // height: 100vh;
   min-height: 100vh;
   overflow-x: hidden;
@@ -45,7 +49,7 @@ body {
 }
 
 .geosuggest__item--active {
-  background: #267dc0;
+  background: $background;
   color: #fff;
 }
 
@@ -58,6 +62,7 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 2px;
+  color: grey;
   background-color: whitesmoke;
 }
 
@@ -88,8 +93,6 @@ header {
   @extend .d-flex;
   @extend .flex-column;
   @extend .align-items-center;
-  @extend .text-white; 
-  @extend .fw-light;
   @extend .fs-7;
 
   h3 {

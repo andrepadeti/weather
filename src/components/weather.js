@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getWeather } from '../utils/api'
 
+import Loading from '../components/loading'
+
 import City from './city'
 import CurrentWeather from './currentWeather'
 import Precipitation from './precipitation'
-import Hourly from './hourlyChart'
+import Hourly from './hourly'
 import Daily from './daily'
 import Radar from './radar'
 
@@ -28,7 +30,7 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
 
   return (
     <>
-      {loaded && (
+      {loaded && weather.timezone ? (
         <>
           <City
             cityName={searchData.description.cityName}
@@ -36,12 +38,28 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
             handleMarkFavourite={handleMarkFavourite}
             favourite={favourite}
           />
-          <CurrentWeather data={weather.current} timezone={weather.timezone} />
-          <Precipitation data={weather.minutely} timezone={weather.timezone} />
+          {weather.current && (
+            <CurrentWeather
+              data={weather.current}
+              timezone={weather.timezone}
+            />
+          )}
+          {weather.minutely && (
+            <Precipitation
+              data={weather.minutely}
+              timezone={weather.timezone}
+            />
+          )}
           <Radar lat={searchData.lat} lng={searchData.lng} />
-          <Hourly data={weather.hourly} timezone={weather.timezone} />
-          <Daily data={weather.daily} timezone={weather.timezone} />
+          {weather.hourly && (
+            <Hourly data={weather.hourly} timezone={weather.timezone} />
+          )}
+          {weather.daily && (
+            <Daily data={weather.daily} timezone={weather.timezone} />
+          )}
         </>
+      ) : (
+        <Loading message='Fetching weather data...' />
       )}
     </>
   )

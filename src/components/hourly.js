@@ -17,23 +17,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartLine, faChartBar } from '@fortawesome/free-solid-svg-icons'
 
 const Ticks = props => {
-  // console.log("props")
-  // console.log(props)
   // eslint-disable-next-line
   const { x, y, stroke, payload, index, visibleTicksCount } = props
+
   return (
     <>
       {/* show selected ticks: */}
-      {/* {(index === 0 ||
+      {(index === 0 ||
         index === visibleTicksCount - 1 ||
-        payload.value === '24' ||
-        payload.value === '12') && ( */}
-      <g transform={`translate(${x},${y})`}>
-        <Text x={0} y={0} dy={16} textAnchor='end' fill='#666'>
-          {payload.value}
-        </Text>
-      </g>
-      {/* )} */}
+        parseInt(payload.value) % 2 === 0) && (
+        <g transform={`translate(${x},${y})`}>
+          <Text x={0} y={0} dy={16} textAnchor='end' fill={stroke}>
+            {payload.value}
+          </Text>
+        </g>
+      )}
     </>
   )
 }
@@ -96,6 +94,8 @@ const BarLabel = props => {
 }
 
 const Hourly = ({ data, timezone }) => {
+  const lineColour = 'white'
+  const barColour = { stroke: 'grey', fill: 'grey', label: 'gainsboro' }
   const [scrollPosition, setScrollPosition] = useState('start')
 
   const timeZone = timezone
@@ -178,15 +178,20 @@ const Hourly = ({ data, timezone }) => {
               hide={true}
               domain={[0, dataMax => Math.floor(dataMax * 2)]}
             />
-            <XAxis dataKey='name' tick={<Ticks />} />
+            <XAxis
+              dataKey='name'
+              tick={<Ticks stroke={lineColour} />}
+              stroke={lineColour}
+            />
             {/* <Tooltip /> */}
             {/* <CartesianGrid /> */}
             <Bar
               yAxisId='right'
               type='monotone'
               dataKey='rain'
-              stroke='#8884d8'
-              label={<BarLabel stroke='white' />}
+              stroke={barColour.stroke}
+              fill={barColour.fill}
+              label={<BarLabel stroke={barColour.label} />}
             />
             <Line
               yAxisId='left'
@@ -194,8 +199,8 @@ const Hourly = ({ data, timezone }) => {
               dot={false}
               name='temperature'
               dataKey='temp'
-              stroke='#8884d8'
-              label={<LineLabel stroke='white' />}
+              stroke={lineColour}
+              label={<LineLabel stroke={lineColour} />}
             />
           </ComposedChart>
         </ResponsiveContainer>

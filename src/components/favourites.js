@@ -27,7 +27,7 @@ const Favourites = ({
 
   return (
     <div>
-      <div className='d-flex justify-content-center text-white'>
+      <div className='d-flex justify-content-center'>
         <h3 className='fw-light'>
           Favourites
           <FontAwesomeIcon
@@ -54,12 +54,12 @@ const Favourites = ({
             {favouritesList.map((favourite, index) => (
               <div
                 key={index}
-                className='card d-inline-block me-1 text-white opaque bg-gradient text-center rounded'
+                className='card d-inline-block me-1 opaque bg-gradient text-center rounded'
                 style={{ width: '10rem' }}
                 onClick={() => handleClickFavourite(favourite)}
               >
                 <div className='card-body '>
-                  <p className='fw-light mb-0 text-truncate'>
+                  <p className='mb-0 text-truncate'>
                     {favourite.description.cityName}
                     <br />
                     <span className='badge'>
@@ -78,7 +78,7 @@ const Favourites = ({
           )}
         </>
       ) : (
-        <div className='text-white text-center fw-light'>
+        <div className='text-center'>
           <p>You don't have any favourites yet</p>
         </div>
       )}

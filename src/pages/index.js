@@ -8,6 +8,7 @@ import Search from '../components/googleSearch'
 // import Search from '../components/simpleSearch'
 import Weather from '../components/weather'
 import Favourites from '../components/favourites'
+import Loading from '../components/loading'
 
 import Fade from 'react-reveal/Fade'
 
@@ -174,9 +175,7 @@ export default function Home() {
         <div className='row mt-5'>
           <div className='col-11 mx-auto my-3'>
             <Fade delay={300} duration={2000}>
-              <h1 className='text-center display-5'>
-                Weather Forecast
-              </h1>
+              <h1 className='text-center display-5'>Weather Forecast</h1>
             </Fade>
           </div>
         </div>
@@ -199,7 +198,7 @@ export default function Home() {
                 favourite={favourite}
               />
             ) : (
-              <div>Loading...</div>
+              <Loading message='Fetching geolocation...' />
             )}
           </div>
         </div>

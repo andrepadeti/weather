@@ -61,13 +61,13 @@ const Daily = ({ data, timezone }) => {
         {data.map((day, index) => (
           <div
             key={index}
-            className='card d-inline-block me-1 text-white bg-gradient opaque text-center rounded'
+            className='card d-inline-block me-1 bg-gradient opaque text-center rounded'
             style={{ width: '10rem' }}
           >
             <div className='card-header'>
               <h5 className='card-title'>{getWeekDay(day.dt)}</h5>
             </div>
-            <div className='card-body fw-light'>
+            <div className='card-body'>
               <Icon data={day.weather[0].id} />
               <MaxTemperature data={day.temp.max} />
               <MinTemperature data={day.temp.min} />
