@@ -16,10 +16,6 @@ import Fade from 'react-reveal/Fade'
 export default function Home() {
   const [searchData, setSearchData] = useState({})
   const [searchComplete, setSearchComplete] = useState(false)
-  const [searchGeolocationComplete, setSearchGeolocationComplete] = useState(
-    false
-  )
-  const [method, setMethod] = useState()
   const [favourite, setFavourite] = useState() // for the start icon for the current city on display
   const [favouritesList, setFavouritesList] = useState(
     typeof window !== 'undefined'
@@ -55,24 +51,23 @@ export default function Home() {
         setSearchData({
           test: true,
           description: { cityName: 'Santo André', country: 'BR' },
+          method: 'test'
         })
-        setMethod('test')
       } else if ('cityName' in suggest) {
         if (searchData.cityName !== suggest.cityName) {
-          setSearchData({ cityName: suggest.cityName })
-          setMethod('city name')
+          setSearchData({ cityName: suggest.cityName, method: 'city name' })
         } else console.log('avoiding unnecessary fetch')
       } else if ('location' in suggest) {
         const lat = suggest.location.lat
         const lng = suggest.location.lng
+        console.log(lat, lng)
         const description = getDescription(suggest)
+        const method = 'geographic coordinates'
         setFavourite(isFavourite({ lat, lng, description }))
-        setSearchData({ lat, lng, description })
-        setMethod('geographic coordinates')
+        setSearchData({ lat, lng, description, method })
       } else if ('geoNameId' in suggest) {
         if (searchData.geoNameId !== suggest.geoNameId) {
-          setSearchData({ geoNameId: suggest.geoNameId })
-          setMethod('geoNameId')
+          setSearchData({ geoNameId: suggest.geoNameId, method: 'geoNameId' })
         } else console.log('avoiding unnecessary fetch')
       }
       setSearchComplete(true)
@@ -113,9 +108,9 @@ export default function Home() {
   }
 
   const handleClickFavourite = ({ lat, lng, description }) => {
+    setSearchComplete(false)
     setFavourite(true)
-    setSearchData({ lat, lng, description })
-    setMethod('geographic coordinates')
+    setSearchData({ lat, lng, description, method: 'geographic coordinates' })
     setSearchComplete(true)
   }
 
@@ -138,6 +133,8 @@ export default function Home() {
           async position => {
             const lat = position.coords.latitude
             const lng = position.coords.longitude
+            console.log(lat, lng)
+            const method = 'geographic coordinates'
             const response = await getCityFromGeolocation(lat, lng)
             if (response.error) {
               alert("Couldn't fetch current location")
@@ -145,9 +142,7 @@ export default function Home() {
               setFavourite(
                 isFavourite({ lat, lng, description: response.description })
               )
-              setSearchData({ lat, lng, description: response.description })
-              setMethod('geographic coordinates')
-              setSearchGeolocationComplete(true)
+              setSearchData({ lat, lng, description: response.description, method })
               setSearchComplete(true)
             }
           },
@@ -195,10 +190,9 @@ export default function Home() {
 
         <div className='row'>
           <div className='col-11 mx-auto'>
-            {searchGeolocationComplete ? (
+            {searchComplete ? (
               <Weather
                 searchData={searchData}
-                method={method}
                 handleMarkFavourite={handleMarkFavourite}
                 favourite={favourite}
               />

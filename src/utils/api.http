@@ -1,0 +1,10 @@
+@appid = 37...
+http://api.openweathermap.org/geo/1.0/reverse?lat=-16.1860956&lon=-38.97868640000001&limit=5&appid={{appid}}
+
+###
+
+https://api.openweathermap.org/data/2.5/weather?q=São Caetano do Sul&appid={{appid}}
+
+###
+
+http://api.openweathermap.org/geo/1.0/direct?q=Santa Helena&limit=5&appid={{appid}}

@@ -16,7 +16,7 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getWeather(searchData, method)
+      const response = await getWeather(searchData, searchData.method)
       if (response.error) {
         alert("Couldn't fetch!")
       } else {
@@ -59,7 +59,7 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
           )}
         </>
       ) : (
-        <Loading message='Fetching weather data...' className='mt-5' />
+        <Loading message='Fetching weather data...' />
       )}
     </>
   )

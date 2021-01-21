@@ -1,6 +1,10 @@
 import forecast from '../content/forecast.json'
 
-export const getWeather = async (searchData, method, units = 'metric') => {
+export const getWeather = async (
+  searchData,
+  method = 'geographic coordinates',
+  units = 'metric'
+) => {
   let repeatedFetch = false
   if (method === 'test') {
     return { error: false, jsonData: forecast }
