@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import Context from '../context/context'
 
+// function imports
 import { getCityFromGeolocation } from '../utils/api'
 
+// component imports
 import SEO from '../components/seo'
 import Search from '../components/googleSearch'
 // import Search from "../components/typeaheadSearch"
@@ -51,7 +54,7 @@ export default function Home() {
         setSearchData({
           test: true,
           description: { cityName: 'Santo André', country: 'BR' },
-          method: 'test'
+          method: 'test',
         })
       } else if ('cityName' in suggest) {
         if (searchData.cityName !== suggest.cityName) {
@@ -142,7 +145,12 @@ export default function Home() {
               setFavourite(
                 isFavourite({ lat, lng, description: response.description })
               )
-              setSearchData({ lat, lng, description: response.description, method })
+              setSearchData({
+                lat,
+                lng,
+                description: response.description,
+                method,
+              })
               setSearchComplete(true)
             }
           },
@@ -159,7 +167,7 @@ export default function Home() {
   }, [])
 
   return (
-    <>
+    <Context.Provider value={{ favourite }}>
       <SEO title='Weather App' description='The ultimate weather app!' />
       <Modal handleDeleteFavourites={handleDeleteFavourites} />
       <div className='container'>
@@ -202,7 +210,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div></div>
-    </>
+    </Context.Provider>
   )
 }

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Context from '../context/context'
 
 import Fade from 'react-reveal/Fade'
 
@@ -6,7 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 
-const City = ({ cityName, country, handleMarkFavourite, favourite }) => {
+const City = ({ cityName, country, handleMarkFavourite }) => {
+  let { favourite } = useContext(Context)
+
   return (
     <Fade spy={cityName} left appear>
       <div className='d-flex justify-content-center align-items-start mb-5'>

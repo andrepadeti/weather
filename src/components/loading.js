@@ -5,7 +5,7 @@ const Loading = ({message}) => {
     <div class='d-flex align-items-center'> 
       <div className=''>{message}</div> 
       <div
-        class='spinner-border ms-auto'
+        className='spinner-border ms-auto'
         role='status'
         aria-hidden='true'
       ></div>

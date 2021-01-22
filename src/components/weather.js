@@ -10,7 +10,7 @@ import Hourly from './hourly'
 import Daily from './daily'
 import Radar from './radar'
 
-const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
+const Weather = ({ searchData, method, handleMarkFavourite }) => {
   const [weather, setWeather] = useState()
   const [loaded, setLoaded] = useState(false)
 
@@ -24,6 +24,7 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
         setLoaded(true)
       }
     }
+    setLoaded(false)
     fetchData()
     // console.log(searchData)
   }, [searchData, method])
@@ -34,7 +35,6 @@ const Weather = ({ searchData, method, handleMarkFavourite, favourite }) => {
         cityName={searchData.description.cityName}
         country={searchData.description.country}
         handleMarkFavourite={handleMarkFavourite}
-        favourite={favourite}
       />
       {loaded && weather.timezone ? (
         <>
