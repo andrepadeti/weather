@@ -40,7 +40,8 @@ const Weather = ({ searchData, method, handleMarkFavourite }) => {
         <>
           {weather.current && (
             <CurrentWeather
-              data={weather.current}
+              currentData={weather.current}
+              dayData={weather.daily[0]}
               timezone={weather.timezone}
             />
           )}

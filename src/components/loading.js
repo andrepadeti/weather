@@ -2,7 +2,7 @@ import React from 'react'
 
 const Loading = ({message}) => {
   return (
-    <div class='d-flex align-items-center'> 
+    <div className='d-flex align-items-center'> 
       <div className=''>{message}</div> 
       <div
         className='spinner-border ms-auto'

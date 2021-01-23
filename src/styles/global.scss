@@ -16,18 +16,41 @@ $font-sizes: (
   4: $h4-font-size,
   5: $h5-font-size,
   6: $h6-font-size,
-  7: 0.8rem
+  7: 0.8rem,
 );
 
 @import 'bootstrap/scss/bootstrap.scss';
 
+// my variables
 $background: rgb(0, 92, 92);
+$fontColor: white;
+
+$newcolor: $background;
+.btn-primary {
+  @include button-variant(
+    $newcolor,
+    darken($newcolor, 7.5%),
+    darken($newcolor, 10%),
+    lighten($newcolor, 5%),
+    lighten($newcolor, 10%),
+    darken($newcolor, 30%)
+  );
+}
+
+.btn-outline-primary {
+  @include button-outline-variant(
+    $newcolor,
+    #222222,
+    lighten($newcolor, 5%),
+    $newcolor
+  );
+}
 
 body {
   @extend .fw-light;
   // background: radial-gradient(circle at bottom, navy 0, black 100%);
   background: $background;
-  color: white;
+  color: $fontColor;
   // height: 100vh;
   min-height: 100vh;
   overflow-x: hidden;
@@ -55,6 +78,7 @@ body {
 
 .input {
   @extend .form-control;
+  background-color: rgb(196, 196, 196);
 }
 
 .suggests {
@@ -83,12 +107,6 @@ body {
   font-size: 0.5rem;
 }
 
-// .weather {
-//   position: static;
-//   float: none;
-//   // z-index: 9999999;
-// }
-
 header {
   @extend .d-flex;
   @extend .flex-column;
@@ -98,4 +116,8 @@ header {
   h3 {
     @extend .fw-light;
   }
+}
+
+.icon {
+  color: darken($fontColor, 30%);
 }

@@ -8,30 +8,40 @@ export const Icon = ({ data }) => {
   )
 }
 
-export const MaxTemperature = ({ data }) => {
+export const MaxTemperature = ({ data, spacing = true }) => {
   return (
     <div>
-      <i className='wi wi-direction-up me-2' />
+      <i className={`wi wi-direction-up me-${spacing ? '2' : '1'} icon`} />
       {Math.round(data)}&deg;
     </div>
   )
 }
 
-export const MinTemperature = ({ data }) => {
+export const MinTemperature = ({ data, spacing = true, ...rest }) => {
   return (
-    <div>
-      <i className='wi wi-direction-down me-2' />
+    <div {...rest}>
+      <i className={`wi wi-direction-down me-${spacing ? '2' : '1'} icon`} />
       {Math.round(data)}&deg;
     </div>
   )
 }
 
-export const CurrentTemperature = ({ data, current }) => {
+export const CurrentTemperature = ({ current, min, max }) => {
   return (
-    <div className='d-flex'>
-      {/* <i className='wi wi-thermometer' /> */}
-      <div style={{ fontSize: '5rem' }}>{Math.round(data)}</div>
-      <div className='align-self-center'>°C</div>
+    <div className='d-flex flex-column justify-content-start'>
+      <div className='d-flex'>
+        {/* <i className='wi wi-thermometer' /> */}
+        <div style={{ fontSize: '5rem' }} className='lh-1'>
+          {Math.round(current)}
+        </div>
+        <div className='align-self-center'>°C</div>
+      </div>
+      {min && max && (
+        <div className='d-flex justify-content-start'>
+          <MinTemperature data={min} className='me-2' spacing={false} />
+          <MaxTemperature data={max} spacing={false} />
+        </div>
+      )}
     </div>
   )
 }
@@ -39,7 +49,7 @@ export const CurrentTemperature = ({ data, current }) => {
 export const Humidity = ({ data }) => {
   return (
     <div>
-      <i className='wi wi-raindrop me-2' />
+      <i className='wi wi-humidity me-2 icon' />
       {Math.round(data)}%
     </div>
   )
@@ -48,7 +58,7 @@ export const Humidity = ({ data }) => {
 export const Pressure = ({ data }) => {
   return (
     <div>
-      <i className='wi wi-barometer me-2' />
+      <i className='wi wi-barometer me-2 icon' />
       {Math.round(data)} hPa
     </div>
   )
@@ -57,9 +67,9 @@ export const Pressure = ({ data }) => {
 export const Wind = ({ data }) => {
   return (
     <div>
-      <i className='wi wi-strong-wind me-2' />
+      <i className='wi wi-strong-wind me-2 icon' />
       {Math.round(data.wind_speed)} km/h
-      <i className={`wi wi-wind towards-${data.wind_deg % 360}-deg ms-1`} />
+      <i className={`wi wi-wind towards-${data.wind_deg % 360}-deg ms-1 icon`} />
     </div>
   )
 }
@@ -67,7 +77,7 @@ export const Wind = ({ data }) => {
 export const Cloudiness = ({ data }) => {
   return (
     <div>
-      <i className='wi wi-cloud me-2' />
+      <i className='wi wi-cloud me-2 icon' />
       {Math.round(data)}%
     </div>
   )
@@ -78,7 +88,7 @@ export const Rain = ({ data }) => {
     <div>
       {data.pop > 0 ? (
         <>
-          <i className='wi wi-raindrops me-2' />
+          <i className='wi wi-rain me-2 icon' />
           <span>
             {data.pop * 100}% {data.rain && `${Math.round(data.rain)}mm`}
           </span>
@@ -107,7 +117,7 @@ export const UVI = ({ data }) => {
 
   return (
     <div>
-      <i className='wi wi-day-sunny me-2' />
+      <i className='wi wi-day-sunny me-2 icon' />
       {`${data}, ${category}`}
     </div>
   )
@@ -128,10 +138,10 @@ export const Daytime = ({ sunrise, sunset, timezone }) => {
 
   return (
     <div>
-      <i className='wi wi-sunrise' />
+      <i className='wi wi-sunrise icon' />
       {` ${getFormattedTime(sunrise)} - `}
       {`${getFormattedTime(sunset)} `}
-      <i className='wi wi-sunset' />
+      <i className='wi wi-sunset icon' />
     </div>
   )
 }

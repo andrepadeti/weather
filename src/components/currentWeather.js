@@ -10,13 +10,13 @@ import { Wind } from './itemsWeather'
 import { CurrentTemperature } from './itemsWeather'
 import { Daytime } from './itemsWeather'
 
-const CurrentWeather = ({ data, timezone }) => {
+const CurrentWeather = ({ currentData, dayData, timezone }) => {
   return (
     <>
       <article className='d-flex flex-column flex-md-row justify-content-md-evenly'>
-        <Pulse spy={data} appear>
+        <Pulse spy={currentData} appear>
           <div className='d-flex justify-content-evenly align-items-center mb-3 flex-fill'>
-            {data.weather.map((weather, index) => (
+            {currentData.weather.map((weather, index) => (
               <div
                 key={index}
                 className={`d-flex flex-column
@@ -30,35 +30,43 @@ const CurrentWeather = ({ data, timezone }) => {
                 </div>
               </div>
             ))}
-            <CurrentTemperature data={data.temp} />
+            <CurrentTemperature
+              current={currentData.temp}
+              min={dayData.temp.min}
+              max={dayData.temp.max}
+            />
           </div>
         </Pulse>
 
-        <div className='text-center py-2 fs-2 flex-fill'>
-          <Fade left spy={data} cascade duration={300}>
+        <header className='mt-5'>
+          <h3>Currently</h3>
+        </header>
+
+        <div className='text-center py-2 flex-fill'>
+          <Fade left spy={currentData} cascade duration={300}>
             {/* These extra divs are the cascade effect requirement */}
             <div>
               <div>
-                <Humidity data={data.humidity} />
-              </div>
-              <div>
-                <Pressure data={data.pressure} />
+                <Pressure data={currentData.pressure} />
               </div>
               <div>
                 <Wind
                   data={{
-                    wind_speed: data.wind_speed,
-                    wind_deg: data.wind_deg,
+                    wind_speed: currentData.wind_speed,
+                    wind_deg: currentData.wind_deg,
                   }}
                 />
               </div>
               <div>
-                <UVI data={data.uvi} />
+                <Humidity data={currentData.humidity} />
+              </div>
+              <div>
+                <UVI data={currentData.uvi} />
               </div>
               <div>
                 <Daytime
-                  sunrise={data.sunrise}
-                  sunset={data.sunset}
+                  sunrise={currentData.sunrise}
+                  sunset={currentData.sunset}
                   timezone={timezone}
                 />
               </div>

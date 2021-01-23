@@ -9,7 +9,7 @@ import SEO from '../components/seo'
 import Search from '../components/googleSearch'
 // import Search from "../components/typeaheadSearch"
 // import Search from '../components/simpleSearch'
-import Modal from '../components/modal'
+import ModalWindow from '../components/modal'
 import Weather from '../components/weather'
 import Favourites from '../components/favourites'
 import Loading from '../components/loading'
@@ -19,12 +19,14 @@ import Fade from 'react-reveal/Fade'
 export default function Home() {
   const [searchData, setSearchData] = useState({})
   const [searchComplete, setSearchComplete] = useState(false)
+  const [showModal, setShowModal] = useState(false)
   const [favourite, setFavourite] = useState() // for the start icon for the current city on display
   const [favouritesList, setFavouritesList] = useState(
     typeof window !== 'undefined'
       ? JSON.parse(localStorage.getItem('weatherAppFavouritesList')) || [] // if null, set to empty array
       : []
   )
+  
 
   const isFavourite = ({ lat, lng, description }) => {
     if (!favouritesList) return false
@@ -40,8 +42,14 @@ export default function Home() {
     let description = {}
     description.cityName = fullDescription[0].long_name
     fullDescription.forEach(component => {
-      if (component.types[0] === 'country') {
+      if (component.types.some(type => type === 'country')) {
         description.country = component.short_name
+      }
+      if (component.types.some(type => type === 'administrative_area_level_1')) {
+        description.area = component.short_name
+      }
+      if (component.types.some(type => type === 'locality')) {
+        description.locality = component.short_name
       }
     })
     return description
@@ -61,10 +69,12 @@ export default function Home() {
           setSearchData({ cityName: suggest.cityName, method: 'city name' })
         } else console.log('avoiding unnecessary fetch')
       } else if ('location' in suggest) {
+        console.log('suggest: ', suggest)
         const lat = suggest.location.lat
         const lng = suggest.location.lng
         console.log(lat, lng)
         const description = getDescription(suggest)
+        console.log('description: ', description)
         const method = 'geographic coordinates'
         setFavourite(isFavourite({ lat, lng, description }))
         setSearchData({ lat, lng, description, method })
@@ -117,10 +127,11 @@ export default function Home() {
     setSearchComplete(true)
   }
 
-  const handleDeleteFavourites = () => {
+  const handleDeleteFavourites = ({modalRef}) => {
     localStorage.setItem('weatherAppFavouritesList', null)
     setFavouritesList([])
     setFavourite(false)
+    setShowModal(false)
   }
 
   useEffect(() => {
@@ -169,19 +180,20 @@ export default function Home() {
   return (
     <Context.Provider value={{ favourite }}>
       <SEO title='Weather App' description='The ultimate weather app!' />
-      <Modal handleDeleteFavourites={handleDeleteFavourites} />
+      <ModalWindow handleDeleteFavourites={handleDeleteFavourites} showModal={showModal} setShowModal={setShowModal} />
       <div className='container'>
         <div className='row mt-1'>
-          <div className='col-11 mx-auto my-3'>
+          <div className='col-12 mx-auto my-3'>
             <Favourites
               favouritesList={favouritesList}
               handleClickFavourite={handleClickFavourite}
+              setShowModal={setShowModal}
             />
           </div>
         </div>
 
         <div className='row mt-5'>
-          <div className='col-11 mx-auto my-3'>
+          <div className='col-12 mx-auto my-3'>
             <Fade delay={300} duration={2000}>
               <h1 className='text-center display-5'>Weather Forecast</h1>
             </Fade>
@@ -189,7 +201,7 @@ export default function Home() {
         </div>
 
         <div className='row'>
-          <div className='col-11 col-md-5 mx-auto mt-3 mb-5'>
+          <div className='col-12 col-md-5 mx-auto mt-3 mb-5'>
             <Fade delay={600} duration={2000}>
               <Search onSuggestSelect={onSuggestSelect} />
             </Fade>
@@ -197,7 +209,7 @@ export default function Home() {
         </div>
 
         <div className='row'>
-          <div className='col-11 mx-auto'>
+          <div className='col-12 mx-auto'>
             {searchComplete ? (
               <Weather
                 searchData={searchData}

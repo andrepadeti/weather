@@ -5,7 +5,7 @@ import SwipeMessage from './swipe-message'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-const Favourites = ({ favouritesList, handleClickFavourite }) => {
+const Favourites = ({ favouritesList, handleClickFavourite, setShowModal }) => {
   const [scrollPosition, setScrollPosition] = useState('start')
 
   const handleScroll = e => {
@@ -22,7 +22,7 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
   }
 
   return (
-    <div>
+    <article>
       <div className='d-flex justify-content-center'>
         <h3 className='fw-light'>
           Favourites
@@ -31,9 +31,7 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
               icon={faTrashAlt}
               className='ms-3'
               size='xs'
-              // onClick={handleDeleteFavourites}
-              data-bs-toggle='modal'
-              data-bs-target='#modalDeleteFavourites'
+              onClick={() => setShowModal(true)}
             />
           )}
         </h3>
@@ -42,7 +40,7 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
       {favouritesList.length > 0 ? (
         <>
           <div
-            className='mt-3 mb-2 hide-scrollbar text-center'
+            className='mt-3 hide-scrollbar text-center'
             style={{
               // height: '20vh',
               overflowX: 'scroll',
@@ -54,9 +52,9 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
             {favouritesList.map((favourite, index) => (
               <div
                 key={index}
-                className='card d-inline-block me-1 opaque bg-gradient text-center rounded'
-                style={{ width: '10rem' }}
-                onClick={() => handleClickFavourite(favourite)}
+                className='card d-inline-block me-1 opaque bg-gradient text-center fs-7 rounded'
+                style={{ width: '8rem' }}
+                onClick={handleClickFavourite}
               >
                 <div className='card-body '>
                   <p className='mb-0 text-truncate'>
@@ -78,11 +76,11 @@ const Favourites = ({ favouritesList, handleClickFavourite }) => {
           )}
         </>
       ) : (
-        <div className='text-center'>
+        <div className='text-center fs-7'>
           <p>You don't have any favourites yet</p>
         </div>
       )}
-    </div>
+    </article>
   )
 }
 

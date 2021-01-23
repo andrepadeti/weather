@@ -1,4 +1,4 @@
-@appid = 37...
+@appid = 37b8d0268ebe8dabb0ae4105010a97d1
 http://api.openweathermap.org/geo/1.0/reverse?lat=-16.1860956&lon=-38.97868640000001&limit=5&appid={{appid}}
 
 ###
@@ -7,4 +7,4 @@ https://api.openweathermap.org/data/2.5/weather?q=São Caetano do Sul&appid={{ap
 
 ###
 
-http://api.openweathermap.org/geo/1.0/direct?q=Santa Helena&limit=5&appid={{appid}}
+http://api.openweathermap.org/geo/1.0/direct?q=bagda&limit=10&appid={{appid}}

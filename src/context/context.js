@@ -1,3 +1,3 @@
-import React, {createContext} from 'react'
+import { createContext } from 'react'
 let Context = createContext(null)
 export default Context

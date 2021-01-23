@@ -9,17 +9,17 @@ import {
 const SwipeMessage = ({ scrollPosition }) => {
   return (
     <div style={{ height: '1rem' }}>
-      <div className='d-flex align-items-center text-white'>
+      <div className='d-flex  text-white'>
         {scrollPosition !== 'start' && (
           <div className='me-auto' style={{ width: '1rem' }}>
-            <FontAwesomeIcon icon={faAngleDoubleLeft} className='me-3' />
+            <FontAwesomeIcon icon={faAngleDoubleLeft}  />
           </div>
         )}
         {/* Swipe */}
         <HeadShake delay={500} duration={2000}>
           <div className='ms-auto' style={{ width: '1rem' }}>
             {scrollPosition !== 'end' && (
-              <FontAwesomeIcon icon={faAngleDoubleRight} className='ms-3' />
+              <FontAwesomeIcon icon={faAngleDoubleRight} />
             )}
           </div>
         </HeadShake>

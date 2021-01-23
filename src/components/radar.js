@@ -7,20 +7,12 @@ const A = () => {
 }
 
 const Radar = ({ lat, lng }) => {
-  // All these useStates and useEffect are just naïve attempts to stop iframe from mounting
-  // uneccessarily, thus avoiding overusing rainviewer
-
   const [showRadarDetails, setShowRadarDetails] = useState(false)
   const [mountIFrame, setMountIFrame] = useState(false)
 
   useEffect(() => {
     showRadarDetails ? setMountIFrame(true) : setMountIFrame(false)
   }, [lat])
-
-  const triggerShowRadarDetails = () => {
-    setShowRadarDetails(!showRadarDetails)
-    setMountIFrame(true)
-  }
 
   return (
     <>
@@ -32,7 +24,7 @@ const Radar = ({ lat, lng }) => {
               className='form-check-input'
               type='checkbox'
               checked={showRadarDetails}
-              onChange={triggerShowRadarDetails}
+              onChange={() => setShowRadarDetails(!showRadarDetails)}
               value=''
               id='showRadarDetails'
             />
@@ -44,19 +36,15 @@ const Radar = ({ lat, lng }) => {
 
         <Fade left in={showRadarDetails} mountOnEnter={true} collapse>
           <div style={{ height: '50vh' }}>
-            {mountIFrame && (
-              <>
-                <iframe
-                  title='Radar rain map'
-                  src={`https://www.rainviewer.com/map.html?loc=${lat},${lng},8&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&rmt=3&c=1&o=83&lm=0&th=1&sm=1&sn=1`}
-                  width='100%'
-                  frameBorder='0'
-                  style={{ height: '50vh' }}
-                  allowFullScreen
-                ></iframe>
-                <A />
-              </>
-            )}
+            <iframe
+              title='Radar rain map'
+              src={`https://www.rainviewer.com/map.html?loc=${lat},${lng},8&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&rmt=3&c=1&o=83&lm=0&th=1&sm=1&sn=1`}
+              width='100%'
+              frameBorder='0'
+              style={{ height: '50vh' }}
+              allowFullScreen
+            ></iframe>
+            <A />
           </div>
         </Fade>
       </article>

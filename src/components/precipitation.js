@@ -10,6 +10,9 @@ import {
   Label,
 } from 'recharts'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChartLine, faChartBar } from '@fortawesome/free-solid-svg-icons'
+
 const Ticks = props => {
   // eslint-disable-next-line
   const { x, y, stroke, fill, payload, index, visibleTicksCount } = props
@@ -18,7 +21,7 @@ const Ticks = props => {
       {/* show first and last ticks only: */}
       {(index === 0 || index === visibleTicksCount - 1) && (
         <g transform={`translate(${x},${y})`}>
-          <Text x={0} y={0} dy={16} textAnchor='end' fill={fill}>
+          <Text x={15} y={0} dy={16} textAnchor='end' fill={fill}>
             {payload.value}
           </Text>
         </g>
@@ -28,7 +31,7 @@ const Ticks = props => {
 }
 
 const Precipitation = ({ data, timezone }) => {
-  const colour = 'white' 
+  const colour = 'white'
   const [showPrecipitationDetails, setShowPrecipitationDetails] = useState(
     false
   )
@@ -62,6 +65,11 @@ const Precipitation = ({ data, timezone }) => {
                   : '< 1'
               } mm`}
             </div>
+            <div>
+          <FontAwesomeIcon icon={faChartLine} className='me-1' />
+          mm per hour
+          <br />
+        </div>
 
             <div className='form-check'>
               <input
@@ -89,7 +97,7 @@ const Precipitation = ({ data, timezone }) => {
                 <AreaChart
                   data={formattedData}
                   stackOffset='silhouette'
-                  margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+                  margin={{ top: 0, right: 0, left: -35, bottom: 0 }}
                 >
                   <defs>
                     <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
@@ -97,11 +105,11 @@ const Precipitation = ({ data, timezone }) => {
                       <stop offset='95%' stopColor={colour} stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <YAxis allowDecimals={false} domain={[0, 'auto']} stroke={colour}>
-                    <Label fill={colour} angle={-90} dx={-10}>
-                      mm
-                    </Label>
-                  </YAxis>
+                  <YAxis
+                    allowDecimals={false}
+                    domain={[0, 'auto']}
+                    stroke={colour}
+                  />
                   <XAxis dataKey='name' tick={<Ticks />} stroke={colour} />
                   <Area
                     type='monotone'
