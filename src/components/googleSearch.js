@@ -1,8 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useRef, useContext } from 'react'
 import Geosuggest from 'react-geosuggest'
+import Context from '../context/context'
 
-const Search = props => {
-  // console.log(props)
+const Search = () => {
+  let { onSuggestSelect } = useContext(Context)
   const geosuggestEl = useRef(null)
 
   return (
@@ -11,7 +12,7 @@ const Search = props => {
         ref={geosuggestEl}
         types={['(cities)']}
         placeDetailField={['formatted_address']}
-        onSuggestSelect={props.onSuggestSelect}
+        onSuggestSelect={onSuggestSelect}
         autoActivateFirstSuggest={true}
         inputClassName='input'
         suggestsClassName='suggests'

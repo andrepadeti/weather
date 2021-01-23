@@ -6,6 +6,7 @@ import { getCityFromGeolocation } from '../utils/api'
 
 // component imports
 import SEO from '../components/seo'
+import Navigation from '../components/navigation'
 import Search from '../components/googleSearch'
 // import Search from "../components/typeaheadSearch"
 // import Search from '../components/simpleSearch'
@@ -26,7 +27,6 @@ export default function Home() {
       ? JSON.parse(localStorage.getItem('weatherAppFavouritesList')) || [] // if null, set to empty array
       : []
   )
-  
 
   const isFavourite = ({ lat, lng, description }) => {
     if (!favouritesList) return false
@@ -45,7 +45,9 @@ export default function Home() {
       if (component.types.some(type => type === 'country')) {
         description.country = component.short_name
       }
-      if (component.types.some(type => type === 'administrative_area_level_1')) {
+      if (
+        component.types.some(type => type === 'administrative_area_level_1')
+      ) {
         description.area = component.short_name
       }
       if (component.types.some(type => type === 'locality')) {
@@ -127,7 +129,7 @@ export default function Home() {
     setSearchComplete(true)
   }
 
-  const handleDeleteFavourites = ({modalRef}) => {
+  const handleDeleteFavourites = ({ modalRef }) => {
     localStorage.setItem('weatherAppFavouritesList', null)
     setFavouritesList([])
     setFavourite(false)
@@ -178,11 +180,23 @@ export default function Home() {
   }, [])
 
   return (
-    <Context.Provider value={{ favourite }}>
+    <Context.Provider
+      value={{
+        // who uses it:
+        favourite, // City
+        onSuggestSelect, // Search
+        favouritesList, handleClickFavourite, setShowModal // Favourites
+      }}
+    >
       <SEO title='Weather App' description='The ultimate weather app!' />
-      <ModalWindow handleDeleteFavourites={handleDeleteFavourites} showModal={showModal} setShowModal={setShowModal} />
+      <Navigation />
+      <ModalWindow
+        handleDeleteFavourites={handleDeleteFavourites}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
       <div className='container'>
-        <div className='row mt-1'>
+        <div className='row mt-1 d-none d-md-block'>
           <div className='col-12 mx-auto my-3'>
             <Favourites
               favouritesList={favouritesList}
@@ -192,7 +206,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className='row mt-5'>
+        <div className='row mt-4'>
           <div className='col-12 mx-auto my-3'>
             <Fade delay={300} duration={2000}>
               <h1 className='text-center display-5'>Weather Forecast</h1>
@@ -201,7 +215,7 @@ export default function Home() {
         </div>
 
         <div className='row'>
-          <div className='col-12 col-md-5 mx-auto mt-3 mb-5'>
+          <div className='col-12 col-md-5 mx-auto mt-3 mb-5 d-none d-md-block'>
             <Fade delay={600} duration={2000}>
               <Search onSuggestSelect={onSuggestSelect} />
             </Fade>

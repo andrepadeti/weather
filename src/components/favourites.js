@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-
+import React, { useState, useContext } from 'react'
+import Context from '../context/context'
 import SwipeMessage from './swipe-message'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
-const Favourites = ({ favouritesList, handleClickFavourite, setShowModal }) => {
+const Favourites = () => {
+  let { favouritesList, handleClickFavourite, setShowModal } = useContext(Context)
   const [scrollPosition, setScrollPosition] = useState('start')
 
   const handleScroll = e => {
@@ -54,7 +55,13 @@ const Favourites = ({ favouritesList, handleClickFavourite, setShowModal }) => {
                 key={index}
                 className='card d-inline-block me-1 opaque bg-gradient text-center fs-7 rounded'
                 style={{ width: '8rem' }}
-                onClick={handleClickFavourite}
+                onClick={() =>
+                  handleClickFavourite({
+                    lat: favourite.lat,
+                    lng: favourite.lng,
+                    description: favourite.description,
+                  })
+                }
               >
                 <div className='card-body '>
                   <p className='mb-0 text-truncate'>
