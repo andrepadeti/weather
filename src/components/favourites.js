@@ -29,7 +29,7 @@ const Favourites = ({ favouritesList, handleClickFavourite, setShowModal }) => {
           {favouritesList.length > 0 && (
             <FontAwesomeIcon
               icon={faTrashAlt}
-              className='ms-3'
+              className='ms-3 icon'
               size='xs'
               onClick={() => setShowModal(true)}
             />

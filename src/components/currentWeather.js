@@ -38,11 +38,9 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
           </div>
         </Pulse>
 
-        <header className='mt-5'>
-          <h3>Currently</h3>
-        </header>
 
         <div className='text-center py-2 flex-fill'>
+          <h3 className='fw-light mt-5 mt-md-0'>Currently</h3>
           <Fade left spy={currentData} cascade duration={300}>
             {/* These extra divs are the cascade effect requirement */}
             <div>
