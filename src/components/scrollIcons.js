@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import HeadShake from 'react-reveal/HeadShake'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -6,13 +6,29 @@ import {
   faAngleDoubleLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
-const SwipeMessage = ({ scrollPosition }) => {
+const ScrollIcons = ({ scrollEvent }) => {
+  const [scrollPosition, setScrollPosition] = useState('start')
+  const threshold = 15 // number of pixels to consider the start and end of scrolling
+
+  useEffect(() => {
+    if (!scrollEvent) {
+      setScrollPosition('start')
+    } else if (scrollEvent.target.scrollLeft < threshold) {
+      setScrollPosition('start')
+    } else if (
+      scrollEvent.target.scrollWidth - scrollEvent.target.scrollLeft <=
+      scrollEvent.target.clientWidth + threshold
+    ) {
+      setScrollPosition('end')
+    } else setScrollPosition('middle')
+  }, [scrollEvent])
+
   return (
     <div style={{ height: '1rem' }}>
       <div className='d-flex  text-white'>
         {scrollPosition !== 'start' && (
           <div className='me-auto' style={{ width: '1rem' }}>
-            <FontAwesomeIcon icon={faAngleDoubleLeft}  />
+            <FontAwesomeIcon icon={faAngleDoubleLeft} />
           </div>
         )}
         {/* Swipe */}
@@ -28,4 +44,4 @@ const SwipeMessage = ({ scrollPosition }) => {
   )
 }
 
-export default SwipeMessage
+export default ScrollIcons

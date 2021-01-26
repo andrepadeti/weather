@@ -1,18 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Fade from 'react-reveal/Fade'
 
-const A = () => {
-  console.log('iframe')
-  return null
-}
-
 const Radar = ({ lat, lng }) => {
   const [showRadarDetails, setShowRadarDetails] = useState(false)
-  const [mountIFrame, setMountIFrame] = useState(false)
-
-  useEffect(() => {
-    showRadarDetails ? setMountIFrame(true) : setMountIFrame(false)
-  }, [lat])
 
   return (
     <>
@@ -44,7 +34,7 @@ const Radar = ({ lat, lng }) => {
               style={{ height: '50vh' }}
               allowFullScreen
             ></iframe>
-            <A />
+            {console.log('iframe')}
           </div>
         </Fade>
       </article>

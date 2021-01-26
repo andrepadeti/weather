@@ -30,11 +30,11 @@ export const CurrentTemperature = ({ current, min, max }) => {
   return (
     <div className='d-flex flex-column justify-content-start'>
       <div className='d-flex'>
-        {/* <i className='wi wi-thermometer' /> */}
         <div style={{ fontSize: '5rem' }} className='lh-1'>
           {Math.round(current)}
         </div>
-        <div className='align-self-center'>°C</div>
+        {/* <div className='align-self-center'>°C</div> */}
+        <div className='align-self-center fs-2'><i className='wi wi-celsius'/></div>
       </div>
       {min && max && (
         <div className='d-flex justify-content-start'>
@@ -69,7 +69,9 @@ export const Wind = ({ data }) => {
     <div>
       <i className='wi wi-strong-wind me-2 icon' />
       {Math.round(data.wind_speed)} km/h
-      <i className={`wi wi-wind towards-${data.wind_deg % 360}-deg ms-1 icon`} />
+      <i
+        className={`wi wi-wind towards-${data.wind_deg % 360}-deg ms-1 icon`}
+      />
     </div>
   )
 }
@@ -123,7 +125,7 @@ export const UVI = ({ data }) => {
   )
 }
 
-export const Daytime = ({ sunrise, sunset, timezone }) => {
+export const Daytime = ({ sunrise, sunset, timezone, ...rest }) => {
   const getFormattedTime = epoch => {
     epoch *= 1000
     const options = {
@@ -137,7 +139,7 @@ export const Daytime = ({ sunrise, sunset, timezone }) => {
   }
 
   return (
-    <div>
+    <div {...rest}>
       <i className='wi wi-sunrise icon' />
       {` ${getFormattedTime(sunrise)} - `}
       {`${getFormattedTime(sunset)} `}

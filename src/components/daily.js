@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { isToday, isTomorrow } from 'date-fns'
 
-import SwipeMessage from './swipe-message'
+import ScrollIcons from './scrollIcons'
 
 import { Icon } from './itemsWeather'
 import { MaxTemperature } from './itemsWeather'
@@ -15,7 +15,7 @@ import { Rain } from './itemsWeather'
 import { UVI } from './itemsWeather'
 
 const Daily = ({ data, timezone }) => {
-  const [scrollPosition, setScrollPosition] = useState('start')
+  const [scrollEvent, setScrollEvent] = useState(null)
 
   const getWeekDay = epoch => {
     const weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
@@ -26,19 +26,6 @@ const Daily = ({ data, timezone }) => {
     } else if (isTomorrow(date)) {
       return 'Tomorrow'
     } else return weekday[date.getDay()]
-  }
-
-  const handleScroll = e => {
-    const threshold = 15 // number of pixels to consider the start and end of scrolling
-
-    if (e.target.scrollLeft < threshold) {
-      setScrollPosition('start')
-    } else if (
-      e.target.scrollWidth - e.target.scrollLeft <=
-      e.target.clientWidth + threshold
-    ) {
-      setScrollPosition('end')
-    } else setScrollPosition('middle')
   }
 
   return (
@@ -56,7 +43,9 @@ const Daily = ({ data, timezone }) => {
           overflowY: 'hidden',
           whiteSpace: 'nowrap',
         }}
-        onScroll={e => handleScroll(e)}
+        onScroll={e => {
+          e.persist()
+          setScrollEvent(e)}}
       >
         {data.map((day, index) => (
           <div
@@ -84,7 +73,7 @@ const Daily = ({ data, timezone }) => {
         ))}
       </div>
 
-      <SwipeMessage scrollPosition={scrollPosition} />
+      <ScrollIcons scrollEvent={scrollEvent} />
     </article>
   )
 }

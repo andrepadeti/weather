@@ -6,10 +6,7 @@ import Fade from 'react-reveal/Fade'
 
 const Navigation = () => {
   return (
-    <nav
-      className='navbar navbar-expand-lg navbar-dark d-md-none'
-      style={{ background: '$background' }}
-    >
+    <nav className='navbar navbar-expand-lg navbar-dark navbar-background d-md-none'>
       <div className='container-fluid'>
         {/* <a className='navbar-brand' href='#'>
           Weather Forecast

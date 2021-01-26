@@ -9,8 +9,9 @@ import {
   Text,
   Label,
 } from 'recharts'
+import { throttle } from 'lodash'
 
-import SwipeMessage from './swipe-message'
+import ScrollIcons from './scrollIcons'
 
 // icons to be used in the legend
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -27,7 +28,7 @@ const Ticks = props => {
         index === visibleTicksCount - 1 ||
         parseInt(payload.value) % 2 === 0) && (
         <g transform={`translate(${x},${y})`}>
-          <Text x={0} y={0} dy={16} textAnchor='end' fill={stroke}>
+          <Text x={8} y={0} dy={16} textAnchor='end' fill={stroke}>
             {payload.value}
           </Text>
         </g>
@@ -96,7 +97,7 @@ const BarLabel = props => {
 const Hourly = ({ data, timezone }) => {
   const lineColour = 'white'
   const barColour = { stroke: 'grey', fill: 'grey', label: 'gainsboro' }
-  const [scrollPosition, setScrollPosition] = useState('start')
+  const [scrollEvent, setScrollEvent] = useState(null)
 
   const timeZone = timezone
   const formattedData = data.map(item => {
@@ -112,19 +113,6 @@ const Hourly = ({ data, timezone }) => {
     const rain = item.rain ? item.rain['1h'] : 0
     return { name: time, temp: item.temp, rain }
   })
-
-  const handleScroll = e => {
-    const threshold = 15 // number of pixels to consider the start and end of scrolling
-
-    if (e.target.scrollLeft < threshold) {
-      setScrollPosition('start')
-    } else if (
-      e.target.scrollWidth - e.target.scrollLeft <=
-      e.target.clientWidth + threshold
-    ) {
-      setScrollPosition('end')
-    } else setScrollPosition('middle')
-  }
 
   return (
     <article className='my-5'>
@@ -148,7 +136,10 @@ const Hourly = ({ data, timezone }) => {
           overflowY: 'hidden',
           whiteSpace: 'nowrap',
         }}
-        onScroll={e => handleScroll(e)}
+        onScroll={e => {
+          e.persist()
+          setScrollEvent(e)
+        }}
       >
         <ResponsiveContainer height='100%' width='300%'>
           <ComposedChart
@@ -161,8 +152,8 @@ const Hourly = ({ data, timezone }) => {
               orientation='left'
               allowDecimals={false}
               domain={[
-                dataMin => Math.floor(dataMin) - 2,
-                dataMax => Math.ceil(dataMax) + 2,
+                dataMin => Math.floor(dataMin) - 3,
+                dataMax => Math.ceil(dataMax) + 3,
               ]}
               hide={true}
             >
@@ -172,11 +163,11 @@ const Hourly = ({ data, timezone }) => {
             </YAxis>
             <YAxis
               yAxisId='right'
-              label={{ value: 'mm', stroke: 'white', angle: -90 }}
               orientation='right'
               allowDecimals={false}
+              domain={[0, dataMax => Math.floor((dataMax + 1) * 1.5)]}
               hide={true}
-              domain={[0, dataMax => Math.floor(dataMax * 2)]}
+              label={{ value: 'mm', stroke: 'white', angle: -90 }}
             />
             <XAxis
               dataKey='name'
@@ -206,7 +197,7 @@ const Hourly = ({ data, timezone }) => {
         </ResponsiveContainer>
       </div>
 
-      <SwipeMessage scrollPosition={scrollPosition} />
+      <ScrollIcons scrollEvent={scrollEvent}/>
     </article>
   )
 }

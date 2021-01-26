@@ -23,26 +23,28 @@ $font-sizes: (
 
 // my variables
 $background: rgb(0, 92, 92);
-$fontColor: white;
+$navBackground: rgb(17, 78, 78);
+$iconColour: rgb(159, 180, 180);
+$fontColour: white;
 
-$newcolor: $background;
+$newcolour: $background;
 .btn-primary {
   @include button-variant(
-    $newcolor,
-    darken($newcolor, 7.5%),
-    darken($newcolor, 10%),
-    lighten($newcolor, 5%),
-    lighten($newcolor, 10%),
-    darken($newcolor, 30%)
+    $newcolour,
+    darken($newcolour, 7.5%),
+    darken($newcolour, 10%),
+    lighten($newcolour, 5%),
+    lighten($newcolour, 10%),
+    darken($newcolour, 30%)
   );
 }
 
 .btn-outline-primary {
   @include button-outline-variant(
-    $newcolor,
+    $newcolour,
     #222222,
-    lighten($newcolor, 5%),
-    $newcolor
+    lighten($newcolour, 5%),
+    $newcolour
   );
 }
 
@@ -50,7 +52,7 @@ body {
   @extend .fw-light;
   // background: radial-gradient(circle at bottom, navy 0, black 100%);
   background: $background;
-  color: $fontColor;
+  color: $fontColour;
   // height: 100vh;
   min-height: 100vh;
   overflow-x: hidden;
@@ -119,5 +121,9 @@ header {
 }
 
 .icon {
-  color: darken($fontColor, 30%);
+  color: $iconColour;
+}
+
+.navbar-background {
+  background: $navBackground;
 }

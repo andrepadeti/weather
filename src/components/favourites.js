@@ -1,26 +1,15 @@
 import React, { useState, useContext } from 'react'
 import Context from '../context/context'
-import SwipeMessage from './swipe-message'
+import ScrollIcons from './scrollIcons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Favourites = () => {
-  let { favouritesList, handleClickFavourite, setShowModal } = useContext(Context)
-  const [scrollPosition, setScrollPosition] = useState('start')
-
-  const handleScroll = e => {
-    const threshold = 15 // number of pixels to consider the start and end of scrolling
-
-    if (e.target.scrollLeft < threshold) {
-      setScrollPosition('start')
-    } else if (
-      e.target.scrollWidth - e.target.scrollLeft <=
-      e.target.clientWidth + threshold
-    ) {
-      setScrollPosition('end')
-    } else setScrollPosition('middle')
-  }
+  let { favouritesList, handleClickFavourite, setShowModal } = useContext(
+    Context
+  )
+  const [scrollEvent, setScrollEvent] = useState(null)
 
   return (
     <article>
@@ -48,7 +37,9 @@ const Favourites = () => {
               overflowY: 'hidden',
               whiteSpace: 'nowrap',
             }}
-            onScroll={e => handleScroll(e)}
+            onScroll={e => {
+              e.persist()
+              setScrollEvent(e)}}
           >
             {favouritesList.map((favourite, index) => (
               <div
@@ -77,7 +68,7 @@ const Favourites = () => {
           </div>
           {/* // TODO: don't show swipe message if not enough cards to swipe */}
           {favouritesList.length > 2 ? (
-            <SwipeMessage scrollPosition={scrollPosition} />
+            <ScrollIcons scrollEvent={scrollEvent} />
           ) : (
             <div style={{ width: '1rem' }} />
           )}

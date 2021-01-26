@@ -14,7 +14,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
   return (
     <>
       <article className='d-flex flex-column flex-md-row justify-content-md-evenly'>
-        <Pulse spy={currentData} appear>
+        <Fade spy={currentData} appear>
           <div className='d-flex justify-content-evenly align-items-center mb-3 flex-fill'>
             {currentData.weather.map((weather, index) => (
               <div
@@ -25,6 +25,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
               >
                 {/* TODO try to make use of weather-icons instead of ow */}
                 <i className={`owf owf-${weather.id} owf-4x`}></i>
+                {/* <img src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} /> */}
                 <div className='description text-center'>
                   {weather.description}
                 </div>
@@ -36,39 +37,26 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
               max={dayData.temp.max}
             />
           </div>
-        </Pulse>
-
+          <Daytime
+            sunrise={currentData.sunrise}
+            sunset={currentData.sunset}
+            timezone={timezone}
+            className='text-center fs-4'
+          />
+        </Fade>
 
         <div className='text-center py-2 flex-fill'>
-          <h3 className='fw-light mt-5 mt-md-0'>Currently</h3>
-          <Fade left spy={currentData} cascade duration={300}>
-            {/* These extra divs are the cascade effect requirement */}
-            <div>
-              <div>
-                <Pressure data={currentData.pressure} />
-              </div>
-              <div>
-                <Wind
-                  data={{
-                    wind_speed: currentData.wind_speed,
-                    wind_deg: currentData.wind_deg,
-                  }}
-                />
-              </div>
-              <div>
-                <Humidity data={currentData.humidity} />
-              </div>
-              <div>
-                <UVI data={currentData.uvi} />
-              </div>
-              <div>
-                <Daytime
-                  sunrise={currentData.sunrise}
-                  sunset={currentData.sunset}
-                  timezone={timezone}
-                />
-              </div>
-            </div>
+          <Fade spy={currentData} appear delay={400}>
+            <h3 className='fw-light mt-5 mt-md-0'>Currently</h3>
+            <Pressure data={currentData.pressure} />
+            <Wind
+              data={{
+                wind_speed: currentData.wind_speed,
+                wind_deg: currentData.wind_deg,
+              }}
+            />
+            <Humidity data={currentData.humidity} />
+            <UVI data={currentData.uvi} />
           </Fade>
         </div>
       </article>
