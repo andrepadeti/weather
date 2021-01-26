@@ -1,5 +1,7 @@
 import React from 'react'
 import Search from '../components/googleSearch'
+// import Search from "../components/typeaheadSearch"
+// import Search from '../components/simpleSearch'
 import Favourites from '../components/favourites'
 
 import Fade from 'react-reveal/Fade'
@@ -7,7 +9,7 @@ import Fade from 'react-reveal/Fade'
 const Navigation = () => {
   return (
     <nav className='navbar navbar-dark navbar-background'>
-      <div className='container-fluid' style={{maxWidth: '600px'}}>
+      <div className='container-fluid' style={{ maxWidth: '600px' }}>
         {/* <a className='navbar-brand' href='#'>
           Weather Forecast
         </a> */}
@@ -30,7 +32,7 @@ const Navigation = () => {
               </div>
             </div>
             <div className='row'>
-              <div className='col-12 mx-auto mt-3 mb-5'>
+              <div className='col-12 mx-auto my-4'>
                 <Search />
               </div>
             </div>

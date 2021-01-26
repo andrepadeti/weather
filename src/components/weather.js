@@ -10,12 +10,13 @@ import Hourly from './hourly'
 import Daily from './daily'
 import Radar from './radar'
 
-const Weather = ({ searchData, method, handleMarkFavourite }) => {
+const Weather = ({ searchData, handleMarkFavourite }) => {
   const [weather, setWeather] = useState()
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoaded(false)
       const response = await getWeather(searchData, searchData.method)
       if (response.error) {
         alert("Couldn't fetch!")
@@ -24,15 +25,15 @@ const Weather = ({ searchData, method, handleMarkFavourite }) => {
         setLoaded(true)
       }
     }
-    setLoaded(false)
     fetchData()
     // console.log(searchData)
-  }, [searchData, method])
+  }, [searchData])
 
   return (
     <>
       <City
         cityName={searchData.description.cityName}
+        area={searchData.description.area}
         country={searchData.description.country}
         handleMarkFavourite={handleMarkFavourite}
       />

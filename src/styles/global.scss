@@ -58,6 +58,7 @@ body {
   overflow-x: hidden;
 }
 
+// .hide-scrollbar on mobile-size screens only
 @media only screen and (max-width: 576px) {
   .hide-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */

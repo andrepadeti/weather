@@ -39,13 +39,16 @@ const Favourites = () => {
             }}
             onScroll={e => {
               e.persist()
-              setScrollEvent(e)}}
+              setScrollEvent(e)
+            }}
           >
             {favouritesList.map((favourite, index) => (
               <div
                 key={index}
                 className='card d-inline-block me-1 opaque bg-gradient text-center fs-7 rounded'
                 style={{ width: '8rem' }}
+                data-bs-toggle='collapse'
+                data-bs-target='#navbarSupportedContent'
                 onClick={() =>
                   handleClickFavourite({
                     lat: favourite.lat,

@@ -34,7 +34,9 @@ export const CurrentTemperature = ({ current, min, max }) => {
           {Math.round(current)}
         </div>
         {/* <div className='align-self-center'>°C</div> */}
-        <div className='align-self-center fs-2'><i className='wi wi-celsius'/></div>
+        <div className='align-self-center fs-2'>
+          <i className='wi wi-celsius' />
+        </div>
       </div>
       {min && max && (
         <div className='d-flex justify-content-start'>

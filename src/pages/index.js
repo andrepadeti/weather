@@ -2,17 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Context from '../context/context'
 
 // function imports
-import { getCityFromGeolocation } from '../utils/api'
+import { getCityFromGeolocation, getCityNameAndCountry } from '../utils/api'
 
 // component imports
 import SEO from '../components/seo'
 import Navigation from '../components/navigation'
-import Search from '../components/googleSearch'
-// import Search from "../components/typeaheadSearch"
-// import Search from '../components/simpleSearch'
 import ModalWindow from '../components/modal'
 import Weather from '../components/weather'
-import Favourites from '../components/favourites'
 import Loading from '../components/loading'
 
 import Fade from 'react-reveal/Fade'
@@ -37,28 +33,7 @@ export default function Home() {
     )
   }
 
-  const getDescription = suggest => {
-    const fullDescription = suggest.gmaps.address_components
-    let description = {}
-    description.cityName = fullDescription[0].long_name
-    fullDescription.forEach(component => {
-      if (component.types.some(type => type === 'country')) {
-        description.country = component.short_name
-      }
-      if (
-        component.types.some(type => type === 'administrative_area_level_1')
-      ) {
-        description.area = component.short_name
-      }
-      if (component.types.some(type => type === 'locality')) {
-        description.locality = component.short_name
-      }
-    })
-    return description
-  }
-
   const onSuggestSelect = suggest => {
-    // console.log(JSON.stringify(suggest))
     if (suggest) {
       if ('test' in suggest) {
         setSearchData({
@@ -71,12 +46,11 @@ export default function Home() {
           setSearchData({ cityName: suggest.cityName, method: 'city name' })
         } else console.log('avoiding unnecessary fetch')
       } else if ('location' in suggest) {
-        console.log('suggest: ', suggest)
         const lat = suggest.location.lat
         const lng = suggest.location.lng
-        console.log(lat, lng)
-        const description = getDescription(suggest)
-        console.log('description: ', description)
+        const description = suggest.gmaps
+          ? getCityNameAndCountry(suggest.gmaps.address_components)
+          : suggest.description
         const method = 'geographic coordinates'
         setFavourite(isFavourite({ lat, lng, description }))
         setSearchData({ lat, lng, description, method })
@@ -89,7 +63,7 @@ export default function Home() {
     }
   }
 
-  const handleMarkFavourite = (cityName, country) => {
+  const handleMarkFavourite = (cityName, area, country) => {
     let auxFavouritesList
     if (favourite) {
       // pull item from favourites list
@@ -99,6 +73,7 @@ export default function Home() {
       for (let i = 0; i < auxFavouritesList.length; i++) {
         if (
           auxFavouritesList[i].description.cityName === cityName &&
+          auxFavouritesList[i].description.area === area &&
           auxFavouritesList[i].description.country === country
         )
           auxFavouritesList.splice(i, 1) // remove the not-anymore-favourite city
@@ -139,40 +114,33 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if ('geolocation' in navigator) {
+        const success = async position => {
+          const lat = position.coords.latitude
+          const lng = position.coords.longitude
+          const method = 'geographic coordinates'
+          const response = await getCityFromGeolocation(lat, lng)
+          if (response.error) {
+            alert("Couldn't fetch current location")
+          } else {
+            onSuggestSelect({
+              location: { lat, lng },
+              description: response.description,
+            })
+          }
+        }
+
+        const error = () =>
+          alert(
+            'Please, allow location access so that next time I can show the weather forecast for your current location.'
+          )
+
         const options = {
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 0,
         }
 
-        navigator.geolocation.getCurrentPosition(
-          async position => {
-            const lat = position.coords.latitude
-            const lng = position.coords.longitude
-            console.log(lat, lng)
-            const method = 'geographic coordinates'
-            const response = await getCityFromGeolocation(lat, lng)
-            if (response.error) {
-              alert("Couldn't fetch current location")
-            } else {
-              setFavourite(
-                isFavourite({ lat, lng, description: response.description })
-              )
-              setSearchData({
-                lat,
-                lng,
-                description: response.description,
-                method,
-              })
-              setSearchComplete(true)
-            }
-          },
-          () =>
-            alert(
-              'Please, allow location access so that next time I can show the weather forecast for your current location.'
-            ),
-          options
-        )
+        navigator.geolocation.getCurrentPosition(success, error, options)
       }
     }
 
@@ -185,7 +153,9 @@ export default function Home() {
         // who uses it:
         favourite, // City
         onSuggestSelect, // Search
-        favouritesList, handleClickFavourite, setShowModal // Favourites
+        favouritesList,
+        handleClickFavourite,
+        setShowModal, // Favourites
       }}
     >
       <SEO title='Weather App' description='The ultimate weather app!' />
@@ -195,7 +165,7 @@ export default function Home() {
         showModal={showModal}
         setShowModal={setShowModal}
       />
-      <div className='container' style={{maxWidth: '600px'}}>
+      <div className='container' style={{ maxWidth: '600px' }}>
         <div className='row mt-4'>
           <div className='col-12 mx-auto my-3'>
             <Fade delay={300} duration={2000}>

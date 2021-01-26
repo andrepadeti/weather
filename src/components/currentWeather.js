@@ -15,7 +15,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
     <>
       <article className='d-flex flex-column'>
         <Fade spy={currentData} appear>
-          <div className='d-flex justify-content-evenly align-items-center mb-3 flex-fill'>
+          <div className='d-flex justify-content-evenly align-items-center mb-3'>
             {currentData.weather.map((weather, index) => (
               <div
                 key={index}
@@ -24,7 +24,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
                 // style={{ width: '5rem' }}
               >
                 {/* TODO try to make use of weather-icons instead of ow */}
-                <i className={`owf owf-${weather.id} owf-4x`}></i>
+                <i className={`owf owf-${weather.id} owf-4x text-center`}></i>
                 {/* <img src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} /> */}
                 <div className='description text-center'>
                   {weather.description}
@@ -45,7 +45,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
           />
         </Fade>
 
-        <div className='text-center py-2 flex-fill'>
+        <div className='text-center py-2'>
           <Fade spy={currentData} appear delay={400}>
             <h3 className='fw-light mt-5'>Currently</h3>
             <Pressure data={currentData.pressure} />
