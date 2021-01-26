@@ -195,29 +195,11 @@ export default function Home() {
         showModal={showModal}
         setShowModal={setShowModal}
       />
-      <div className='container'>
-        <div className='row mt-1 d-none d-md-block'>
-          <div className='col-12 mx-auto my-3'>
-            <Favourites
-              favouritesList={favouritesList}
-              handleClickFavourite={handleClickFavourite}
-              setShowModal={setShowModal}
-            />
-          </div>
-        </div>
-
+      <div className='container' style={{maxWidth: '600px'}}>
         <div className='row mt-4'>
           <div className='col-12 mx-auto my-3'>
             <Fade delay={300} duration={2000}>
               <h1 className='text-center display-5'>Weather Forecast</h1>
-            </Fade>
-          </div>
-        </div>
-
-        <div className='row'>
-          <div className='col-12 col-md-5 mx-auto mt-3 mb-5 d-none d-md-block'>
-            <Fade delay={600} duration={2000}>
-              <Search onSuggestSelect={onSuggestSelect} />
             </Fade>
           </div>
         </div>

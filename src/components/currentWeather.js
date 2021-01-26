@@ -13,7 +13,7 @@ import { Daytime } from './itemsWeather'
 const CurrentWeather = ({ currentData, dayData, timezone }) => {
   return (
     <>
-      <article className='d-flex flex-column flex-md-row justify-content-md-evenly'>
+      <article className='d-flex flex-column'>
         <Fade spy={currentData} appear>
           <div className='d-flex justify-content-evenly align-items-center mb-3 flex-fill'>
             {currentData.weather.map((weather, index) => (
@@ -47,7 +47,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
 
         <div className='text-center py-2 flex-fill'>
           <Fade spy={currentData} appear delay={400}>
-            <h3 className='fw-light mt-5 mt-md-0'>Currently</h3>
+            <h3 className='fw-light mt-5'>Currently</h3>
             <Pressure data={currentData.pressure} />
             <Wind
               data={{

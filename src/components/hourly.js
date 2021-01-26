@@ -124,7 +124,6 @@ const Hourly = ({ data, timezone }) => {
           Temperature in &#8451;
           <FontAwesomeIcon icon={faChartBar} className='ms-3 me-1' />
           Precipitation in mm
-          <br />
         </div>
       </header>
 
