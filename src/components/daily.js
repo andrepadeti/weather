@@ -45,7 +45,8 @@ const Daily = ({ data, timezone }) => {
         }}
         onScroll={e => {
           e.persist()
-          setScrollEvent(e)}}
+          setScrollEvent(e)
+        }}
       >
         {data.map((day, index) => (
           <div

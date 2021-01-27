@@ -22,10 +22,16 @@ $font-sizes: (
 @import 'bootstrap/scss/bootstrap.scss';
 
 // my variables
-$background: rgb(0, 92, 92);
-$navBackground: #114f4f;
-$iconColour: rgb(159, 180, 180);
-$fontColour: white;
+// $background: rgb(0, 92, 92);
+$background: whitesmoke;
+// $navBackground: #114f4f;
+$navBackground: darkslategrey;
+// $iconColour: rgb(159, 180, 180);
+$iconColour: darkslategrey;
+$fontColour: black;
+// $fontColour: white;
+$text-on-background: mintcream;
+$icon-on-background: lightcyan;
 
 $newcolour: $background;
 .btn-primary {
@@ -78,7 +84,7 @@ body {
 
 .geosuggest__item--active {
   background: $background;
-  color: #fff;
+  color: $fontColour;
 }
 
 .input {
@@ -127,6 +133,21 @@ header {
   color: $iconColour;
 }
 
+.icon-on-background {
+  color: $icon-on-background;
+}
+
 .navbar-background {
   background: $navBackground;
+}
+
+.weather-img {
+  // background-blend-mode: darken;
+  overflow: hidden;
+  border-radius: 10%;
+  // border: 2px thin solid;
+}
+
+.text-on-background {
+  color: $text-on-background;
 }

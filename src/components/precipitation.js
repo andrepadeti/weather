@@ -31,7 +31,7 @@ const Ticks = props => {
 }
 
 const Precipitation = ({ data, timezone }) => {
-  const colour = 'white'
+  const colour = 'lightslategrey'
   const [showPrecipitationDetails, setShowPrecipitationDetails] = useState(
     false
   )
@@ -66,10 +66,10 @@ const Precipitation = ({ data, timezone }) => {
               } mm`}
             </div>
             <div>
-          <FontAwesomeIcon icon={faChartLine} className='me-1' />
-          mm per hour
-          <br />
-        </div>
+              <FontAwesomeIcon icon={faChartLine} className='me-1' />
+              mm per hour
+              <br />
+            </div>
 
             <div className='form-check'>
               <input

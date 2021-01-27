@@ -19,7 +19,7 @@ const Favourites = () => {
           {favouritesList.length > 0 && (
             <FontAwesomeIcon
               icon={faTrashAlt}
-              className='ms-3 icon'
+              className='ms-3 icon-on-background'
               size='xs'
               onClick={() => setShowModal(true)}
             />
@@ -56,7 +56,7 @@ const Favourites = () => {
                 }
               >
                 <div className='card-body '>
-                  <p className='mb-0 text-truncate'>
+                  <p className='mb-0 text-truncate text-on-background'>
                     {favourite.description.cityName}
                     <br />
                     <span className='badge'>

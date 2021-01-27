@@ -3,24 +3,30 @@ import React from 'react'
 export const Icon = ({ data }) => {
   return (
     <div>
-      <i className={`owf owf-${data} owf-2x card-img-top mt-2`} />
+      <i className={`owf owf-${data} owf-3x card-img-top mt-2 icon`} />
     </div>
   )
 }
 
-export const MaxTemperature = ({ data, spacing = true }) => {
+export const MaxTemperature = ({ data, spacing = true, ...rest }) => {
+  const background = ('className' in rest) && (rest.className.includes('text-on-background'))
+  console.log('max: ', background)
+
   return (
-    <div>
-      <i className={`wi wi-direction-up me-${spacing ? '2' : '1'} icon`} />
+    <div {...rest}>
+      <i className={`wi wi-direction-up me-${spacing ? '2' : '1'} ${background ? 'icon-on-background' : 'icon'}`} />
       {Math.round(data)}&deg;
     </div>
   )
 }
 
 export const MinTemperature = ({ data, spacing = true, ...rest }) => {
+  const background = ('className' in rest) && (rest.className.includes('text-on-background'))
+  console.log('min: ', background)
+
   return (
     <div {...rest}>
-      <i className={`wi wi-direction-down me-${spacing ? '2' : '1'} icon`} />
+      <i className={`wi wi-direction-down me-${spacing ? '2' : '1'} ${background ? 'icon-on-background' : 'icon'}`} />
       {Math.round(data)}&deg;
     </div>
   )
@@ -28,20 +34,22 @@ export const MinTemperature = ({ data, spacing = true, ...rest }) => {
 
 export const CurrentTemperature = ({ current, min, max }) => {
   return (
-    <div className='d-flex flex-column justify-content-start'>
-      <div className='d-flex'>
-        <div style={{ fontSize: '5rem' }} className='lh-1'>
+    <div
+      className={`d-flex flex-column justify-content-start opaque px-2 pb-1`}
+    >
+      <div className='d-flex'> 
+        <div style={{ fontSize: '5rem' }} className='lh-1 text-on-background'>
           {Math.round(current)}
         </div>
         {/* <div className='align-self-center'>°C</div> */}
         <div className='align-self-center fs-2'>
-          <i className='wi wi-celsius' />
+          <i className='wi wi-celsius text-on-background' />
         </div>
       </div>
       {min && max && (
-        <div className='d-flex justify-content-start'>
-          <MinTemperature data={min} className='me-2' spacing={false} />
-          <MaxTemperature data={max} spacing={false} />
+        <div className='d-flex justify-content-center'>
+          <MinTemperature data={min} className='text-on-background me-2' spacing={false} />
+          <MaxTemperature data={max} className='text-on-background' spacing={false} />
         </div>
       )}
     </div>
@@ -90,16 +98,11 @@ export const Cloudiness = ({ data }) => {
 export const Rain = ({ data }) => {
   return (
     <div>
-      {data.pop > 0 ? (
-        <>
-          <i className='wi wi-rain me-2 icon' />
-          <span>
-            {Math.round(data.pop * 100)}% {data.rain && `${Math.round(data.rain)}mm`}
-          </span>
-        </>
-      ) : (
-        <>-</>
-      )}
+      <i className='wi wi-rain me-2 icon' />
+      <span>
+        {Math.round(data.pop * 100)}%{' '}
+        {data.rain && `${Math.round(data.rain)}mm`}
+      </span>
     </div>
   )
 }
@@ -141,11 +144,11 @@ export const Daytime = ({ sunrise, sunset, timezone, ...rest }) => {
   }
 
   return (
-    <div {...rest}>
-      <i className='wi wi-sunrise icon' />
+    <span {...rest}>
+      <i className='wi wi-sunrise icon-on-background' />
       {` ${getFormattedTime(sunrise)} - `}
       {`${getFormattedTime(sunset)} `}
-      <i className='wi wi-sunset icon' />
-    </div>
+      <i className='wi wi-sunset icon-on-background' />
+    </span>
   )
 }

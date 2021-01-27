@@ -95,8 +95,8 @@ const BarLabel = props => {
 }
 
 const Hourly = ({ data, timezone }) => {
-  const lineColour = 'white'
-  const barColour = { stroke: 'grey', fill: 'grey', label: 'gainsboro' }
+  const lineColour = 'darkslategrey'
+  const barColour = { stroke: 'lightslategrey', fill: 'lightslategrey', label: 'slategrey' }
   const [scrollEvent, setScrollEvent] = useState(null)
 
   const timeZone = timezone
@@ -196,7 +196,7 @@ const Hourly = ({ data, timezone }) => {
         </ResponsiveContainer>
       </div>
 
-      <ScrollIcons scrollEvent={scrollEvent}/>
+      <ScrollIcons scrollEvent={scrollEvent} />
     </article>
   )
 }
