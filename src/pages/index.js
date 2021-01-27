@@ -17,6 +17,7 @@ export default function Home() {
   const [searchData, setSearchData] = useState({})
   const [searchComplete, setSearchComplete] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [expandNavigation, setExpandNavigation] = useState(false)
   const [favourite, setFavourite] = useState() // for the start icon for the current city on display
   const [favouritesList, setFavouritesList] = useState(
     typeof window !== 'undefined'
@@ -98,6 +99,7 @@ export default function Home() {
   }
 
   const handleClickFavourite = ({ lat, lng, description }) => {
+    setExpandNavigation(!expandNavigation)
     setSearchComplete(false)
     setFavourite(true)
     setSearchData({ lat, lng, description, method: 'geographic coordinates' })
@@ -153,13 +155,14 @@ export default function Home() {
         // who uses it:
         favourite, // City
         onSuggestSelect, // Search
-        favouritesList,
-        handleClickFavourite,
+        favouritesList, // Favourites
+        handleClickFavourite, // Favourites
         setShowModal, // Favourites
+        setExpandNavigation
       }}
     >
       <SEO title='Weather App' description='The ultimate weather app!' />
-      <Navigation />
+      <Navigation expandNavigation={expandNavigation} />
       <ModalWindow
         handleDeleteFavourites={handleDeleteFavourites}
         showModal={showModal}

@@ -94,7 +94,7 @@ export const Rain = ({ data }) => {
         <>
           <i className='wi wi-rain me-2 icon' />
           <span>
-            {data.pop * 100}% {data.rain && `${Math.round(data.rain)}mm`}
+            {Math.round(data.pop * 100)}% {data.rain && `${Math.round(data.rain)}mm`}
           </span>
         </>
       ) : (

@@ -1,4 +1,7 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import Context from '../context/context'
+import Navbar from 'react-bootstrap/Navbar'
+
 import Search from '../components/googleSearch'
 // import Search from "../components/typeaheadSearch"
 // import Search from '../components/simpleSearch'
@@ -6,26 +9,21 @@ import Favourites from '../components/favourites'
 
 import Fade from 'react-reveal/Fade'
 
-const Navigation = () => {
+const Navigation = ({ expandNavigation }) => {
+  const { setExpandNavigation } = useContext(Context)
+
   return (
-    <nav className='navbar navbar-dark navbar-background'>
+    <Navbar
+      onToggle={() => setExpandNavigation(!expandNavigation)}
+      className='navbar-background'
+      variant='dark'
+      expand='xl'
+      expanded={expandNavigation}
+    >
       <div className='container-fluid' style={{ maxWidth: '600px' }}>
-        {/* <a className='navbar-brand' href='#'>
-          Weather Forecast
-        </a> */}
-        <button
-          className='navbar-toggler'
-          type='button'
-          data-bs-toggle='collapse'
-          data-bs-target='#navbarSupportedContent'
-          aria-controls='navbarSupportedContent'
-          aria-expanded='false'
-          aria-label='Toggle navigation'
-        >
-          <span className='navbar-toggler-icon'></span>
-        </button>
-        <div className='collapse navbar-collapse' id='navbarSupportedContent'>
-          <div className='cointainer'>
+        <Navbar.Toggle aria-controls='navbar' />
+        <Navbar.Collapse id='navbar'>
+          <div className='container'>
             <div className='row mt-1'>
               <div className='col-12 mx-auto my-3'>
                 <Favourites />
@@ -37,9 +35,9 @@ const Navigation = () => {
               </div>
             </div>
           </div>
-        </div>
+        </Navbar.Collapse>
       </div>
-    </nav>
+    </Navbar>
   )
 }
 
