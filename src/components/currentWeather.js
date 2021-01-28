@@ -14,12 +14,11 @@ import { Daytime } from './itemsWeather'
 
 const WeatherImage = styled(BackgroundImage)`
   height: 338px;
-  margin-top: 100px;
+  margin-top: 150px;
   margin-left: -16px;
   margin-right: -16px;
 `
 const GradientCover = styled.div`
-  --line: 150px;
   width: 100%;
   height: 488px;
   position: absolute;
@@ -28,20 +27,31 @@ const GradientCover = styled.div`
   padding: 3rem;
   // https://css-tricks.com/easing-linear-gradients/
   background: linear-gradient(
-    rgba(245, 245, 245, 1) 0%,
-    rgba(245, 245, 245, 1) var(--line),
-    rgba(245, 245, 245, 0.738) calc(var(--line) + 19%),
-    rgba(245, 245, 245, 0.541) calc(var(--line) + 34%),
-    rgba(245, 245, 245, 0.382) calc(var(--line) + 47%),
-    rgba(245, 245, 245, 0.278) calc(var(--line) + 56.5%),
-    rgba(245, 245, 245, 0.194) calc(var(--line) + 65%),
-    rgba(245, 245, 245, 0.126) calc(var(--line) + 73%),
-    rgba(245, 245, 245, 0.075) calc(var(--line) + 80.2%),
-    rgba(245, 245, 245, 0.042) calc(var(--line) + 86.1%),
-    rgba(245, 245, 245, 0.021) calc(var(--line) + 91%),
-    rgba(245, 245, 245, 0.008) calc(var(--line) + 95.2%),
-    rgba(245, 245, 245, 0.002) calc(var(--line) + 98.2%),
-    rgba(245, 245, 245, 0) calc(var(--line) + 100%)
+    rgba(245, 245, 245, 1) 0px,
+    rgba(245, 245, 245, 1) ${props => props.startingLine}px,
+    rgba(245, 245, 245, 0.738)
+      ${props => props.startingLine + props.length * 0.19}px,
+    rgba(245, 245, 245, 0.541)
+      ${props => props.startingLine + props.length * 0.34}px,
+    rgba(245, 245, 245, 0.382)
+      ${props => props.startingLine + props.length * 0.47}px,
+    rgba(245, 245, 245, 0.278)
+      ${props => props.startingLine + props.length * 0.565}px,
+    rgba(245, 245, 245, 0.194)
+      ${props => props.startingLine + props.length * 0.65}px,
+    rgba(245, 245, 245, 0.126)
+      ${props => props.startingLine + props.length * 0.73}px,
+    rgba(245, 245, 245, 0.075)
+      ${props => props.startingLine + props.length * 0.802}px,
+    rgba(245, 245, 245, 0.042)
+      ${props => props.startingLine + props.length * 0.861}px,
+    rgba(245, 245, 245, 0.021)
+      ${props => props.startingLine + props.length * 0.91}px,
+    rgba(245, 245, 245, 0.008)
+      ${props => props.startingLine + props.length * 0.952}px,
+    rgba(245, 245, 245, 0.002)
+      ${props => props.startingLine + props.length * 0.982}px,
+    rgba(245, 245, 245, 0) ${props => props.startingLine + props.length * 1}px
   );
 `
 
@@ -74,7 +84,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
         <WeatherImage fluid={fluid}>
           {/* <WeatherImage fluid={fluid}> */}
           {/* <Fade spy={currentData} appear> */}
-          <GradientCover>
+          <GradientCover startingLine={150} length={200}>
             <div className='d-flex justify-content-evenly align-items-center mb-1'>
               <CurrentTemperature
                 current={currentData.temp}

@@ -4,6 +4,14 @@
 @use './weather-icons-wind.min';
 // @use 'react-geosuggest/module/geosuggest';
 
+// my variables
+$primary: whitesmoke;
+$secondary: #e3e3ee;
+$iconColour: darkslategrey;
+$fontColour: black;
+$text-on-background: mintcream;
+$icon-on-background: lightcyan;
+
 // bootstrap customization
 $enable-responsive-font-sizes: true;
 @import 'node_modules/bootstrap/scss/functions';
@@ -19,40 +27,12 @@ $font-sizes: (
   7: 0.8rem,
 );
 
+$theme-colors: (
+  "primary": $primary,
+  "secondary": $secondary
+);
+
 @import 'bootstrap/scss/bootstrap.scss';
-
-// my variables
-// $background: rgb(0, 92, 92);
-$background: whitesmoke;
-// $navBackground: #114f4f;
-$navBackground: darken($background, 30%);
-// $iconColour: rgb(159, 180, 180);
-$iconColour: darkslategrey;
-$fontColour: black;
-// $fontColour: white;
-$text-on-background: mintcream;
-$icon-on-background: lightcyan;
-
-$newcolour: $background;
-.btn-primary {
-  @include button-variant(
-    $newcolour,
-    darken($newcolour, 7.5%),
-    darken($newcolour, 10%),
-    lighten($newcolour, 5%),
-    lighten($newcolour, 10%),
-    darken($newcolour, 30%)
-  );
-}
-
-.btn-outline-primary {
-  @include button-outline-variant(
-    $newcolour,
-    #222222,
-    lighten($newcolour, 5%),
-    $newcolour
-  );
-}
 
 body {
   @extend .fw-light;
@@ -61,10 +41,6 @@ body {
   // height: 100vh;
   min-height: 100vh;
   overflow-x: hidden;
-}
-
-.main-container {
-  background: $background;
 }
 
 // .hide-scrollbar on mobile-size screens only
@@ -86,13 +62,13 @@ body {
 }
 
 .geosuggest__item--active {
-  background: $background;
+  background: $secondary;
   color: $fontColour;
 }
 
 .input {
   @extend .form-control;
-  background-color: rgb(196, 196, 196);
+  background-color: $primary;
 }
 
 .suggests {
@@ -138,10 +114,6 @@ header {
 
 .icon-on-background {
   color: $icon-on-background;
-}
-
-.navbar-background {
-  background: $navBackground;
 }
 
 .text-on-background {

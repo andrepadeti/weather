@@ -22,7 +22,7 @@ export const getWeather = async (
     if (
       weatherAppLat === searchData.lat &&
       weatherAppLng === searchData.lng &&
-      Date.now() - weatherAppLastFetch < 300000 // = 5 minutes in epoch
+      Date.now() - weatherAppLastFetch < 5 * 60 * 1000 // = 5 minutes in epoch
     ) {
       repeatedFetch = true
     } else {
@@ -48,6 +48,7 @@ export const getWeather = async (
     if (!response.ok) return { error: true }
     console.log('fetched forecast')
     const jsonData = await response.json()
+    jsonData.lastFetch = Date.now()
     localStorage.setItem('weatherAppData', JSON.stringify(jsonData))
     return { error: false, jsonData }
   } catch (error) {

@@ -162,7 +162,7 @@ export default function Home() {
       }}
     >
       <SEO title='Weather App' description='The ultimate weather app!' />
-      <div className='container main-container px-0' style={{ maxWidth: '600px' }}>
+      <div className='container bg-primary px-0' style={{ maxWidth: '600px' }}>
         <Navigation expandNavigation={expandNavigation} />
         <ModalWindow
           handleDeleteFavourites={handleDeleteFavourites}

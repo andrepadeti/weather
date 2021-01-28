@@ -51,7 +51,7 @@ const Daily = ({ data, timezone }) => {
         {data.map((day, index) => (
           <div
             key={index}
-            className='card d-inline-block me-1 bg-gradient opaque text-center rounded'
+            className='card d-inline-block me-1 bg-secondary bg-gradient text-center rounded'
             style={{ width: '10rem' }}
           >
             <div className='card-header'>

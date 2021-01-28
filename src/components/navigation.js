@@ -15,7 +15,7 @@ const Navigation = ({ expandNavigation }) => {
   return (
     <Navbar
       onToggle={() => setExpandNavigation(!expandNavigation)}
-      className='navbar-background'
+      className='bg-secondary'
       variant='dark'
       expand='xl'
       expanded={expandNavigation}

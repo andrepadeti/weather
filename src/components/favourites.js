@@ -19,7 +19,7 @@ const Favourites = () => {
           {favouritesList.length > 0 && (
             <FontAwesomeIcon
               icon={faTrashAlt}
-              className='ms-3 icon-on-background'
+              className='ms-3 icon'
               size='xs'
               onClick={() => setShowModal(true)}
             />
@@ -45,7 +45,7 @@ const Favourites = () => {
             {favouritesList.map((favourite, index) => (
               <div
                 key={index}
-                className='card d-inline-block me-1 opaque bg-gradient text-center fs-7 rounded'
+                className='card d-inline-block me-1 bg-primary bg-gradient text-center fs-7 rounded'
                 style={{ width: '8rem' }}
                 onClick={() =>
                   handleClickFavourite({
@@ -56,10 +56,10 @@ const Favourites = () => {
                 }
               >
                 <div className='card-body '>
-                  <p className='mb-0 text-truncate text-on-background'>
+                  <p className='mb-0 text-truncate'>
                     {favourite.description.cityName}
                     <br />
-                    <span className='badge'>
+                    <span className='badge opaque'>
                       {favourite.description.country}
                     </span>
                   </p>

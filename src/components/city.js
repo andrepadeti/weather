@@ -12,9 +12,10 @@ const City = ({ cityName, area, country, handleMarkFavourite }) => {
 
   return (
     <Fade spy={cityName} left appear>
-      <div className='d-flex justify-content-center align-items-start mb-5'>
+      <div className='d-flex justify-content-center align-items-start'>
         <h3 className='text-center fw-light'>
-          {cityName}{area && (', ' + area)}
+          {cityName}
+          {area && area !== cityName && ', ' + area}
           <span className='badge opaque px-2 ms-2'>{`${country}`}</span>
           <FontAwesomeIcon
             icon={favourite ? faStarSolid : faStarRegular}

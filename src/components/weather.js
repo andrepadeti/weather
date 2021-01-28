@@ -9,6 +9,7 @@ import Precipitation from './precipitation'
 import Hourly from './hourly'
 import Daily from './daily'
 import Radar from './radar'
+import LastFetch from './lastFetch'
 
 const Weather = ({ searchData, handleMarkFavourite }) => {
   const [weather, setWeather] = useState()
@@ -39,6 +40,7 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
       />
       {loaded && weather.timezone ? (
         <>
+          {weather.lastFetch && <LastFetch lastFetch={weather.lastFetch} />}
           {weather.current && (
             <CurrentWeather
               currentData={weather.current}
