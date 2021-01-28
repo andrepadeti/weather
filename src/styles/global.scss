@@ -25,7 +25,7 @@ $font-sizes: (
 // $background: rgb(0, 92, 92);
 $background: whitesmoke;
 // $navBackground: #114f4f;
-$navBackground: darkcyan;
+$navBackground: darken($background, 30%);
 // $iconColour: rgb(159, 180, 180);
 $iconColour: darkslategrey;
 $fontColour: black;
@@ -146,4 +146,8 @@ header {
 
 .text-on-background {
   color: $text-on-background;
+}
+
+.mix-blend {
+  mix-blend-mode: multiply;
 }

@@ -14,25 +14,39 @@ import { Daytime } from './itemsWeather'
 
 const WeatherImage = styled(BackgroundImage)`
   height: 338px;
-  margin-top: 60px;
+  margin-top: 100px;
   margin-left: -16px;
   margin-right: -16px;
 `
 const GradientCover = styled.div`
+  --line: 150px;
   width: 100%;
-  height: 398px;
-  // opacity: 1;
+  height: 488px;
   position: absolute;
-  top: -60px;
+  bottom: 0;
   left: 0;
   padding: 3rem;
+  // https://css-tricks.com/easing-linear-gradients/
   background: linear-gradient(
-    // to bottom right,
     rgba(245, 245, 245, 1) 0%,
-    rgba(245, 245, 245, 1) 60px,
-    // rgba(245, 245, 245, 0.3) 100px,
-    rgba(245, 245, 245, 0) 100%
+    rgba(245, 245, 245, 1) var(--line),
+    rgba(245, 245, 245, 0.738) calc(var(--line) + 19%),
+    rgba(245, 245, 245, 0.541) calc(var(--line) + 34%),
+    rgba(245, 245, 245, 0.382) calc(var(--line) + 47%),
+    rgba(245, 245, 245, 0.278) calc(var(--line) + 56.5%),
+    rgba(245, 245, 245, 0.194) calc(var(--line) + 65%),
+    rgba(245, 245, 245, 0.126) calc(var(--line) + 73%),
+    rgba(245, 245, 245, 0.075) calc(var(--line) + 80.2%),
+    rgba(245, 245, 245, 0.042) calc(var(--line) + 86.1%),
+    rgba(245, 245, 245, 0.021) calc(var(--line) + 91%),
+    rgba(245, 245, 245, 0.008) calc(var(--line) + 95.2%),
+    rgba(245, 245, 245, 0.002) calc(var(--line) + 98.2%),
+    rgba(245, 245, 245, 0) calc(var(--line) + 100%)
   );
+`
+
+const SunTime = styled(Daytime)`
+  mix-blend-mode: hard-light;
 `
 
 const CurrentWeather = ({ currentData, dayData, timezone }) => {
@@ -61,7 +75,7 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
           {/* <WeatherImage fluid={fluid}> */}
           {/* <Fade spy={currentData} appear> */}
           <GradientCover>
-            <div className='d-flex justify-content-evenly align-items-center mb-3'>
+            <div className='d-flex justify-content-evenly align-items-center mb-1'>
               <CurrentTemperature
                 current={currentData.temp}
                 min={dayData.temp.min}
@@ -70,12 +84,11 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
               />
             </div>
             <div className='text-center'>
-              {/* <Daytime
+              <SunTime
                 sunrise={currentData.sunrise}
                 sunset={currentData.sunset}
                 timezone={timezone}
-                className='fs-4 opaque px-2 text-on-background'
-              /> */}
+              />
             </div>
           </GradientCover>
           {/* </Fade> */}
