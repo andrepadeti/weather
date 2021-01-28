@@ -34,7 +34,6 @@ const Radar = ({ lat, lng }) => {
               style={{ height: '50vh' }}
               allowFullScreen
             ></iframe>
-            {console.log('iframe')}
           </div>
         </Fade>
       </article>

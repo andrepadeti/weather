@@ -20,23 +20,21 @@ const Navigation = ({ expandNavigation }) => {
       expand='xl'
       expanded={expandNavigation}
     >
-      <div className='container-fluid' style={{ maxWidth: '600px' }}>
-        <Navbar.Toggle aria-controls='navbar' />
-        <Navbar.Collapse id='navbar'>
-          <div className='container'>
-            <div className='row mt-1'>
-              <div className='col-12 mx-auto my-3'>
-                <Favourites />
-              </div>
-            </div>
-            <div className='row'>
-              <div className='col-12 mx-auto my-4'>
-                <Search />
-              </div>
+      <Navbar.Toggle aria-controls='navbar' />
+      <Navbar.Collapse id='navbar'>
+        <div className='container'>
+          <div className='row mt-1'>
+            <div className='col-12 mx-auto my-3'>
+              <Favourites />
             </div>
           </div>
-        </Navbar.Collapse>
-      </div>
+          <div className='row'>
+            <div className='col-12 mx-auto my-4'>
+              <Search />
+            </div>
+          </div>
+        </div>
+      </Navbar.Collapse>
     </Navbar>
   )
 }

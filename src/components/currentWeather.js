@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 
 import BackgroundImage from 'gatsby-background-image'
 import { useStaticQuery, graphql } from 'gatsby'
@@ -10,6 +11,29 @@ import { Pressure } from './itemsWeather'
 import { Wind } from './itemsWeather'
 import { CurrentTemperature } from './itemsWeather'
 import { Daytime } from './itemsWeather'
+
+const WeatherImage = styled(BackgroundImage)`
+  height: 338px;
+  margin-top: 60px;
+  margin-left: -16px;
+  margin-right: -16px;
+`
+const GradientCover = styled.div`
+  width: 100%;
+  height: 398px;
+  // opacity: 1;
+  position: absolute;
+  top: -60px;
+  left: 0;
+  padding: 3rem;
+  background: linear-gradient(
+    // to bottom right,
+    rgba(245, 245, 245, 1) 0%,
+    rgba(245, 245, 245, 1) 60px,
+    // rgba(245, 245, 245, 0.3) 100px,
+    rgba(245, 245, 245, 0) 100%
+  );
+`
 
 const CurrentWeather = ({ currentData, dayData, timezone }) => {
   const { allImageSharp } = useStaticQuery(graphql`
@@ -33,56 +57,42 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
   return (
     <>
       <article className='d-flex flex-column'>
-        <BackgroundImage
-          fluid={fluid}
-          className='weather-img py-5'
-        >
+        <WeatherImage fluid={fluid}>
+          {/* <WeatherImage fluid={fluid}> */}
           {/* <Fade spy={currentData} appear> */}
-          <div className='d-flex justify-content-evenly align-items-center mb-3'>
-            {currentData.weather.map((weather, index) => (
-              <div
-                key={index}
-                className={`d-flex flex-column
-                        ${index > 0 && `mb-2`} p-1 opaque`}
-                // style={{ width: '5rem' }}
-              >
-                {/* TODO try to make use of weather-icons instead of ow */}
-                <i className={`owf owf-${weather.id} owf-4x text-center text-on-background`}></i>
-                {/* <img src={`http://openweathermap.org/img/wn/${weather.icon}@2x.png`} /> */}
-                <div className='description text-center text-on-background'>
-                  {weather.description}
-                </div>
-              </div>
-            ))}
-            <CurrentTemperature
-              current={currentData.temp}
-              min={dayData.temp.min}
-              max={dayData.temp.max}
-            />
-          </div>
-          <div className='text-center'>
-            <Daytime
-              sunrise={currentData.sunrise}
-              sunset={currentData.sunset}
-              timezone={timezone}
-              className='fs-4 opaque px-2 text-on-background'
-            />
-          </div>
+          <GradientCover>
+            <div className='d-flex justify-content-evenly align-items-center mb-3'>
+              <CurrentTemperature
+                current={currentData.temp}
+                min={dayData.temp.min}
+                max={dayData.temp.max}
+                description={currentData.weather}
+              />
+            </div>
+            <div className='text-center'>
+              {/* <Daytime
+                sunrise={currentData.sunrise}
+                sunset={currentData.sunset}
+                timezone={timezone}
+                className='fs-4 opaque px-2 text-on-background'
+              /> */}
+            </div>
+          </GradientCover>
           {/* </Fade> */}
-        </BackgroundImage>
+        </WeatherImage>
 
         <div className='text-center py-2'>
           {/* <Fade spy={currentData} appear delay={400}> */}
-            <h3 className='fw-light mt-5'>Currently</h3>
-            <Pressure data={currentData.pressure} />
-            <Wind
-              data={{
-                wind_speed: currentData.wind_speed,
-                wind_deg: currentData.wind_deg,
-              }}
-            />
-            <Humidity data={currentData.humidity} />
-            <UVI data={currentData.uvi} />
+          <h3 className='fw-light mt-5'>Currently</h3>
+          <Pressure data={currentData.pressure} />
+          <Wind
+            data={{
+              wind_speed: currentData.wind_speed,
+              wind_deg: currentData.wind_deg,
+            }}
+          />
+          <Humidity data={currentData.humidity} />
+          <UVI data={currentData.uvi} />
           {/* </Fade> */}
         </div>
       </article>

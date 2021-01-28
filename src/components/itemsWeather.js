@@ -9,47 +9,70 @@ export const Icon = ({ data }) => {
 }
 
 export const MaxTemperature = ({ data, spacing = true, ...rest }) => {
-  const background = ('className' in rest) && (rest.className.includes('text-on-background'))
-  console.log('max: ', background)
+  const background =
+    'className' in rest && rest.className.includes('text-on-background')
 
   return (
     <div {...rest}>
-      <i className={`wi wi-direction-up me-${spacing ? '2' : '1'} ${background ? 'icon-on-background' : 'icon'}`} />
+      <i
+        className={`wi wi-direction-up me-${spacing ? '2' : '1'} ${
+          background ? 'icon-on-background' : 'icon'
+        }`}
+      />
       {Math.round(data)}&deg;
     </div>
   )
 }
 
 export const MinTemperature = ({ data, spacing = true, ...rest }) => {
-  const background = ('className' in rest) && (rest.className.includes('text-on-background'))
-  console.log('min: ', background)
+  const background =
+    'className' in rest && rest.className.includes('text-on-background')
 
   return (
     <div {...rest}>
-      <i className={`wi wi-direction-down me-${spacing ? '2' : '1'} ${background ? 'icon-on-background' : 'icon'}`} />
+      <i
+        className={`wi wi-direction-down me-${spacing ? '2' : '1'} ${
+          background ? 'icon-on-background' : 'icon'
+        }`}
+      />
       {Math.round(data)}&deg;
     </div>
   )
 }
 
-export const CurrentTemperature = ({ current, min, max }) => {
+export const CurrentTemperature = ({ current, min, max, description }) => {
   return (
     <div
-      className={`d-flex flex-column justify-content-start opaque px-2 pb-1`}
+      className={`d-flex flex-column justify-content-center px-2 py-1`}
     >
-      <div className='d-flex'> 
-        <div style={{ fontSize: '5rem' }} className='lh-1 text-on-background'>
+      {description.map((weather, index) => (
+        <div
+          key={index}
+          className='align-self-center'
+        >
+          {weather.description}
+        </div>
+      ))}
+      <div className='d-flex align-self-center'>
+        <div style={{ fontSize: '8rem' }} className='lh-1'>
           {Math.round(current)}
         </div>
         {/* <div className='align-self-center'>°C</div> */}
         <div className='align-self-center fs-2'>
-          <i className='wi wi-celsius text-on-background' />
+          <i className='wi wi-celsius' />
         </div>
       </div>
       {min && max && (
         <div className='d-flex justify-content-center'>
-          <MinTemperature data={min} className='text-on-background me-2' spacing={false} />
-          <MaxTemperature data={max} className='text-on-background' spacing={false} />
+          <MinTemperature
+            data={min}
+            className='me-2'
+            spacing={false}
+          />
+          <MaxTemperature
+            data={max}
+            spacing={false}
+          />
         </div>
       )}
     </div>

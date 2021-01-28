@@ -25,7 +25,7 @@ $font-sizes: (
 // $background: rgb(0, 92, 92);
 $background: whitesmoke;
 // $navBackground: #114f4f;
-$navBackground: darkslategrey;
+$navBackground: darkcyan;
 // $iconColour: rgb(159, 180, 180);
 $iconColour: darkslategrey;
 $fontColour: black;
@@ -57,11 +57,14 @@ $newcolour: $background;
 body {
   @extend .fw-light;
   // background: radial-gradient(circle at bottom, navy 0, black 100%);
-  background: $background;
   color: $fontColour;
   // height: 100vh;
   min-height: 100vh;
   overflow-x: hidden;
+}
+
+.main-container {
+  background: $background;
 }
 
 // .hide-scrollbar on mobile-size screens only
@@ -110,7 +113,7 @@ body {
 }
 
 .opaque {
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .description {
@@ -139,13 +142,6 @@ header {
 
 .navbar-background {
   background: $navBackground;
-}
-
-.weather-img {
-  // background-blend-mode: darken;
-  overflow: hidden;
-  border-radius: 10%;
-  // border: 2px thin solid;
 }
 
 .text-on-background {

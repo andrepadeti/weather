@@ -158,36 +158,38 @@ export default function Home() {
         favouritesList, // Favourites
         handleClickFavourite, // Favourites
         setShowModal, // Favourites
-        setExpandNavigation
+        setExpandNavigation,
       }}
     >
       <SEO title='Weather App' description='The ultimate weather app!' />
-      <Navigation expandNavigation={expandNavigation} />
-      <ModalWindow
-        handleDeleteFavourites={handleDeleteFavourites}
-        showModal={showModal}
-        setShowModal={setShowModal}
-      />
-      <div className='container' style={{ maxWidth: '600px' }}>
-        <div className='row mt-4'>
-          <div className='col-12 mx-auto my-3'>
-            <Fade delay={300} duration={2000}>
-              <h1 className='text-center display-5'>Weather Forecast</h1>
-            </Fade>
+      <div className='container main-container px-0' style={{ maxWidth: '600px' }}>
+        <Navigation expandNavigation={expandNavigation} />
+        <ModalWindow
+          handleDeleteFavourites={handleDeleteFavourites}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+        <div className='container' >
+          <div className='row mt-4'>
+            <div className='col-12 mx-auto my-3'>
+              <Fade delay={300} duration={2000}>
+                <h1 className='text-center display-5'>Weather Forecast</h1>
+              </Fade>
+            </div>
           </div>
-        </div>
 
-        <div className='row'>
-          <div className='col-12 mx-auto'>
-            {searchComplete ? (
-              <Weather
-                searchData={searchData}
-                handleMarkFavourite={handleMarkFavourite}
-                favourite={favourite}
-              />
-            ) : (
-              <Loading message='Fetching geolocation...' className='mb-5' />
-            )}
+          <div className='row'>
+            <div className='col-12 mx-auto'>
+              {searchComplete ? (
+                <Weather
+                  searchData={searchData}
+                  handleMarkFavourite={handleMarkFavourite}
+                  favourite={favourite}
+                />
+              ) : (
+                <Loading message='Fetching geolocation...' className='mb-5' />
+              )}
+            </div>
           </div>
         </div>
       </div>
