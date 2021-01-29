@@ -45,12 +45,10 @@ const Favourites = () => {
             }}
           >
             {favouritesList.map((favourite, index) => (
-              <div
+              <button
                 key={index}
-                className='card d-inline-block me-1 bg-primary bg-gradient text-center fs-7 rounded'
-                style={{ width: '8rem' }}
-                role='button'
-                tabIndex={0}
+                className='btn btn-primary d-inline-block me-2 bg-gradient fs-7 rounded'
+                style={{ width: '8rem', height: '5rem' }}
                 onClick={() =>
                   handleClickFavourite({
                     lat: favourite.lat,
@@ -58,24 +56,20 @@ const Favourites = () => {
                     description: favourite.description,
                   })
                 }
-                onKeyDown={() =>
-                  handleClickFavourite({
-                    lat: favourite.lat,
-                    lng: favourite.lng,
-                    description: favourite.description,
-                  })
-                }
               >
-                <div className='card-body '>
-                  <p className='mb-0 text-truncate'>
-                    {favourite.description.cityName}
-                    <br />
-                    <span className='badge opaque'>
-                      {favourite.description.country}
-                    </span>
-                  </p>
-                </div>
-              </div>
+                <p className='mb-0 text-truncate'>
+                  {favourite.description.cityName}
+                  {favourite.description.area &&
+                    favourite.description.area !==
+                      favourite.description.cityName && (
+                      <span>{`, ${favourite.description.area}`}</span>
+                    )}
+                  <br />
+                  <span className='badge opaque'>
+                    {favourite.description.country}
+                  </span>
+                </p>
+              </button>
             ))}
           </div>
           {/* // TODO: don't show swipe message if not enough cards to swipe */}

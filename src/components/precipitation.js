@@ -54,81 +54,75 @@ const Precipitation = ({ data, timezone }) => {
   return (
     <>
       {accumulatedPrecipitation > 0 && (
-        <Fade delay={300}>
-          <article className='my-5'>
-            <header>
-              <h3>Precipitation</h3>
-              <div>
-                {`within the next hour: ${
-                  accumulatedPrecipitation > 1
-                    ? accumulatedPrecipitation.toFixed()
-                    : '< 1'
-                } mm`}
-              </div>
-              <div>
-                <FontAwesomeIcon icon={faChartLine} className='me-1' />
-                mm per hour
-                <br />
-              </div>
+        <article className='my-5'>
+          <header>
+            <h3>Precipitation</h3>
+            <div>
+              {`within the next hour: ${
+                accumulatedPrecipitation > 1
+                  ? accumulatedPrecipitation.toFixed()
+                  : '< 1'
+              } mm`}
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faChartLine} className='me-1' />
+              mm per hour
+              <br />
+            </div>
 
-              <div className='form-check'>
-                <input
-                  className='form-check-input'
-                  type='checkbox'
-                  checked={showPrecipitationDetails}
-                  onChange={() =>
-                    setShowPrecipitationDetails(!showPrecipitationDetails)
-                  }
-                  value=''
-                  id='showPrecipitationDetails'
-                />
-                <label
-                  className='form-check-label'
-                  htmlFor='showPrecipitationDetails'
+            <div className='form-check'>
+              <input
+                className='form-check-input'
+                type='checkbox'
+                checked={showPrecipitationDetails}
+                onChange={() =>
+                  setShowPrecipitationDetails(!showPrecipitationDetails)
+                }
+                value=''
+                id='showPrecipitationDetails'
+              />
+              <label
+                className='form-check-label'
+                htmlFor='showPrecipitationDetails'
+              >
+                Show details
+              </label>
+            </div>
+          </header>
+
+          <Fade left when={showPrecipitationDetails} collapse>
+            <div className='mt-3' style={{ height: '20vh' }}>
+              <ResponsiveContainer>
+                <AreaChart
+                  data={formattedData}
+                  stackOffset='silhouette'
+                  margin={{ top: 0, right: 0, left: -35, bottom: 0 }}
                 >
-                  Show details
-                </label>
-              </div>
-            </header>
-
-            <Fade left when={showPrecipitationDetails} collapse>
-              <div className='mt-3' style={{ height: '20vh' }}>
-                <ResponsiveContainer>
-                  <AreaChart
-                    data={formattedData}
-                    stackOffset='silhouette'
-                    margin={{ top: 0, right: 0, left: -35, bottom: 0 }}
-                  >
-                    <defs>
-                      <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
-                        <stop
-                          offset='5%'
-                          stopColor={colour}
-                          stopOpacity={0.8}
-                        />
-                        <stop offset='95%' stopColor={colour} stopOpacity={0} />
-                      </linearGradient>
-                    </defs>
-                    <YAxis
-                      allowDecimals={false}
-                      domain={[0, 'auto']}
-                      stroke={colour}
-                    />
-                    <XAxis dataKey='name' tick={<Ticks />} stroke={colour} />
-                    <Area
-                      type='monotone'
-                      dataKey='mm'
-                      stroke={colour}
-                      dot={false}
-                      fillOpacity={1}
-                      fill='url(#colorUv)'
-                    />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-            </Fade>
-          </article>
-        </Fade>
+                  <defs>
+                    <linearGradient id='colorUv' x1='0' y1='0' x2='0' y2='1'>
+                      <stop offset='5%' stopColor={colour} stopOpacity={0.8} />
+                      <stop offset='95%' stopColor={colour} stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <YAxis
+                    allowDecimals={false}
+                    domain={[0, 'auto']}
+                    stroke={colour}
+                  />
+                  <XAxis dataKey='name' tick={<Ticks />} stroke={colour} />
+                  <Area
+                    type='monotone'
+                    dataKey='mm'
+                    stroke={colour}
+                    dot={false}
+                    fillOpacity={1}
+                    fill='url(#colorUv)'
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          </Fade>
+        </article>
       )}
     </>
   )

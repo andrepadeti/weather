@@ -101,10 +101,8 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
               </div>
             </GradientCover>
           </WeatherImage>
-        </Fade>
 
-        <div className='text-center py-2'>
-          <Fade when={currentData} appear delay={300}>
+          <div className='text-center py-2'>
             <h3 className='fw-light mt-5'>Currently</h3>
             <Pressure data={currentData.pressure} />
             <Wind
@@ -115,8 +113,8 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
             />
             <Humidity data={currentData.humidity} />
             <UVI data={currentData.uvi} />
-          </Fade>
-        </div>
+          </div>
+        </Fade>
       </article>
     </>
   )

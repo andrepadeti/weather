@@ -25,7 +25,7 @@ const ScrollIcons = ({ scrollEvent }) => {
 
   return (
     <div style={{ height: '1rem' }}>
-      <div className='d-flex  text-white'>
+      <div className='d-flex icon'>
         {scrollPosition !== 'start' && (
           <div className='me-auto' style={{ width: '1rem' }}>
             <FontAwesomeIcon icon={faAngleDoubleLeft} />

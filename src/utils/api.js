@@ -1,46 +1,66 @@
 import forecast from '../content/forecast.json'
 
+const initialiseLocalStorage = () => {
+  if (localStorage.getItem('weatherAppFetch') === null) {
+    let weatherAppFetch
+    weatherAppFetch = {}
+    weatherAppFetch.description = {}
+    weatherAppFetch.description.cityName = ''
+    weatherAppFetch.description.area = ''
+    weatherAppFetch.description.country = ''
+    weatherAppFetch.lastFetch = Date.now()
+    weatherAppFetch.data = {}
+    localStorage.setItem('weatherAppFetch', JSON.stringify(weatherAppFetch))
+
+    // remove old localStorage
+    localStorage.removeItem('weatherAppLat')
+    localStorage.removeItem('weatherAppLng')
+    localStorage.removeItem('weatherAppLastFetch')
+  }
+}
+
 export const getWeather = async (
   searchData,
   method = 'geographic coordinates',
   units = 'metric'
 ) => {
   let repeatedFetch = false
+  let newFetch = {}
+  let weatherAppFetch
+  let url
+
+  initialiseLocalStorage()
+
   if (method === 'test') {
     return { error: false, jsonData: forecast }
   }
 
-  let url
   if (method === 'geographic coordinates') {
-    // check whether this is the same fetch as before
-    const weatherAppLat = JSON.parse(localStorage.getItem('weatherAppLat'))
-    const weatherAppLng = JSON.parse(localStorage.getItem('weatherAppLng'))
-    const weatherAppLastFetch = JSON.parse(
-      localStorage.getItem('weatherAppLastFetch')
-    )
+    weatherAppFetch = JSON.parse(localStorage.getItem('weatherAppFetch'))
 
+    // check whether this is the same fetch as before
     if (
-      weatherAppLat === searchData.lat &&
-      weatherAppLng === searchData.lng &&
-      Date.now() - weatherAppLastFetch < 5 * 60 * 1000 // = 5 minutes in epoch
+      weatherAppFetch.description.cityName ===
+        searchData.description.cityName &&
+      weatherAppFetch.description.area === searchData.description.area &&
+      weatherAppFetch.description.country === searchData.description.country &&
+      Date.now() - weatherAppFetch.lastFetch < 5 * 60 * 1000 // = 5 minutes in epoch
     ) {
       repeatedFetch = true
     } else {
-      localStorage.setItem('weatherAppLat', JSON.stringify(searchData.lat))
-      localStorage.setItem('weatherAppLng', JSON.stringify(searchData.lng))
-      localStorage.setItem('weatherAppLastFetch', JSON.stringify(Date.now()))
+      newFetch.description = searchData.description
     }
+
     url = `https://api.openweathermap.org/data/2.5/onecall?lat=${searchData.lat}&lon=${searchData.lng}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
   }
-  if (method === 'city name')
-    url = `https://api.openweathermap.org/data/2.5/weather?q=${searchData.cityName}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
-  if (method === 'geoNameId')
-    url = `https://api.openweathermap.org/data/2.5/weather?id=${searchData.geoNameId}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
+  // if (method === 'city name')
+  //   url = `https://api.openweathermap.org/data/2.5/weather?q=${searchData.cityName}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
+  // if (method === 'geoNameId')
+  //   url = `https://api.openweathermap.org/data/2.5/weather?id=${searchData.geoNameId}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
 
   if (repeatedFetch) {
-    const weatherAppData = JSON.parse(localStorage.getItem('weatherAppData'))
-    console.log('avoiding unnecessary fetch')
-    return { error: false, jsonData: weatherAppData }
+    console.log('avoiding unnecessary forecast fetch')
+    return { error: false, jsonData: weatherAppFetch.data }
   }
 
   try {
@@ -48,8 +68,9 @@ export const getWeather = async (
     if (!response.ok) return { error: true }
     console.log('fetched forecast')
     const jsonData = await response.json()
-    jsonData.lastFetch = Date.now()
-    localStorage.setItem('weatherAppData', JSON.stringify(jsonData))
+    newFetch.lastFetch = jsonData.lastFetch = Date.now() // ugly work around!
+    newFetch.data = jsonData
+    localStorage.setItem('weatherAppFetch', JSON.stringify(newFetch))
     return { error: false, jsonData }
   } catch (error) {
     return { error: true }

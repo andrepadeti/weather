@@ -54,7 +54,7 @@ export const GeolocationModal = ({ showModal, setShowModal }) => {
         <button
           type='button'
           className='btn btn-secondary'
-          onClick={() => setShowModal(false)} 
+          onClick={() => setShowModal(false)}
         >
           Close
         </button>

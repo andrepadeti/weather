@@ -26,7 +26,6 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
       }
     }
     fetchData()
-    // console.log(searchData)
   }, [searchData])
 
   return (

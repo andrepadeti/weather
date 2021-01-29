@@ -118,3 +118,26 @@ header {
 .mix-blend {
   mix-blend-mode: multiply;
 }
+
+/* Works on Firefox */
+.hide-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: $secondary white;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.hide-scrollbar {
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $secondary;
+    border-radius: 20px;
+    border: 3px solid white;
+  }
+}
