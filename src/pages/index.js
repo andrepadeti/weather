@@ -7,16 +7,20 @@ import { getCityFromGeolocation, getCityNameAndCountry } from '../utils/api'
 // component imports
 import SEO from '../components/seo'
 import Navigation from '../components/navigation'
-import ModalWindow from '../components/modal'
+import { DeleteFavouritesModal, GeolocationModal } from '../components/modals'
 import Weather from '../components/weather'
 import Loading from '../components/loading'
 
 import Fade from 'react-reveal/Fade'
 
 export default function Home() {
+  const [fetchingGeolocation, setFetchingGeolocation] = useState(true)
+  const [showGeolocationModal, setShowGeolocationModal] = useState(false)
   const [searchData, setSearchData] = useState({})
   const [searchComplete, setSearchComplete] = useState(false)
-  const [showModal, setShowModal] = useState(false)
+  const [showDeleteFavouritesModal, setShowDeleteFavouritesModal] = useState(
+    false
+  )
   const [expandNavigation, setExpandNavigation] = useState(false)
   const [favourite, setFavourite] = useState() // for the start icon for the current city on display
   const [favouritesList, setFavouritesList] = useState(
@@ -110,16 +114,16 @@ export default function Home() {
     localStorage.setItem('weatherAppFavouritesList', null)
     setFavouritesList([])
     setFavourite(false)
-    setShowModal(false)
+    setShowDeleteFavouritesModal(false)
   }
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if ('geolocation' in navigator) {
         const success = async position => {
+          setFetchingGeolocation(false)
           const lat = position.coords.latitude
           const lng = position.coords.longitude
-          const method = 'geographic coordinates'
           const response = await getCityFromGeolocation(lat, lng)
           if (response.error) {
             alert("Couldn't fetch current location")
@@ -130,12 +134,10 @@ export default function Home() {
             })
           }
         }
-
-        const error = () =>
-          alert(
-            'Please, allow location access so that next time I can show the weather forecast for your current location.'
-          )
-
+        const error = () => {
+          setFetchingGeolocation(false)
+          setShowGeolocationModal(true)
+        }
         const options = {
           enableHighAccuracy: true,
           timeout: 5000,
@@ -157,19 +159,23 @@ export default function Home() {
         onSuggestSelect, // Search
         favouritesList, // Favourites
         handleClickFavourite, // Favourites
-        setShowModal, // Favourites
+        setShowDeleteFavouritesModal, // Favourites
         setExpandNavigation,
       }}
     >
       <SEO title='Weather App' description='The ultimate weather app!' />
       <div className='container bg-primary px-0' style={{ maxWidth: '600px' }}>
         <Navigation expandNavigation={expandNavigation} />
-        <ModalWindow
+        <DeleteFavouritesModal
           handleDeleteFavourites={handleDeleteFavourites}
-          showModal={showModal}
-          setShowModal={setShowModal}
+          showModal={showDeleteFavouritesModal}
+          setShowModal={setShowDeleteFavouritesModal}
         />
-        <div className='container' >
+        <GeolocationModal
+          showModal={showGeolocationModal}
+          setShowModal={setShowGeolocationModal}
+        />
+        <div className='container'>
           <div className='row mt-4'>
             <div className='col-12 mx-auto my-3'>
               <Fade delay={300} duration={2000}>
@@ -180,13 +186,14 @@ export default function Home() {
 
           <div className='row'>
             <div className='col-12 mx-auto'>
-              {searchComplete ? (
+              {searchComplete && (
                 <Weather
                   searchData={searchData}
                   handleMarkFavourite={handleMarkFavourite}
                   favourite={favourite}
                 />
-              ) : (
+              )}
+              {fetchingGeolocation && (
                 <Loading message='Fetching geolocation...' className='mb-5' />
               )}
             </div>

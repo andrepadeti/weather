@@ -7,8 +7,6 @@ import Search from '../components/googleSearch'
 // import Search from '../components/simpleSearch'
 import Favourites from '../components/favourites'
 
-import Fade from 'react-reveal/Fade'
-
 const Navigation = ({ expandNavigation }) => {
   const { setExpandNavigation } = useContext(Context)
 

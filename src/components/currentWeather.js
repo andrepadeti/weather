@@ -81,42 +81,41 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
   return (
     <>
       <article className='d-flex flex-column'>
-        <WeatherImage fluid={fluid}>
-          {/* <WeatherImage fluid={fluid}> */}
-          {/* <Fade spy={currentData} appear> */}
-          <GradientCover startingLine={150} length={200}>
-            <div className='d-flex justify-content-evenly align-items-center mb-1'>
-              <CurrentTemperature
-                current={currentData.temp}
-                min={dayData.temp.min}
-                max={dayData.temp.max}
-                description={currentData.weather}
-              />
-            </div>
-            <div className='text-center'>
-              <SunTime
-                sunrise={currentData.sunrise}
-                sunset={currentData.sunset}
-                timezone={timezone}
-              />
-            </div>
-          </GradientCover>
-          {/* </Fade> */}
-        </WeatherImage>
+        <Fade delay={300}>
+          <WeatherImage fluid={fluid}>
+            <GradientCover startingLine={152} length={200}>
+              <div className='d-flex justify-content-evenly align-items-center mb-1'>
+                <CurrentTemperature
+                  current={currentData.temp}
+                  min={dayData.temp.min}
+                  max={dayData.temp.max}
+                  description={currentData.weather}
+                />
+              </div>
+              <div className='text-center'>
+                <SunTime
+                  sunrise={currentData.sunrise}
+                  sunset={currentData.sunset}
+                  timezone={timezone}
+                />
+              </div>
+            </GradientCover>
+          </WeatherImage>
+        </Fade>
 
         <div className='text-center py-2'>
-          {/* <Fade spy={currentData} appear delay={400}> */}
-          <h3 className='fw-light mt-5'>Currently</h3>
-          <Pressure data={currentData.pressure} />
-          <Wind
-            data={{
-              wind_speed: currentData.wind_speed,
-              wind_deg: currentData.wind_deg,
-            }}
-          />
-          <Humidity data={currentData.humidity} />
-          <UVI data={currentData.uvi} />
-          {/* </Fade> */}
+          <Fade when={currentData} appear delay={300}>
+            <h3 className='fw-light mt-5'>Currently</h3>
+            <Pressure data={currentData.pressure} />
+            <Wind
+              data={{
+                wind_speed: currentData.wind_speed,
+                wind_deg: currentData.wind_deg,
+              }}
+            />
+            <Humidity data={currentData.humidity} />
+            <UVI data={currentData.uvi} />
+          </Fade>
         </div>
       </article>
     </>

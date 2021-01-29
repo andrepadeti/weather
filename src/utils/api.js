@@ -57,7 +57,6 @@ export const getWeather = async (
 }
 
 export const getCityNameAndCountry = data => {
-  console.log('data1: ', data)
   let cityName, area, country
 
   data.forEach(component => {

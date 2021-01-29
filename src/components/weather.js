@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { getWeather } from '../utils/api'
 
 import Loading from '../components/loading'
-
 import City from './city'
 import CurrentWeather from './currentWeather'
 import Precipitation from './precipitation'

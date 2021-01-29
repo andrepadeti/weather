@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeadShake from 'react-reveal/HeadShake'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {

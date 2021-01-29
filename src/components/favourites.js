@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 const Favourites = () => {
-  let { favouritesList, handleClickFavourite, setShowModal } = useContext(
-    Context
-  )
+  let {
+    favouritesList,
+    handleClickFavourite,
+    setShowDeleteFavouritesModal,
+  } = useContext(Context)
   const [scrollEvent, setScrollEvent] = useState(null)
 
   return (
@@ -21,7 +23,7 @@ const Favourites = () => {
               icon={faTrashAlt}
               className='ms-3 icon'
               size='xs'
-              onClick={() => setShowModal(true)}
+              onClick={() => setShowDeleteFavouritesModal(true)}
             />
           )}
         </h3>
@@ -47,7 +49,16 @@ const Favourites = () => {
                 key={index}
                 className='card d-inline-block me-1 bg-primary bg-gradient text-center fs-7 rounded'
                 style={{ width: '8rem' }}
+                role='button'
+                tabIndex={0}
                 onClick={() =>
+                  handleClickFavourite({
+                    lat: favourite.lat,
+                    lng: favourite.lng,
+                    description: favourite.description,
+                  })
+                }
+                onKeyDown={() =>
                   handleClickFavourite({
                     lat: favourite.lat,
                     lng: favourite.lng,

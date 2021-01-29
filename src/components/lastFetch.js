@@ -11,14 +11,16 @@ class LastFetch extends React.Component {
   componentDidMount() {
     this.getMessage()
     this.interval = setInterval(() => this.getMessage(), 60 * 1000)
-  } 
+  }
 
   componentWillUnmount() {
     clearInterval(this.interval)
   }
 
   getMessage() {
-    const message = formatDistanceToNow(this.props.lastFetch, {addSuffix: true})
+    const message = formatDistanceToNow(this.props.lastFetch, {
+      addSuffix: true,
+    })
     this.setState({ message: message })
   }
 

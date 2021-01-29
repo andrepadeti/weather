@@ -27,11 +27,6 @@ $font-sizes: (
   7: 0.8rem,
 );
 
-$theme-colors: (
-  "primary": $primary,
-  "secondary": $secondary
-);
-
 @import 'bootstrap/scss/bootstrap.scss';
 
 body {

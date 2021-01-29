@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Fade from 'react-reveal/Fade'
 
 const Radar = ({ lat, lng }) => {
   const [showRadarDetails, setShowRadarDetails] = useState(false)
 
   return (
-    <>
+    <Fade delay={300}>
       <article className='my-5'>
         <header className='mb-3'>
           <h3>Radar</h3>
@@ -37,7 +37,7 @@ const Radar = ({ lat, lng }) => {
           </div>
         </Fade>
       </article>
-    </>
+    </Fade>
   )
 }
 
