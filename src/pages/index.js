@@ -53,12 +53,13 @@ export default function Home() {
       } else if ('location' in suggest) {
         const lat = suggest.location.lat
         const lng = suggest.location.lng
+        const time = Date.now()
         const description = suggest.gmaps
           ? getCityNameAndCountry(suggest.gmaps.address_components)
           : suggest.description
         const method = 'geographic coordinates'
         setFavourite(isFavourite({ lat, lng, description }))
-        setSearchData({ lat, lng, description, method })
+        setSearchData({ time, lat, lng, description, method })
       } else if ('geoNameId' in suggest) {
         if (searchData.geoNameId !== suggest.geoNameId) {
           setSearchData({ geoNameId: suggest.geoNameId, method: 'geoNameId' })
@@ -127,6 +128,7 @@ export default function Home() {
           const response = await getCityFromGeolocation(lat, lng)
           if (response.error) {
             alert("Couldn't fetch current location")
+            setExpandNavigation(true)
           } else {
             onSuggestSelect({
               location: { lat, lng },
@@ -137,6 +139,7 @@ export default function Home() {
         const error = () => {
           setFetchingGeolocation(false)
           setShowGeolocationModal(true)
+          setExpandNavigation(true)
         }
         const options = {
           enableHighAccuracy: true,
@@ -160,7 +163,9 @@ export default function Home() {
         favouritesList, // Favourites
         handleClickFavourite, // Favourites
         setShowDeleteFavouritesModal, // Favourites
-        setExpandNavigation,
+        setExpandNavigation, // Navigation
+        searchData, // lastFetch
+        setSearchData // lastFetch
       }}
     >
       <SEO title='Weather App' description='The ultimate weather app!' />

@@ -3,7 +3,7 @@ import React from 'react'
 export const Icon = ({ data }) => {
   return (
     <div>
-      <i className={`owf owf-${data} owf-4x card-img-top icon`} />
+      <i className={`owf owf-${data} owf-3x card-img-top icon`} />
     </div>
   )
 }

@@ -1,3 +1,8 @@
 import { createContext } from 'react'
-let Context = createContext(null)
+
+const Context = createContext(null)
+
+export const ContextProvider = Context.Provider
+export const ContextConsumer = Context.Consumer
+
 export default Context
