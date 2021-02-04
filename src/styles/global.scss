@@ -50,6 +50,17 @@ body {
   }
 }
 
+.form-check-input {
+  &:not(:checked) {
+    border: 1px solid $iconColour;
+  }
+  
+  &:checked {
+    color: $primary;
+    background-color: $iconColour;
+  }
+}
+
 .geosuggest__suggests--hidden {
   max-height: 0;
   overflow: hidden;
@@ -140,4 +151,17 @@ header {
     border-radius: 20px;
     border: 3px solid white;
   }
+}
+
+.invisible {
+  margin-right: auto;
+  visibility: hidden;
+}
+
+.justify-self-end {
+  margin-left: auto;
+}
+
+.justify-self-center {
+  justify-self: center;
 }

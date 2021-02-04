@@ -16,17 +16,16 @@ const Favourites = () => {
   return (
     <article>
       <div className='d-flex justify-content-center'>
-        <h3 className='fw-light'>
-          Favourites
-          {favouritesList.length > 0 && (
-            <FontAwesomeIcon
-              icon={faTrashAlt}
-              className='ms-3 icon'
-              size='xs'
-              onClick={() => setShowDeleteFavouritesModal(true)}
-            />
-          )}
-        </h3>
+        <div className='invisible'>.</div>
+        <h3 className='fw-light'>Favourites</h3>
+        {favouritesList.length > 0 && (
+          <FontAwesomeIcon
+            icon={faTrashAlt}
+            className='icon justify-self-end'
+            size='lg'
+            onClick={() => setShowDeleteFavouritesModal(true)}
+          />
+        )}
       </div>
 
       {favouritesList.length > 0 ? (
