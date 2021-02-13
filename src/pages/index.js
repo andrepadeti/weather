@@ -165,7 +165,7 @@ export default function Home() {
         setShowDeleteFavouritesModal, // Favourites
         setExpandNavigation, // Navigation
         searchData, // lastFetch
-        setSearchData // lastFetch
+        setSearchData, // lastFetch
       }}
     >
       <SEO title='Weather App' description='The ultimate weather app!' />

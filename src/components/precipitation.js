@@ -54,7 +54,7 @@ const Precipitation = ({ data, timezone }) => {
   return (
     <>
       {accumulatedPrecipitation > 0 && (
-        <article className='my-5'>
+        <article className='mb-5 mt-4'>
           <header>
             <h3>Precipitation</h3>
             <div>

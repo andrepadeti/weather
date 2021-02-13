@@ -27,6 +27,12 @@ $font-sizes: (
   7: 0.8rem,
 );
 
+$custom-colors: (
+  'theme': $iconColour
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
 @import 'bootstrap/scss/bootstrap.scss';
 
 body {
@@ -54,7 +60,7 @@ body {
   &:not(:checked) {
     border: 1px solid $iconColour;
   }
-  
+
   &:checked {
     color: $primary;
     background-color: $iconColour;

@@ -15,12 +15,12 @@ import { Daytime } from './itemsWeather'
 const WeatherImage = styled(BackgroundImage)`
   height: 338px;
   margin-top: 150px;
-  margin-left: -16px;
-  margin-right: -16px;
+  margin-left: -12px;
+  margin-right: -12px;
 `
 const GradientCover = styled.div`
   width: 100%;
-  height: 488px;
+  height: 538px;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -80,10 +80,10 @@ const CurrentWeather = ({ currentData, dayData, timezone }) => {
 
   return (
     <>
-      <article className='d-flex flex-column'>
+      <article className='d-flex flex-column mb-4'>
         <Fade delay={300}>
           <WeatherImage fluid={fluid}>
-            <GradientCover startingLine={152} length={200}>
+            <GradientCover startingLine={202} length={250}>
               <div className='d-flex justify-content-evenly align-items-center mb-1'>
                 <CurrentTemperature
                   current={currentData.temp}

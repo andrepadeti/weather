@@ -9,6 +9,7 @@ import Hourly from './hourly'
 import Daily from './daily'
 import Radar from './radar'
 import LastFetch from './lastFetch'
+import Alerts from './alerts'
 
 const Weather = ({ searchData, handleMarkFavourite }) => {
   const [weather, setWeather] = useState()
@@ -45,6 +46,9 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
               dayData={weather.daily[0]}
               timezone={weather.timezone}
             />
+          )}
+          {weather.alerts && (
+            <Alerts data={weather.alerts} timezone={weather.timezone} />
           )}
           {weather.minutely && (
             <Precipitation
