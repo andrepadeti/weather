@@ -14,7 +14,7 @@ import { Daytime } from './itemsWeather'
 
 const WeatherImage = styled(BackgroundImage)`
   height: 338px;
-  margin-top: 150px;
+  margin-top: 200px;
   margin-left: -12px;
   margin-right: -12px;
 `
