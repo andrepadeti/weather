@@ -1,5 +1,6 @@
 import React from 'react'
 import { format } from 'date-fns'
+import { enGB } from 'date-fns/locale'
 
 const Alerts = ({ data, timezone }) => {
   return (
@@ -22,10 +23,10 @@ const Alerts = ({ data, timezone }) => {
               {alert.sender_name}
               <br />
               <strong>Start:</strong>{' '}
-              {format(new Date(alert.start * 1000), "PPPP' at 'HH:mm:ss")}
+              {format(new Date(alert.start * 1000), "PPPP' at 'HH:mm", {locale: enGB})}
               <br />
               <strong>End:</strong>{' '}
-              {format(new Date(alert.end * 1000), "PPPP' at 'HH:mm:ss")}
+              {format(new Date(alert.end * 1000), "PPPP' at 'HH:mm", {locale: enGB})}
             </p>
             <p className='text-start'>{alert.description}</p>
           </div>

@@ -15,16 +15,22 @@ const Favourites = () => {
 
   return (
     <article>
-      <div className='d-flex justify-content-center'>
-        <div className='invisible'>.</div>
-        <h3 className='fw-light'>Favourites</h3>
+      <h3 className='fw-light text-center'>Favourites</h3>
+      <div
+        className='text-center'
+        role='button'
+        tabIndex={0}
+        onClick={() => setShowDeleteFavouritesModal(true)}
+        onKeyDown={(e) => e.key === 'Enter' && setShowDeleteFavouritesModal(true)}
+      >
         {favouritesList.length > 0 && (
-          <FontAwesomeIcon
-            icon={faTrashAlt}
-            className='icon justify-self-end'
-            size='lg'
-            onClick={() => setShowDeleteFavouritesModal(true)}
-          />
+          <>
+            <span>Delete all</span>
+            <FontAwesomeIcon
+              icon={faTrashAlt}
+              className='icon justify-self-end ms-3'
+            />
+          </>
         )}
       </div>
 
