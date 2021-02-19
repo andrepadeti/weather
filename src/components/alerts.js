@@ -15,7 +15,7 @@ const Alerts = ({ data, timezone }) => {
             <h5 className='alert-heading'>{alert.event}</h5>
             <button
               type='button'
-              class='btn-close'
+              className='btn-close'
               data-bs-dismiss='alert'
               aria-label='Close'
             ></button>
