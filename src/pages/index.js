@@ -142,13 +142,15 @@ export default function Home() {
           setShowGeolocationModal(true)
           setExpandNavigation(true)
         }
+        // eslint-disable-next-line no-unused-vars
         const options = {
           enableHighAccuracy: true,
           timeout: 5000,
           maximumAge: 0,
         }
 
-        navigator.geolocation.getCurrentPosition(success, error, options)
+        // navigator.geolocation.getCurrentPosition(success, error, options)
+        navigator.geolocation.getCurrentPosition(success, error)
       }
     }
 
