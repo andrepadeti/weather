@@ -23,7 +23,7 @@ const Radar = ({ lat, lng }) => {
         </div>
       </header>
 
-      <Fade left in={showRadarDetails} mountOnEnter={true} collapse>
+      <Fade left in={showRadarDetails} collapse>
         <div style={{ height: '50vh' }}>
           <iframe
             title='Radar rain map'

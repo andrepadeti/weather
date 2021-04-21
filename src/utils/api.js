@@ -97,7 +97,7 @@ export const getCityFromGeolocation = async (lat, lng) => {
 
   try {
     const response = await fetch(url)
-    if (!response.ok) return { error: true }
+    if (!response.ok) return { error: true, status: response.status }
     console.log('fetched geolocation')
     const jsonData = await response.json()
     const description = getCityNameAndCountry(
@@ -105,6 +105,7 @@ export const getCityFromGeolocation = async (lat, lng) => {
     )
     return { error: false, description }
   } catch (error) {
-    return { error: true }
+    alert('getCityFromGeolocation catch\n' + error)
+    return { error: true, status: error }
   }
 }

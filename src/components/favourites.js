@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useContext } from 'react'
 import Context from '../context/context'
 import ScrollIcons from './scrollIcons'
 
@@ -21,7 +21,6 @@ const Favourites = () => {
     // wait a little until map() is over
     setTimeout(() => {
       const { width } = node.getBoundingClientRect()
-      console.log('width: ' + width)
       const windowWidth = window && window.innerWidth
       setShowScroll(windowWidth < width || width > 600)
     }, 200)

@@ -14,7 +14,9 @@ export const DeleteFavouritesModal = ({
       centered
     >
       <Modal.Body>
-        <Modal.Title className='modal-title mb-3'>Delete Favourites</Modal.Title>
+        <Modal.Title className='modal-title mb-3'>
+          Delete Favourites
+        </Modal.Title>
         <p>Are you sure you want to delete all your favourites?</p>
       </Modal.Body>
       <Modal.Footer className='modal-footer'>
