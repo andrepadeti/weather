@@ -128,7 +128,7 @@ export default function Home() {
           const response = await getCityFromGeolocation(lat, lng)
           if (response.error) {
             console.log(response)
-            alert("Couldn't fetch current location.\nStatus: " + JSON.stringify(response.status))
+            // alert("Couldn't fetch current location.\nStatus: " + JSON.stringify(response.status))
             setExpandNavigation(true)
           } else {
             onSuggestSelect({
