@@ -100,6 +100,11 @@ export const getCityFromGeolocation = async (lat, lng) => {
     if (!response.ok) return { error: true, status: response.status }
     console.log('fetched geolocation')
     const jsonData = await response.json()
+    alert(`
+      lat: ${lat}
+      lng: ${lng}
+    `)
+    alert(JSON.stringify(jsonData, null, 2))
     const description = getCityNameAndCountry(
       jsonData.results[0].address_components
     )
