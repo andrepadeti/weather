@@ -3,13 +3,13 @@ import Geosuggest from 'react-geosuggest'
 import Context from '../context/context'
 
 const Search = () => {
-  let { onSuggestSelect, setExpandNavigation } = useContext(Context)
+  let { placeSelect, setExpandNavigation } = useContext(Context)
   const geosuggestRef = useRef(null)
 
-  const handleSuggestSelect = (suggest) => {
+  const handleSelect = (suggest) => {
     setExpandNavigation(false)
     geosuggestRef.current.clear()
-    onSuggestSelect(suggest)
+    placeSelect(suggest)
   }
 
   return (
@@ -18,7 +18,7 @@ const Search = () => {
         ref={geosuggestRef}
         types={['(cities)']}
         placeDetailField={['formatted_address']}
-        onSuggestSelect={handleSuggestSelect}
+        onSuggestSelect={handleSelect}
         autoActivateFirstSuggest={true}
         inputClassName='input'
         suggestsClassName='suggests'

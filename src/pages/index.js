@@ -38,19 +38,19 @@ export default function Home() {
     )
   }
 
-  const onSuggestSelect = suggest => {
+  const placeSelect = suggest => {
     if (suggest) {
-      if ('test' in suggest) {
-        setSearchData({
-          test: true,
-          description: { cityName: 'Santo André', country: 'BR' },
-          method: 'test',
-        })
-      } else if ('cityName' in suggest) {
-        if (searchData.cityName !== suggest.cityName) {
-          setSearchData({ cityName: suggest.cityName, method: 'city name' })
-        } else console.log('avoiding unnecessary fetch')
-      } else if ('location' in suggest) {
+      // if ('test' in suggest) {
+      //   setSearchData({
+      //     test: true,
+      //     description: { cityName: 'Santo André', country: 'BR' },
+      //     method: 'test',
+      //   })
+      // } else if ('cityName' in suggest) {
+      //   if (searchData.cityName !== suggest.cityName) {
+      //     setSearchData({ cityName: suggest.cityName, method: 'city name' })
+      //   } else console.log('avoiding unnecessary fetch')
+      // } else if ('location' in suggest) {
         const lat = suggest.location.lat
         const lng = suggest.location.lng
         const time = Date.now()
@@ -60,11 +60,11 @@ export default function Home() {
         const method = 'geographic coordinates'
         setFavourite(isFavourite({ lat, lng, description }))
         setSearchData({ time, lat, lng, description, method })
-      } else if ('geoNameId' in suggest) {
-        if (searchData.geoNameId !== suggest.geoNameId) {
-          setSearchData({ geoNameId: suggest.geoNameId, method: 'geoNameId' })
-        } else console.log('avoiding unnecessary fetch')
-      }
+      // } else if ('geoNameId' in suggest) {
+      //   if (searchData.geoNameId !== suggest.geoNameId) {
+      //     setSearchData({ geoNameId: suggest.geoNameId, method: 'geoNameId' })
+      //   } else console.log('avoiding unnecessary fetch')
+      // }
       setSearchComplete(true)
     }
   }
@@ -128,10 +128,9 @@ export default function Home() {
           const response = await getCityFromGeolocation(lat, lng)
           if (response.error) {
             console.log(response)
-            // alert("Couldn't fetch current location.\nStatus: " + JSON.stringify(response.status))
             setExpandNavigation(true)
           } else {
-            onSuggestSelect({
+            placeSelect({
               location: { lat, lng },
               description: response.description,
             })
@@ -149,8 +148,7 @@ export default function Home() {
           maximumAge: 0,
         }
 
-        // navigator.geolocation.getCurrentPosition(success, error, options)
-        navigator.geolocation.getCurrentPosition(success, error)
+        navigator.geolocation.getCurrentPosition(success, error, options)
       }
     }
 
@@ -162,7 +160,7 @@ export default function Home() {
       value={{
         // who uses it:
         favourite, // City
-        onSuggestSelect, // Search
+        placeSelect, // Search
         favouritesList, // Favourites
         handleClickFavourite, // Favourites
         setShowDeleteFavouritesModal, // Favourites
