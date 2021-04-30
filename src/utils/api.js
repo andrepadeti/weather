@@ -1,4 +1,6 @@
-import forecast from '../content/forecast.json'
+import axios from 'axios'
+import { useQuery } from 'react-query'
+import testData from '../content/forecast.json'
 
 const initialiseLocalStorage = () => {
   if (localStorage.getItem('weatherAppFetch') === null) {
@@ -32,7 +34,7 @@ export const getWeather = async (
   initialiseLocalStorage()
 
   if (method === 'test') {
-    return { error: false, jsonData: forecast }
+    return { error: false, data: testData }
   }
 
   if (method === 'geographic coordinates') {
@@ -60,20 +62,19 @@ export const getWeather = async (
 
   if (repeatedFetch) {
     console.log('avoiding unnecessary forecast fetch')
-    return { error: false, jsonData: weatherAppFetch.data }
+    return { error: false, data: weatherAppFetch.data }
   }
 
   try {
-    const response = await fetch(url)
-    if (!response.ok) return { error: true }
+    const { data } = await axios(url)
     console.log('fetched forecast')
-    const jsonData = await response.json()
-    newFetch.lastFetch = jsonData.lastFetch = Date.now() // ugly work around!
-    newFetch.data = jsonData
+    newFetch.lastFetch = data.lastFetch = Date.now() // ugly work around!
+    newFetch.data = data
     localStorage.setItem('weatherAppFetch', JSON.stringify(newFetch))
-    return { error: false, jsonData }
+    return { error: false, data }
   } catch (error) {
-    return { error: true }
+    console.log(error)
+    return { error: true, status: error }
   }
 }
 
@@ -96,13 +97,11 @@ export const getCityFromGeolocation = async (lat, lng) => {
   const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&result_type=locality&key=${process.env.GATSBY_GOOGLE_MAPS_KEY}`
 
   try {
-    const response = await fetch(url)
-    if (!response.ok) return { error: true, status: response.status }
+    const { data } = await axios(url)
     console.log('fetched geolocation')
-    const jsonData = await response.json()
-    if (jsonData.status !== 'OK') throw new Error('Google Geocode error')
+    if (data.status !== 'OK') throw new Error('Google Geocode error')
     const description = getCityNameAndCountry(
-      jsonData.results[0].address_components
+      data.results[0].address_components
     )
     return { error: false, description }
   } catch (error) {

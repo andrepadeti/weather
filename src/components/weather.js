@@ -13,21 +13,27 @@ import Alerts from './alerts'
 
 const Weather = ({ searchData, handleMarkFavourite }) => {
   const [weather, setWeather] = useState()
-  const [loaded, setLoaded] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isError, setIsError] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoaded(false)
+      setIsLoading(true)
       const response = await getWeather(searchData, searchData.method)
+      // console.log(response)
       if (response.error) {
-        alert("Couldn't fetch!")
+        alert(response.status)
+        setIsError(true)
       } else {
-        setWeather(response.jsonData)
-        setLoaded(true)
+        setWeather(response.data)
       }
+      setIsLoading(false)
     }
     fetchData()
   }, [searchData])
+
+  if (isLoading) return <Loading message='Fetching weather data...' />
+  if (isError) return <span>Error.</span>
 
   return (
     <>
@@ -37,7 +43,7 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
         country={searchData.description.country}
         handleMarkFavourite={handleMarkFavourite}
       />
-      {loaded && weather.timezone ? (
+      {weather.timezone && (
         <>
           {weather.lastFetch && <LastFetch lastFetch={weather.lastFetch} />}
           {weather.current && (
@@ -64,8 +70,6 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
             <Daily data={weather.daily} timezone={weather.timezone} />
           )}
         </>
-      ) : (
-        <Loading message='Fetching weather data...' />
       )}
     </>
   )

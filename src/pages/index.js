@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import Context from '../context/context'
 
 // function imports
@@ -12,6 +13,16 @@ import Weather from '../components/weather'
 import Loading from '../components/loading'
 
 import Fade from 'react-reveal/Fade'
+
+// Create a query client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 5 * 60 * 1000,
+    },
+  },
+})
 
 export default function Home() {
   const [fetchingGeolocation, setFetchingGeolocation] = useState(true)
@@ -51,15 +62,16 @@ export default function Home() {
       //     setSearchData({ cityName: suggest.cityName, method: 'city name' })
       //   } else console.log('avoiding unnecessary fetch')
       // } else if ('location' in suggest) {
-        const lat = suggest.location.lat
-        const lng = suggest.location.lng
-        const time = Date.now()
-        const description = suggest.gmaps
-          ? getCityNameAndCountry(suggest.gmaps.address_components)
-          : suggest.description
-        const method = 'geographic coordinates'
-        setFavourite(isFavourite({ lat, lng, description }))
-        setSearchData({ time, lat, lng, description, method })
+      const lat = suggest.location.lat
+      const lng = suggest.location.lng
+      // const time = Date.now()
+      const description = suggest.gmaps
+        ? getCityNameAndCountry(suggest.gmaps.address_components)
+        : suggest.description
+      const method = 'geographic coordinates'
+      setFavourite(isFavourite({ lat, lng, description }))
+      // setSearchData({ time, lat, lng, description, method })
+      setSearchData({ lat, lng, description, method })
       // } else if ('geoNameId' in suggest) {
       //   if (searchData.geoNameId !== suggest.geoNameId) {
       //     setSearchData({ geoNameId: suggest.geoNameId, method: 'geoNameId' })
@@ -156,56 +168,61 @@ export default function Home() {
   }, [])
 
   return (
-    <Context.Provider
-      value={{
-        // who uses it:
-        favourite, // City
-        placeSelect, // Search
-        favouritesList, // Favourites
-        handleClickFavourite, // Favourites
-        setShowDeleteFavouritesModal, // Favourites
-        setExpandNavigation, // Navigation
-        searchData, // lastFetch
-        setSearchData, // lastFetch
-      }}
-    >
-      <SEO title='Weather App' description='The ultimate weather app!' />
-      <div className='container bg-primary px-0' style={{ maxWidth: '600px' }}>
-        <Navigation expandNavigation={expandNavigation} />
-        <DeleteFavouritesModal
-          handleDeleteFavourites={handleDeleteFavourites}
-          showModal={showDeleteFavouritesModal}
-          setShowModal={setShowDeleteFavouritesModal}
-        />
-        <GeolocationModal
-          showModal={showGeolocationModal}
-          setShowModal={setShowGeolocationModal}
-        />
-        <div className='container'>
-          <div className='row mt-4'>
-            <div className='col-12 mx-auto my-3'>
-              <Fade delay={300} duration={2000}>
-                <h1 className='text-center display-5'>Weather Forecast</h1>
-              </Fade>
+    <QueryClientProvider client={queryClient}>
+      <Context.Provider
+        value={{
+          // who uses it:
+          favourite, // City
+          placeSelect, // Search
+          favouritesList, // Favourites
+          handleClickFavourite, // Favourites
+          setShowDeleteFavouritesModal, // Favourites
+          setExpandNavigation, // Navigation
+          searchData, // lastFetch
+          setSearchData, // lastFetch
+        }}
+      >
+        <SEO title='Weather App' description='The ultimate weather app!' />
+        <div
+          className='container bg-primary px-0'
+          style={{ maxWidth: '600px' }}
+        >
+          <Navigation expandNavigation={expandNavigation} />
+          <DeleteFavouritesModal
+            handleDeleteFavourites={handleDeleteFavourites}
+            showModal={showDeleteFavouritesModal}
+            setShowModal={setShowDeleteFavouritesModal}
+          />
+          <GeolocationModal
+            showModal={showGeolocationModal}
+            setShowModal={setShowGeolocationModal}
+          />
+          <div className='container'>
+            <div className='row mt-4'>
+              <div className='col-12 mx-auto my-3'>
+                <Fade delay={300} duration={2000}>
+                  <h1 className='text-center display-5'>Weather Forecast</h1>
+                </Fade>
+              </div>
             </div>
-          </div>
 
-          <div className='row'>
-            <div className='col-12 mx-auto'>
-              {searchComplete && (
-                <Weather
-                  searchData={searchData}
-                  handleMarkFavourite={handleMarkFavourite}
-                  favourite={favourite}
-                />
-              )}
-              {fetchingGeolocation && (
-                <Loading message='Fetching geolocation...' className='mb-5' />
-              )}
+            <div className='row'>
+              <div className='col-12 mx-auto'>
+                {searchComplete && (
+                  <Weather
+                    searchData={searchData}
+                    handleMarkFavourite={handleMarkFavourite}
+                    favourite={favourite}
+                  />
+                )}
+                {fetchingGeolocation && (
+                  <Loading message='Fetching geolocation...' className='mb-5' />
+                )}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </Context.Provider>
+      </Context.Provider>
+    </QueryClientProvider>
   )
 }
