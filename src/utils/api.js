@@ -1,18 +1,19 @@
 import axios from 'axios'
-// TODO implement react-query
-// import { useQuery } from 'react-query'
 import testData from '../content/forecast.json'
 
+// deprecated
 const initialiseLocalStorage = () => {
   if (localStorage.getItem('weatherAppFetch') === null) {
-    let weatherAppFetch
-    weatherAppFetch = {}
-    weatherAppFetch.description = {}
-    weatherAppFetch.description.cityName = ''
-    weatherAppFetch.description.area = ''
-    weatherAppFetch.description.country = ''
-    weatherAppFetch.lastFetch = Date.now()
-    weatherAppFetch.data = {}
+    console.log('initialiseLocalStorage')
+    let weatherAppFetch = {
+      description: {
+        cityName: '',
+        area: '',
+        country: '',
+      },
+      lastFetch: Date.now(),
+      data: {},
+    }
     localStorage.setItem('weatherAppFetch', JSON.stringify(weatherAppFetch))
 
     // remove old localStorage
@@ -22,6 +23,7 @@ const initialiseLocalStorage = () => {
   }
 }
 
+// deprecated
 export const getWeather = async (
   searchData,
   method = 'geographic coordinates',

@@ -21,7 +21,8 @@ class LastFetch extends React.Component {
   }
 
   getMessage() {
-    const isStaleData = Date.now() - this.props.lastFetch >= 5 * 60 * 1000
+    // console.log(this.props.lastFetch)
+    const isStaleData = Date.now() - this.props.lastFetch >= 2 * 60 * 1000
     const message = formatDistanceToNow(this.props.lastFetch, {
       addSuffix: true,
     })
@@ -41,13 +42,13 @@ class LastFetch extends React.Component {
     return (
       <div className='text-center fs-7'>
         {this.state.message}
-        {this.state.isStaleData && (
+        {/* {this.state.isStaleData && (
           <FontAwesomeIcon
             icon={faSync}
             className='ms-3'
             onClick={this.handleOnClickRefresh}
           />
-        )}
+        )} */}
       </div>
     )
   }

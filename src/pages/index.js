@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import Context from '../context/context'
 
 // function imports
@@ -19,10 +20,12 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      staleTime: 5 * 60 * 1000,
+      
+      // staleTime: 5 * 60 * 1000,
     },
   },
 })
+// const queryClient = new QueryClient()
 
 export default function Home() {
   const [fetchingGeolocation, setFetchingGeolocation] = useState(true)
@@ -222,6 +225,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <ReactQueryDevtools/>
       </Context.Provider>
     </QueryClientProvider>
   )

@@ -9,7 +9,6 @@ import {
   Text,
   Label,
 } from 'recharts'
-import usePrevious from '../utils/use-previous-hook'
 
 // eslint-disable-next-line no-unused-vars
 import { throttle } from 'lodash'
