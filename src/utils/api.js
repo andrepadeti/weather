@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { useQuery } from 'react-query'
+// TODO implement react-query
+// import { useQuery } from 'react-query'
 import testData from '../content/forecast.json'
 
 const initialiseLocalStorage = () => {
