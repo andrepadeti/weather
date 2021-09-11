@@ -7,8 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 
-const City = ({ cityName, area, country, handleMarkFavourite }) => {
+const City = props => {
   let { favourite } = useContext(Context)
+  const { cityName, area, country } = props.data
 
   return (
     <Fade spy={cityName} left appear>
@@ -16,11 +17,11 @@ const City = ({ cityName, area, country, handleMarkFavourite }) => {
         <h3 className='text-center fw-light'>
           {cityName}
           {area && area !== cityName && ', ' + area}
-          <span className='badge opaque px-2 ms-2'>{`${country}`}</span>
+          <span className='badge opaque px-2 ms-2'>{country}</span>
           <FontAwesomeIcon
             icon={favourite ? faStarSolid : faStarRegular}
             className='ms-3'
-            onClick={() => handleMarkFavourite(cityName, area, country)}
+            onClick={() => props.handleMarkFavourite(cityName, area, country)}
           />
         </h3>
       </div>

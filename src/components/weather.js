@@ -16,13 +16,13 @@ import Alerts from './alerts'
 
 const Weather = ({ searchData, handleMarkFavourite }) => {
   const refetchInterval = 5 * 60 * 1000
-  
+
   const fetchWeatherData = async searchData => {
     const units = 'metric'
     const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${searchData.lat}&lon=${searchData.lng}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
     const { data } = await axios(url)
-    console.log('fetched forecast')
-    console.log(searchData.description)
+    // console.log('fetched forecast')
+    // console.log(searchData.description)
     data.lastFetch = Date.now()
     return data
   }
@@ -51,11 +51,9 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
 
   return (
     <>
-    {console.log(Date(dataUpdatedAt))}
+      {console.log(Date(dataUpdatedAt))}
       <City
-        cityName={searchData.description.cityName}
-        area={searchData.description.area}
-        country={searchData.description.country}
+        data={searchData.description}
         handleMarkFavourite={handleMarkFavourite}
       />
       {weather.timezone && (

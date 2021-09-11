@@ -4,7 +4,7 @@ import testData from '../content/forecast.json'
 // deprecated
 const initialiseLocalStorage = () => {
   if (localStorage.getItem('weatherAppFetch') === null) {
-    console.log('initialiseLocalStorage')
+    // console.log('initialiseLocalStorage')
     let weatherAppFetch = {
       description: {
         cityName: '',

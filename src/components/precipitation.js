@@ -36,7 +36,6 @@ const Precipitation = ({ data, timezone }) => {
   )
 
   let accumulatedPrecipitation = 0
-
   const formattedData = data.map(item => {
     const epoch = item.dt * 1000
     const options = {

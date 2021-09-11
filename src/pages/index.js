@@ -20,7 +20,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      
+
       // staleTime: 5 * 60 * 1000,
     },
   },
@@ -142,7 +142,7 @@ export default function Home() {
           const lng = position.coords.longitude
           const response = await getCityFromGeolocation(lat, lng)
           if (response.error) {
-            console.log(response)
+            // console.log(response)
             setExpandNavigation(true)
           } else {
             placeSelect({
@@ -225,7 +225,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <ReactQueryDevtools/>
+        {/* <ReactQueryDevtools /> */}
       </Context.Provider>
     </QueryClientProvider>
   )

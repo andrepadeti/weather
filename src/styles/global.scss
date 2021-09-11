@@ -28,7 +28,7 @@ $font-sizes: (
 );
 
 $custom-colors: (
-  'theme': $iconColour
+  'theme': $iconColour,
 );
 
 $theme-colors: map-merge($theme-colors, $custom-colors);

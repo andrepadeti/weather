@@ -6,7 +6,6 @@ import { enGB } from 'date-fns/locale'
 const Alerts = ({ data, timezone }) => {
   const [showAlerts, setShowAlerts] = useState(false)
 
-  console.log(data)
   return (
     <article className='my-5'>
       <header className='mb-3'>
@@ -31,19 +30,11 @@ const Alerts = ({ data, timezone }) => {
           {data.map((alert, index) => (
             <div
               key={index}
-              // className='alert alert-theme alert-dismissible fade show mb-4'
               className='alert alert-theme mb-4'
               role='alert'
             >
               <h5 className='alert-heading'>{alert.event}</h5>
-              {/* <button
-                type='button'
-                className='btn-close'
-                data-bs-dismiss='alert'
-                aria-label='Close'
-              ></button> */}
               <p>
-                
                 <strong>Start:</strong>{' '}
                 {format(new Date(alert.start * 1000), "PPPP' at 'HH:mm", {
                   locale: enGB,
@@ -54,8 +45,11 @@ const Alerts = ({ data, timezone }) => {
                   locale: enGB,
                 })}
               </p>
-              <p className='text-start'>{alert.sender_name}
-                <br />{alert.description}</p>
+              <p className='text-start'>
+                {alert.sender_name}
+                <br />
+                {alert.description}
+              </p>
             </div>
           ))}
         </>
