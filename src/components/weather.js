@@ -51,7 +51,7 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
 
   return (
     <>
-      {console.log(Date(dataUpdatedAt))}
+      {/* {console.log(Date(dataUpdatedAt))} */}
       <City
         data={searchData.description}
         handleMarkFavourite={handleMarkFavourite}

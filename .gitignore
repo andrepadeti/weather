@@ -70,3 +70,5 @@ yarn-error.log
 
 # My custom files
 api.http
+# Local Netlify folder
+.netlify

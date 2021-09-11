@@ -97,11 +97,13 @@ export const getCityNameAndCountry = data => {
 }
 
 export const getCityFromGeolocation = async (lat, lng) => {
-  const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&language=en&result_type=locality&key=${process.env.GATSBY_GOOGLE_MAPS_KEY}`
+  const url = `./netlify/functions/maps?lat=${lat}&lng=${lng}`
 
   try {
     const { data } = await axios(url)
     console.log('fetched geolocation')
+    console.log(data)
+    // if (error) throw new Error('')
     if (data.status !== 'OK') throw new Error('Google Geocode error')
     const description = getCityNameAndCountry(
       data.results[0].address_components
