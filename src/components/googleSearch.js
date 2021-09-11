@@ -6,7 +6,7 @@ const Search = () => {
   let { placeSelect, setExpandNavigation } = useContext(Context)
   const geosuggestRef = useRef(null)
 
-  const handleSelect = (suggest) => {
+  const handleSelect = suggest => {
     setExpandNavigation(false)
     geosuggestRef.current.clear()
     placeSelect(suggest)

@@ -18,11 +18,12 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
   const refetchInterval = 5 * 60 * 1000
 
   const fetchWeatherData = async searchData => {
-    const units = 'metric'
-    const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${searchData.lat}&lon=${searchData.lng}&units=${units}&appid=${process.env.GATSBY_WEATHER_API_KEY}`
-    const { data } = await axios(url)
-    // console.log('fetched forecast')
-    // console.log(searchData.description)
+    const url = `/.netlify/functions/weather`
+    const config = {
+      params: { lat: searchData.lat, lon: searchData.lng, units: 'metric' },
+    }
+    
+    const { data } = await axios(url, config)
     data.lastFetch = Date.now()
     return data
   }

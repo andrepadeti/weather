@@ -1,6 +1,7 @@
 # Weather App
 
-This is my take on the weather app. I'm building it on Gatsby.  
+This is my take on the weather app. I'm building it on Gatsby.
+I'm also uising [Netlify Functions](https://github.com/netlify/cli/blob/main/docs/netlify-dev.md) to keep api keys secret
 
 ## Searchbox
 

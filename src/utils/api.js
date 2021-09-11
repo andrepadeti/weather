@@ -97,12 +97,11 @@ export const getCityNameAndCountry = data => {
 }
 
 export const getCityFromGeolocation = async (lat, lng) => {
-  const url = `./netlify/functions/maps?lat=${lat}&lng=${lng}`
+  const url = `/.netlify/functions/maps?lat=${lat}&lng=${lng}`
 
   try {
     const { data } = await axios(url)
     console.log('fetched geolocation')
-    console.log(data)
     // if (error) throw new Error('')
     if (data.status !== 'OK') throw new Error('Google Geocode error')
     const description = getCityNameAndCountry(
