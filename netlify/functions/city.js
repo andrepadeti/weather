@@ -1,16 +1,16 @@
 const axios = require('axios')
 
 /**
- * Netlify function that calls openweathermap api to get weather data
+ * Netlify function that calls openweathermap geocoding api 
  * @param {*} event 
  * @param {*} context 
- * @returns weather data for a given location
+ * @returns all (5) coordinates that match the location name
  */
 exports.handler = async function (event, context) {
-  const { lat, lon, units } = event.queryStringParameters
-  const url = `https://api.openweathermap.org/data/2.5/onecall`
+  const { query } = event.queryStringParameters
+  const url = `http://api.openweathermap.org/geo/1.0/direct`
   const config = {
-    params: { lat, lon, units, appid: process.env.GATSBY_WEATHER_API_KEY },
+    params: { q: query, limit: 5, appid: process.env.GATSBY_WEATHER_API_KEY },
   }
 
   try {

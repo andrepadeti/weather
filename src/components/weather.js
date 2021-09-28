@@ -22,7 +22,7 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
     const config = {
       params: { lat: searchData.lat, lon: searchData.lng, units: 'metric' },
     }
-    
+
     const { data } = await axios(url, config)
     data.lastFetch = Date.now()
     return data

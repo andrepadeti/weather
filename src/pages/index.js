@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+// import { ReactQueryDevtools } from 'react-query/devtools'
 import Context from '../context/context'
 
 // function imports
@@ -43,15 +43,6 @@ export default function Home() {
       : []
   )
 
-  const isFavourite = ({ lat, lng, description }) => {
-    if (!favouritesList) return false
-    return favouritesList.some(
-      item =>
-        item.description.cityName === description.cityName &&
-        item.description.country === description.country
-    )
-  }
-
   const placeSelect = suggest => {
     if (suggest) {
       // if ('test' in suggest) {
@@ -65,6 +56,7 @@ export default function Home() {
       //     setSearchData({ cityName: suggest.cityName, method: 'city name' })
       //   } else console.log('avoiding unnecessary fetch')
       // } else if ('location' in suggest) {
+      // console.log(suggest)
       const lat = suggest.location.lat
       const lng = suggest.location.lng
       // const time = Date.now()
@@ -82,6 +74,15 @@ export default function Home() {
       // }
       setSearchComplete(true)
     }
+  }
+
+  const isFavourite = ({ lat, lng, description }) => {
+    if (!favouritesList) return false
+    return favouritesList.some(
+      item =>
+        item.description.cityName === description.cityName &&
+        item.description.country === description.country
+    )
   }
 
   const handleMarkFavourite = (cityName, area, country) => {
@@ -142,7 +143,7 @@ export default function Home() {
           const lng = position.coords.longitude
           const response = await getCityFromGeolocation(lat, lng)
           if (response.error) {
-            console.log('Couldn\'t fetch from Maps API')
+            console.log("Couldn't fetch from Maps API")
             console.log(response)
             setExpandNavigation(true)
           } else {

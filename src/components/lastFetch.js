@@ -2,8 +2,8 @@ import React from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import Context from '../context/context'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSync } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faSync } from '@fortawesome/free-solid-svg-icons'
 
 class LastFetch extends React.Component {
   static contextType = Context
