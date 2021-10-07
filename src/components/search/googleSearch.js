@@ -1,6 +1,6 @@
 import React, { useRef, useContext } from 'react'
 import Geosuggest from 'react-geosuggest'
-import Context from '../context/context'
+import Context from '../../context/context'
 
 const Search = () => {
   let { placeSelect, setExpandNavigation } = useContext(Context)

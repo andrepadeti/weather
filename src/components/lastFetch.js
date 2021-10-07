@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import Context from '../context/context'
 

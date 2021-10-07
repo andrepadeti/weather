@@ -6,7 +6,7 @@
 
 // my variables
 $primary: whitesmoke;
-$secondary: #e3e3ee;
+$secondary: hsl(240, 24%, 91%);
 $iconColour: darkslategrey;
 $fontColour: black;
 $text-on-background: mintcream;
@@ -107,17 +107,6 @@ body {
 .description {
   @extend .text-uppercase; // namespace prefixes are not necessary on @extends
   font-size: 0.5rem;
-}
-
-header {
-  @extend .d-flex;
-  @extend .flex-column;
-  @extend .align-items-center;
-  @extend .fs-7;
-
-  h3 {
-    @extend .fw-light;
-  }
 }
 
 .icon {

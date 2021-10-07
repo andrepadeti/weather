@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import Fade from 'react-reveal/Fade'
 
+import Title from './common/title'
+
 const Radar = ({ lat, lng }) => {
   const [showRadarDetails, setShowRadarDetails] = useState(false)
 
   return (
     <article className='my-5'>
-      <header className='mb-3'>
-        <h3>Radar</h3>
+      <Title title='Radar' className='mb-3'>
         <div className='form-check'>
           <input
             className='form-check-input'
@@ -21,7 +22,7 @@ const Radar = ({ lat, lng }) => {
             Show rain map
           </label>
         </div>
-      </header>
+      </Title>
 
       <Fade left in={showRadarDetails} collapse>
         <div style={{ height: '50vh' }}>

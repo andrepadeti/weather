@@ -1,16 +1,18 @@
-import React from 'react'
+import * as React from 'react'
 import styled from 'styled-components'
 
 import BackgroundImage from 'gatsby-background-image'
 import { useStaticQuery, graphql } from 'gatsby'
 import Fade from 'react-reveal/Fade'
 
-import { UVI } from './itemsWeather'
-import { Humidity } from './itemsWeather'
-import { Pressure } from './itemsWeather'
-import { Wind } from './itemsWeather'
-import { CurrentTemperature } from './itemsWeather'
-import { Daytime } from './itemsWeather'
+import {
+  UVI,
+  Humidity,
+  Pressure,
+  Wind,
+  CurrentTemperature,
+  Daytime,
+} from './itemsWeather'
 
 const WeatherImage = styled(BackgroundImage)`
   height: 338px;

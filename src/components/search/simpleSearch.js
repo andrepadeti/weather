@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import cities from '../content/cities.json'
+import cities from '../../content/cities.json'
 
 const SimpleSearch = props => {
   const [searchText, setSearchText] = useState('')

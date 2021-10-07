@@ -2,7 +2,7 @@ import * as React from 'react'
 import { AsyncTypeahead, Highlighter } from 'react-bootstrap-typeahead'
 import axios from 'axios'
 
-import Context from '../context/context'
+import Context from '../../context/context'
 // import cities from '../content/world-cities.json'
 
 const TypeaheadSearch = props => {

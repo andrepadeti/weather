@@ -13,6 +13,7 @@ import {
 // eslint-disable-next-line no-unused-vars
 import { throttle } from 'lodash'
 
+import Title from './common/title'
 import ScrollIcons from './scrollIcons'
 
 // icons to be used in the legend
@@ -112,8 +113,7 @@ const Wrapper = ({ children }) => {
 
   return (
     <article className='my-5'>
-      <header>
-        <h3>Hourly Forecast</h3>
+      <Title title='Hourly Forecast'>
         <div>for the next 48 hours</div>
         <div>
           <FontAwesomeIcon icon={faChartLine} className='me-1' />
@@ -121,7 +121,7 @@ const Wrapper = ({ children }) => {
           <FontAwesomeIcon icon={faChartBar} className='ms-3 me-1' />
           Precipitation in mm
         </div>
-      </header>
+      </Title>
 
       <div
         className='hide-scrollbar'

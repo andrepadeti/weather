@@ -1,17 +1,19 @@
 import React, { useState } from 'react'
-
 import { isToday, isTomorrow } from 'date-fns'
 
 import ScrollIcons from './scrollIcons'
-import { Icon } from './itemsWeather'
-import { MaxTemperature } from './itemsWeather'
-import { MinTemperature } from './itemsWeather'
-import { Humidity } from './itemsWeather'
-import { Pressure } from './itemsWeather'
-import { Wind } from './itemsWeather'
-import { Cloudiness } from './itemsWeather'
-import { Rain } from './itemsWeather'
-import { UVI } from './itemsWeather'
+import {
+  Icon,
+  MaxTemperature,
+  MinTemperature,
+  Humidity,
+  Pressure,
+  Wind,
+  Cloudiness,
+  Rain,
+  UVI,
+} from './itemsWeather'
+import Title from './common/title'
 
 const Daily = ({ data, timezone }) => {
   const [scrollEvent, setScrollEvent] = useState(null)
@@ -29,10 +31,9 @@ const Daily = ({ data, timezone }) => {
 
   return (
     <article className='my-5'>
-      <header>
-        <h3>Daily Forecast</h3>
+      <Title title='Daily Forecast'>
         <div>for the next 7 days</div>
-      </header>
+      </Title>
 
       <div
         className='mt-3 mb-2 hide-scrollbar'

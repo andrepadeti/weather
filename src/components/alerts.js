@@ -3,13 +3,14 @@ import Fade from 'react-reveal/Fade'
 import { format } from 'date-fns'
 import { enGB } from 'date-fns/locale'
 
+import Title from './common/title'
+
 const Alerts = ({ data, timezone }) => {
   const [showAlerts, setShowAlerts] = useState(false)
 
   return (
     <article className='my-5'>
-      <header className='mb-3'>
-        <h3>Alerts</h3>
+      <Title className='mb-3' title='Alerts'>
         <div className='form-check'>
           <input
             className='form-check-input'
@@ -23,16 +24,12 @@ const Alerts = ({ data, timezone }) => {
             Show alerts
           </label>
         </div>
-      </header>
+      </Title>
 
       <Fade left in={showAlerts} collapse>
         <>
           {data.map((alert, index) => (
-            <div
-              key={index}
-              className='alert alert-theme mb-4'
-              role='alert'
-            >
+            <div key={index} className='alert alert-theme mb-4' role='alert'>
               <h5 className='alert-heading'>{alert.event}</h5>
               <p>
                 <strong>Start:</strong>{' '}

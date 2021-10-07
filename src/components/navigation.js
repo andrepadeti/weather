@@ -2,10 +2,10 @@ import React, { useContext } from 'react'
 import Context from '../context/context'
 import Navbar from 'react-bootstrap/Navbar'
 
-// import Search from '../components/googleSearch'
-import Search from "../components/typeaheadSearch"
-// import Search from '../components/simpleSearch'
-import Favourites from '../components/favourites'
+// import Search from './search/googleSearch'
+import Search from "./search/typeaheadSearch"
+// import Search from './search/simpleSearch'
+import Favourites from './favourites'
 
 const Navigation = ({ expandNavigation }) => {
   const { setExpandNavigation } = useContext(Context)
