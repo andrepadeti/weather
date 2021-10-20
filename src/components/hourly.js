@@ -40,66 +40,78 @@ const Ticks = props => {
   )
 }
 
-let lastTemperature
-const LineLabel = props => {
-  const { x, y, stroke, value } = props
-  const valueToShow = Math.round(value)
+/**
+ * For some time, lastTemperature was declared outside of the function.
+ * The solution was to create a singleton function so that I could
+ * declare the variable inside a closure.
+ * 
+ * ref: https://www.dofactory.com/javascript/design-patterns/singleton
+ *  and https://github.com/timolins/react-hot-toast/blob/main/src/core/utils.ts
+ */
+const LineLabel = (() => {
+  let lastTemperature
+  return props => {
+    const { x, y, stroke, value } = props
+    const valueToShow = Math.round(value)
 
-  // if last shown temperature hasn't changed, don't show the same number again
-  if (lastTemperature === 'undefined') lastTemperature = valueToShow - 1 // initialise variable if undefined
-  const showTemperature = lastTemperature !== valueToShow
-  lastTemperature = valueToShow
+    // if last shown temperature hasn't changed, don't show the same number again
+    if (lastTemperature === 'undefined') lastTemperature = valueToShow - 1 // initialise variable if undefined
+    const showTemperature = lastTemperature !== valueToShow
+    lastTemperature = valueToShow
 
-  return (
-    <>
-      {showTemperature && (
-        <text
-          x={x}
-          y={y}
-          dy={-5}
-          fill={stroke}
-          fontSize={10}
-          textAnchor='middle'
-        >
-          {valueToShow}
-        </text>
-      )}
-    </>
-  )
-}
+    return (
+      <>
+        {showTemperature && (
+          <text
+            x={x}
+            y={y}
+            dy={-5}
+            fill={stroke}
+            fontSize={10}
+            textAnchor='middle'
+          >
+            {valueToShow}
+          </text>
+        )}
+      </>
+    )
+  }
+})()
 
-let lastPrecipitation
-const BarLabel = props => {
-  const { x, y, stroke, value } = props
-  const valueToShow = Math.round(value)
+const BarLabel = (() => {
+  let lastPrecipitation
+  return props => {
+    const { x, y, stroke, value } = props
+    const valueToShow = Math.round(value)
 
-  // if last shown precipitation hasn't changed, don't show the same number again
-  if (lastPrecipitation === 'undefined') lastPrecipitation = valueToShow - 1 // initialise variable if undefined
-  const showPrecipitation = lastPrecipitation !== valueToShow
-  lastPrecipitation = valueToShow
+    // if last shown precipitation hasn't changed, don't show the same number again
+    if (lastPrecipitation === 'undefined') lastPrecipitation = valueToShow - 1 // initialise variable if undefined
+    const showPrecipitation = lastPrecipitation !== valueToShow
+    lastPrecipitation = valueToShow
 
-  return (
-    <>
-      {showPrecipitation && valueToShow !== 0 && (
-        <text
-          x={x}
-          y={y}
-          dy={-5}
-          dx={10}
-          fill={stroke}
-          fontSize={10}
-          textAnchor='middle'
-        >
-          {valueToShow}
-        </text>
-      )}
-    </>
-  )
-}
+    return (
+      <>
+        {showPrecipitation && valueToShow !== 0 && (
+          <text
+            x={x}
+            y={y}
+            dy={-5}
+            dx={10}
+            fill={stroke}
+            fontSize={10}
+            textAnchor='middle'
+          >
+            {valueToShow}
+          </text>
+        )}
+      </>
+    )
+  }
+})()
 
 /**
- * Wrapper component 
- * 
+ * Wrapper component
+ *
  * I had a problem. BarLabel and LineLabel components were rerendering too many times!
  * Then I read this article by Kent C Dodds:
  * https://kentcdodds.com/blog/optimize-react-re-renders
