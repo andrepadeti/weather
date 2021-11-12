@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import Context from '../context/context'
 import Navbar from 'react-bootstrap/Navbar'
 
-// import Search from './search/googleSearch'
-import Search from "./search/typeaheadSearch"
+import Search from './search/googleSearch'
+// import Search from "./search/typeaheadSearch"
 // import Search from './search/simpleSearch'
 import Favourites from './favourites'
 

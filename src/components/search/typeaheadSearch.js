@@ -1,11 +1,18 @@
 import * as React from 'react'
-import { AsyncTypeahead, Highlighter } from 'react-bootstrap-typeahead'
+import {
+  Typeahead,
+  AsyncTypeahead,
+  Highlighter,
+} from 'react-bootstrap-typeahead'
 import axios from 'axios'
 
 import Context from '../../context/context'
-// import cities from '../content/world-cities.json'
+import cities from '../../content/cities.json'
 
-const TypeaheadSearch = props => {
+/* IMPORTANT: Search from json file or search online? */
+const SEARCH_ONLINE = true
+
+const TypeaheadSearch = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [options, setOptions] = React.useState()
 
@@ -13,13 +20,14 @@ const TypeaheadSearch = props => {
   const ref = React.useRef()
 
   const handleOnSubmit = city => {
+    console.log(city)
     if (typeof city !== 'undefined' && city.length > 0) {
       ref.current.blur()
       console.log(city)
       const suggest = {
         location: {
           lat: city[0].lat,
-          lng: city[0].lon,
+          lng: city[0].lon || city[0].lng,
         },
         description: {
           cityName: city[0].name,
@@ -105,8 +113,8 @@ const TypeaheadSearch = props => {
     }
   }
 
-  return (
-    <>
+  if (SEARCH_ONLINE) {
+    return (
       <div>
         <AsyncTypeahead
           id='searchbox'
@@ -124,29 +132,34 @@ const TypeaheadSearch = props => {
           renderMenuItemChildren={renderMenuItemChildren}
           useCache={false}
         />
-
-        {/* <form onSubmit={handleOnSubmit}>
+      </div>
+    )
+  } else {
+    return (
+      <div>
+        <form onSubmit={handleOnSubmit}>
           <Typeahead
             id='searchbox'
             placeholder='Search for a city...'
-            // labelKey={item => `${item.name}, ${item.subcountry}, ${item.country}`}
             labelKey='name'
             options={cities}
-            // onChange={(selected) => setSearchText({selected})}
             onChange={handleOnSubmit}
-            // selected={searchText}
             minLength={3}
             highlightOnlyResult={false}
             maxResults={4}
             renderMenuItemChildren={renderMenuItemChildren}
             ref={ref}
+            // options I've been testing:
+            // labelKey={item => `${item.name}, ${item.subcountry}, ${item.country}`}
+            // onChange={(selected) => setSearchText({selected})}
+            // selected={searchText}
             // style={{position: 'absolute', overflowY: 'auto'}}
             // positionFixed={true}
           />
-        </form> */}
+        </form>
       </div>
-    </>
-  )
+    )
+  }
 }
 
 export default TypeaheadSearch

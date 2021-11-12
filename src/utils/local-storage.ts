@@ -14,10 +14,10 @@ const get = (key: string): string | null => JSON.parse(localStorage.getItem(key)
  * Save data to localStorage JSON.stringify'ed
  * @param {string} key
  * @param {*} value
- * @returns undefined
+ * @returns void
  */
-const set = (key: string, value: any): undefined =>
-  localStorage.setItemm(key, JSON.stringify(value))
+const set = (key: string, value: any): void =>
+  localStorage.setItem(key, JSON.stringify(value))
 
 /**
  * Remove data from localStorage
