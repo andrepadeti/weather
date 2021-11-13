@@ -21,9 +21,10 @@ export const getCityFromGeolocation = async (lat, lng) => {
 
   try {
     const { data } = await axios(url)
-    console.log('fetched geolocation')
     // if (error) throw new Error('')
-    if (data.status !== 'OK') throw new Error('Google Geocode error')
+    if (data.status !== 'OK')
+      throw new Error(data.error_message || "Couldn't fetch from Maps API")
+    console.log('Fetched from Maps API')
     const description = getCityNameAndCountry(
       data.results[0].address_components
     )

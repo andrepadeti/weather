@@ -134,8 +134,8 @@ export default function Home() {
           const lng = position.coords.longitude
           const response = await getCityFromGeolocation(lat, lng)
           if (response.error) {
-            console.log("Couldn't fetch from Maps API")
-            console.log(response)
+            // console.log("Couldn't fetch from Maps API")
+            console.log(response.status)
             setExpandNavigation(true)
           } else {
             placeSelect({
