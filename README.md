@@ -5,10 +5,9 @@ I'm also uising [Netlify Functions](https://github.com/netlify/cli/blob/main/doc
 
 ## Searchbox
 
-I built three searchbox components:  
-- `simpleSearch.js` tries to implement autocomplete from a json file. It's too slow!
-- `typeaheadSearch.js` does it a little better for some obscure reason (I `npm install`ed it from the web)
-- `search.js` uses google places api. It works wonders! I'm using this one.
+I built two searchbox components:  
+- `typeaheadSearch.js` implements autocomplete from Open Weather Map Geocoding API. ALternatively, I can use data in a json file.
+- `search.js` uses google places api.
 
 ## Weather Information  
 
