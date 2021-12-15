@@ -93,12 +93,14 @@ export const Cloudiness = ({ data }) => {
 }
 
 export const Rain = ({ data }) => {
+  const relevantPrecipitation = data.rain && Math.round(data.rain) > 0
   return (
     <div>
       <i className='wi wi-rain me-2 icon' />
       <span>
-        {Math.round(data.pop * 100)}%{' '}
-        {data.rain && `${Math.round(data.rain)}mm`}
+        {relevantPrecipitation
+          ? `${Math.round(data.pop * 100)}% ${Math.round(data.rain)}mm`
+          : `-`}
       </span>
     </div>
   )
