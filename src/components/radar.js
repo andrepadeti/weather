@@ -28,7 +28,8 @@ const Radar = ({ lat, lng }) => {
         <div style={{ height: '50vh' }}>
           <iframe
             title='Radar rain map'
-            src={`https://www.rainviewer.com/map.html?loc=${lat},${lng},8&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&rmt=3&c=1&o=83&lm=0&th=1&sm=1&sn=1`}
+            // src={`https://www.rainviewer.com/map.html?loc=${lat},${lng},8&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&rmt=3&c=1&o=83&lm=0&th=1&sm=1&sn=1`}
+            src={`https://www.rainviewer.com/map.html?loc=${lat},${lng},8&oFa=0&oC=0&oU=0&oCS=1&oF=0&oAP=1&rmt=0&c=1&o=83&lm=0&th=0&sm=1&sn=1`}
             width='100%'
             frameBorder='0'
             style={{ height: '50vh' }}
