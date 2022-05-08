@@ -13,7 +13,7 @@ import Daily from './daily'
 import Radar from './radar'
 import LastFetch from './lastFetch'
 import Alerts from './alerts'
-import Help from './help'
+// import Help from './help'
 
 const Weather = ({ searchData, handleMarkFavourite }) => {
   const refetchInterval = 5 * 60 * 1000

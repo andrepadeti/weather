@@ -57,7 +57,7 @@ const Favourites = () => {
               // height: '20vh',
               overflowX: 'auto',
               overflowY: 'hidden',
-              whiteSpace: 'nowrap',
+              // whiteSpace: 'nowrap',
             }}
             onScroll={e => {
               e.persist()
