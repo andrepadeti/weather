@@ -22,6 +22,7 @@ const Favourites = () => {
     setTimeout(() => {
       const { width } = node.getBoundingClientRect()
       const windowWidth = window && window.innerWidth
+      console.log(width)
       setShowScroll(windowWidth < width || width > 600)
     }, 200)
   }
@@ -63,33 +64,31 @@ const Favourites = () => {
             }}
           >
             <span ref={ref}>
-              {favouritesList.map((favourite, index) => (
-                <button
-                  key={index}
-                  className='btn btn-primary d-inline-block me-2 bg-gradient fs-7 rounded'
-                  style={{ width: '8rem', height: '5rem' }}
-                  onClick={() =>
-                    handleClickFavourite({
-                      lat: favourite.lat,
-                      lng: favourite.lng,
-                      description: favourite.description,
-                    })
-                  }
-                >
-                  <p className='mb-0 text-truncate'>
-                    {favourite.description.cityName}
-                    {favourite.description.area &&
-                      favourite.description.area !==
-                        favourite.description.cityName && (
-                        <span>{`, ${favourite.description.area}`}</span>
-                      )}
-                    <br />
-                    <span className='badge opaque'>
-                      {favourite.description.country}
-                    </span>
-                  </p>
-                </button>
-              ))}
+              {favouritesList.map((favourite, index) => {
+                const { lat, lng, description } = favourite
+                const { cityName, area, country } = description
+                return (
+                  <button
+                    key={index}
+                    className='btn btn-primary d-inline-block me-2 bg-gradient fs-7 rounded'
+                    style={{ width: '8rem', height: '5rem' }}
+                    onClick={() =>
+                      handleClickFavourite({
+                        lat,
+                        lng,
+                        description,
+                      })
+                    }
+                  >
+                    <p className='mb-0 text-truncate'>
+                      {cityName}
+                      {area && area !== cityName && <span>{`, ${area}`}</span>}
+                      <br />
+                      <span className='badge opaque'>{country}</span>
+                    </p>
+                  </button>
+                )
+              })}
             </span>
           </div>
           {showScroll ? (
