@@ -14,6 +14,9 @@ import { DeleteFavouritesModal, GeolocationModal } from '../components/modals'
 import Weather from '../components/weather'
 import Loading from '../components/loading'
 
+// TODO: implement help icon to show meaning of weather icons
+// import Help from '../components/help'
+
 import Fade from 'react-reveal/Fade'
 
 // Create a query client
@@ -215,6 +218,11 @@ export default function Home() {
                 )}
               </div>
             </div>
+            {/* <div className='row'>
+              <div className='col-1'>
+              <Help />
+              </div>
+            </div> */}
           </div>
         </div>
         {/* <ReactQueryDevtools /> */}

@@ -13,6 +13,7 @@ import Daily from './daily'
 import Radar from './radar'
 import LastFetch from './lastFetch'
 import Alerts from './alerts'
+import Help from './help'
 
 const Weather = ({ searchData, handleMarkFavourite }) => {
   const refetchInterval = 5 * 60 * 1000
@@ -83,6 +84,7 @@ const Weather = ({ searchData, handleMarkFavourite }) => {
           {weather.daily && (
             <Daily data={weather.daily} timezone={weather.timezone} />
           )}
+          {/* <Help /> */}
         </>
       )}
     </>

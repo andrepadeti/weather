@@ -53,6 +53,7 @@ const Favourites = () => {
           <div
             className='mt-3 hide-scrollbar text-center'
             style={{
+              // maxWidth: '580px',
               // height: '20vh',
               overflowX: 'auto',
               overflowY: 'hidden',
@@ -63,14 +64,20 @@ const Favourites = () => {
               setScrollEvent(e)
             }}
           >
-            <span ref={ref}>
+            <span ref={ref} style={{
+              // maxWidth: '580px',
+              // height: '20vh',
+              overflowX: 'auto',
+              overflowY: 'hidden',
+              // whiteSpace: 'nowrap',
+            }} >
               {favouritesList.map((favourite, index) => {
                 const { lat, lng, description } = favourite
                 const { cityName, area, country } = description
                 return (
                   <button
                     key={index}
-                    className='btn btn-primary d-inline-block me-2 bg-gradient fs-7 rounded'
+                    className='btn btn-primary d-inline-block me-2 mb-2 bg-gradient fs-7 rounded'
                     style={{ width: '8rem', height: '5rem' }}
                     onClick={() =>
                       handleClickFavourite({
