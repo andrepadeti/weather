@@ -64,7 +64,9 @@ const Favourites = () => {
               setScrollEvent(e)
             }}
           >
-            <span ref={ref} style={{
+            <span ref={ref} 
+              className="d-flex gap-2 flex-wrap justify-content-center"
+              style={{
               // maxWidth: '580px',
               // height: '20vh',
               overflowX: 'auto',
@@ -77,7 +79,7 @@ const Favourites = () => {
                 return (
                   <button
                     key={index}
-                    className='btn btn-primary d-inline-block me-2 mb-2 bg-gradient fs-7 rounded'
+                    className='btn btn-primary d-inline-block bg-gradient fs-7 rounded'
                     style={{ width: '8rem', height: '5rem' }}
                     onClick={() =>
                       handleClickFavourite({
